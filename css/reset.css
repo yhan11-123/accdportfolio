@@ -1,0 +1,45 @@
+/* RESET */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, font, ins, kbd, q, s, samp,
+small, strike, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	padding: 0;
+	margin: 0;
+	font-size: 100%;
+	font-weight: normal;
+	font-style:normal;
+}
+html {
+	-webkit-text-size-adjust: 100%; /* Prevents iOS text size adjust after orientation change, without disabling user zoom */
+	-ms-text-size-adjust: 100%; /* www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ */
+}
+* { 
+	box-sizing: border-box; /* apply a natural box layout model to all elements; see http://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
+}
+a {
+	color: inherit;
+}
+a:focus {
+	outline: thin dotted;
+}
+a:hover,
+a:active { 
+	outline: 0;
+}
+a img {
+	border: 0;
+}
+ul {
+	list-style: none;
+}
+button {
+	background: none;
+	border:1px solid #000;
+	padding: .5em;
+	border-radius: 0;
+	cursor: pointer;
+}
