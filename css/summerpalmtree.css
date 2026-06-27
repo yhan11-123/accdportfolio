@@ -1,0 +1,255 @@
+@font-face {
+    font-family: 'W12_ver.2';
+    src: url('../assets/fonts/W12_ver.2-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'W12_bold';
+    src: url('../assets/fonts/W12_bold-Regular.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* =====================
+   Summer Palm Tree Page
+   ===================== */
+
+.spt-page {
+    width: 100%;
+    background: white;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.spt-section {
+    align-self: stretch;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hero Section */
+.spt-hero {
+    min-height: 100vh;
+    background: #F4FFE8;
+}
+
+.spt-hero-title {
+    position: absolute;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: #2CC7DE;
+    font-size: 120px;
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+.spt-hero-title--regular {
+    top: 35.9%;
+    font-family: 'W12_ver.2';
+}
+
+.spt-hero-title--bold {
+    top: 47.7%;
+    font-family: 'W12_bold';
+}
+
+.spt-hero-meta {
+    position: absolute;
+    color: #2CC7DE;
+    font-size: 24px;
+    font-family: 'W12_ver.2';
+    font-weight: 400;
+    word-wrap: break-word;
+}
+
+.spt-hero-meta--font-design {
+    left: 34.3%;
+    top: 28.91px;
+}
+
+.spt-hero-meta--credit {
+    left: 34.1%;
+    bottom: 6.2%;
+}
+
+.spt-hero-meta--reverse {
+    left: 54.5%;
+    top: 28.91px;
+}
+
+.spt-hero-meta--packaging {
+    left: 54.4%;
+    bottom: 6.2%;
+}
+
+/* Sunset Section */
+.spt-sunset {
+    min-height: 100vh;
+    background: #2CC7DE;
+}
+
+.spt-sunset-text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 10.9%;
+    text-align: center;
+}
+
+.spt-font-regular {
+    color: #FFDC8C;
+    font-size: 300px;
+    font-family: 'W12_ver.2';
+    font-weight: 400;
+    line-height: 267.31px;
+    word-wrap: break-word;
+}
+
+.spt-font-bold {
+    color: #FF7E4D;
+    font-size: 300px;
+    font-family: 'W12_bold';
+    font-weight: 400;
+    line-height: 267.31px;
+    word-wrap: break-word;
+}
+
+/* Palm Tree Section */
+.spt-palmtree {
+    min-height: 100vh;
+    background: #FFDC8C;
+}
+
+.spt-palmtree-header {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 22%;
+    background: #DC1D30;
+    overflow: hidden;
+}
+
+.spt-palmtree-header-text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 21.7%;
+    text-align: center;
+    color: #FFDC8C;
+    font-size: 130px;
+    font-family: 'W12_ver.2';
+    font-weight: 400;
+    line-height: 115.83px;
+    word-wrap: break-word;
+}
+
+.spt-palmtree-box {
+    position: absolute;
+    top: 26.8%;
+    width: 45.8%;
+    height: 68.5%;
+    overflow: hidden;
+}
+
+.spt-palmtree-box--blue {
+    left: 2.8%;
+    background: #2CC7DE;
+}
+
+.spt-palmtree-box--orange {
+    left: 51.4%;
+    background: #FF7D4D;
+}
+
+.spt-palmtree-box-text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 23.3%;
+    text-align: center;
+    font-size: 140px;
+    font-family: 'W12_ver.2';
+    font-weight: 400;
+    line-height: 124.74px;
+    word-wrap: break-word;
+}
+
+.spt-palmtree-box--blue .spt-palmtree-box-text {
+    color: #FFDE89;
+}
+
+.spt-palmtree-box--orange .spt-palmtree-box-text {
+    color: #FFDC8C;
+}
+
+/* Alphabet Sections */
+.spt-alphabet--light {
+    min-height: 100vh;
+    background: #F4FFE8;
+}
+
+.spt-alphabet--dark {
+    min-height: 81vh;
+    background: #2CC7DE;
+}
+
+.spt-alphabet-text {
+    position: absolute;
+    text-align: center;
+    font-size: 210px;
+    font-family: 'W12_ver.2';
+    font-weight: 400;
+    line-height: 199.50px;
+    word-wrap: break-word;
+}
+
+.spt-alphabet--light .spt-alphabet-text {
+    left: 0;
+    right: 0;
+    top: 19.1%;
+    color: #2CC7DE;
+}
+
+.spt-alphabet--dark .spt-alphabet-text {
+    left: 0;
+    right: 0;
+    top: 17.8%;
+    color: #F4FFE8;
+    text-transform: lowercase;
+}
+
+/* Numbers Section */
+.spt-numbers {
+    min-height: 85vh;
+    background: #2CC7DE;
+}
+
+.spt-numbers-text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 10.1%;
+    text-align: center;
+    color: #F4FFE8;
+    font-size: 200px;
+    font-family: 'W12_ver.2';
+    font-weight: 400;
+    text-transform: lowercase;
+    line-height: 190px;
+    word-wrap: break-word;
+}
+
+/* Images */
+.spt-img {
+    align-self: stretch;
+    width: 100%;
+    height: auto;
+    display: block;
+}

@@ -1,1 +1,106 @@
-/* Your styles here... */
+body {
+    background-color: rgb(23, 73, 119);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.page_layout {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+.main_left {
+    width: 15%;
+    display: block;
+    text-align: left;
+}
+
+.name {
+    font-size: 1rem;
+    color: white;
+    position: fixed;
+    top: 2rem;
+    left: 2rem;
+}
+
+.role {
+    display: block;
+    position: fixed;
+    bottom: 2rem;
+    left: 2rem;
+}
+
+.role_detail {
+    font-size: 1rem;
+    color: white;
+    padding: 2px;
+}
+
+.main_middle {
+    width: 60%;
+    display: block;
+    text-align: center;
+}
+
+.statement {
+    font-size: 11rem;
+    font-weight: 900;
+    line-height: 85%;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.intro {
+    width: 80%;
+    font-size: 4rem;
+    text-align: center;
+    margin: 2rem auto;
+}
+
+.projects {
+    display: block;
+}
+
+.thumbnail {
+    width: 50%;
+}
+
+.project_explain {
+    display: flex;
+    justify-content: space-between;
+}
+
+.project_title {
+    font-size: 2rem;
+}
+
+.project_intro {
+    display: block;
+}
+
+.project_intro_type {
+    font-size: 1.5rem;
+}
+
+.project_intro_body {
+    font-size: 1rem;
+}
+
+.main_right {
+    width: 15%;
+    display: block;
+}
+
+.connect {
+    font-size: 1rem;
+    color: white;
+    text-align: right;
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+}
