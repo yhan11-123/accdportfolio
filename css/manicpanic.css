@@ -1,0 +1,586 @@
+/* Wrapper */
+.mp-1 {
+    width: 80%;
+    background: white;
+    overflow: hidden;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+    display: flex;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+/* Section 1: Hero image */
+.mp-2 {
+    width: 100%;
+    min-height: 94vh;
+    position: relative;
+}
+
+.groupshot {
+    width:100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    object-fit: cover;
+}
+
+.mp-4 {
+    left: 87.5%;
+    top: 5%;
+    position: absolute;
+    color: black;
+    font-size: 20px;
+    font-family: Inter;
+    font-weight: 700;
+    word-wrap: break-word;
+}
+
+.mp-5 {
+    left: 17.8%;
+    top: 5%;
+    position: absolute;
+    color: black;
+    font-size: 20px;
+    font-family: Inter;
+    font-weight: 700;
+    word-wrap: break-word;
+}
+
+.mp-6 {
+    left: 2.0%;
+    top: 5%;
+    position: absolute;
+    color: black;
+    font-size: 20px;
+    font-family: Inter;
+    font-weight: 700;
+    word-wrap: break-word;
+}
+
+/* Section 2: White section */
+.mp-7 {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    background: white;
+    overflow: hidden;
+}
+
+.logoimageL {
+    width: 50%;
+    left: 23.4%;
+    top: 25.8%;
+    position: absolute;
+}
+
+/* Section 3: Light blue info section */
+.mp-9 {
+    width: 100%;
+    min-height: 56vh;
+    position: relative;
+    background: #E9FCFF;
+    overflow: hidden;
+}
+
+.mp-10 {
+    width: 52.2%;
+    left: 42.4%;
+    top: 49.3%;
+    position: absolute;
+    color: black;
+    font-size: 20px;
+    font-family: Inter;
+    font-weight: 400;
+    line-height: 23px;
+    word-wrap: break-word;
+}
+
+.mp-11 {
+    left: 35.6%;
+    top: 17.1%;
+    position: absolute;
+    color: black;
+    font-size: 30px;
+    font-family: Inter;
+    font-weight: 800;
+    line-height: 39px;
+    word-wrap: break-word;
+}
+
+.mp-12 {
+    width: 40.6%;
+    height: 100%;
+    left: -7.0%;
+    top: 0;
+    position: absolute;
+}
+
+/* Section 4: Challenge section */
+.mp-13 {
+    align-self: stretch;
+    min-height: 82vh;
+    position: relative;
+    background: white;
+    overflow: hidden;
+}
+
+.mp-14 {
+    width: 12.3%;
+    left: 5.6%;
+    top: 15.6%;
+    position: absolute;
+    color: black;
+    font-size: 30px;
+    font-family: Inter;
+    font-weight: 800;
+    line-height: 39px;
+    word-wrap: break-word;
+}
+
+.mp-15 {
+    width: 39.1%;
+    left: 54.2%;
+    top: 52.4%;
+    position: absolute;
+}
+
+.mp-16 {
+    color: black;
+    font-size: 30px;
+    font-family: Inter;
+    font-weight: 800;
+    line-height: 34.50px;
+    word-wrap: break-word;
+}
+
+.mp-17 {
+    color: black;
+    font-size: 20px;
+    font-family: Inter;
+    font-weight: 400;
+    line-height: 23px;
+    word-wrap: break-word;
+}
+
+/* Section 5: Blue quote section */
+.mp-18 {
+    width: 100%;
+    min-height: 85vh;
+    position: relative;
+    background: #E9FCFF;
+    overflow: hidden;
+}
+
+.mp-19 {
+    width: 78.7%;
+    left: 10.6%;
+    top: 35.4%;
+    position: absolute;
+    text-align: center;
+}
+
+.mp-20 {
+    color: black;
+    font-size: 40px;
+    font-family: Inter;
+    font-weight: 800;
+    line-height: 46px;
+    word-wrap: break-word;
+}
+
+.mp-21 {
+    color: black;
+    font-size: 32px;
+    font-family: Inter;
+    font-weight: 400;
+    line-height: 36.80px;
+    word-wrap: break-word;
+}
+
+.mp-22 {
+    color: black;
+    font-size: 32px;
+    font-family: Inter;
+    font-weight: 500;
+    line-height: 36.80px;
+    word-wrap: break-word;
+}
+
+/* Section 6: Stage concept */
+.mp-23 {
+    width: 100%;
+    min-height: 85vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.mp-24 {
+    width: 46.0%;
+    left: 50%;
+    top: 54.1%;
+    position: absolute;
+    color: black;
+    font-size: 20px;
+    font-family: Inter;
+    font-weight: 400;
+    line-height: 23px;
+    word-wrap: break-word;
+}
+
+.mp-25 {
+    width: 46.0%;
+    left: 50%;
+    top: 76.8%;
+    position: absolute;
+    color: black;
+    font-size: 20px;
+    font-family: Inter;
+    font-weight: 400;
+    line-height: 23px;
+    word-wrap: break-word;
+}
+
+.mp-26 {
+    width: 38.9%;
+    left: 5.6%;
+    top: 12.7%;
+    position: absolute;
+}
+
+.mp-27 {
+    color: black;
+    font-size: 30px;
+    font-family: Inter;
+    font-weight: 800;
+    line-height: 34.50px;
+    word-wrap: break-word;
+}
+
+.mp-28 {
+    color: black;
+    font-size: 20px;
+    font-family: Inter;
+    font-weight: 400;
+    line-height: 23px;
+    word-wrap: break-word;
+}
+
+.mp-29 {
+    width: 40.9%;
+    left: 48.6%;
+    top: 43.9%;
+    position: absolute;
+    color: black;
+    font-size: 30px;
+    font-family: Inter;
+    font-weight: 700;
+    line-height: 34.50px;
+    word-wrap: break-word;
+}
+
+.mp-30 {
+    left: 11.5%;
+    top: 67.6%;
+    position: absolute;
+    color: black;
+    font-size: 30px;
+    font-family: Inter;
+    font-weight: 700;
+    line-height: 34.50px;
+    word-wrap: break-word;
+}
+
+/* Standalone images */
+.ogrebrand {
+    align-self: stretch;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Section 7: MANIC PANIC IS */
+.mp-34 {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    background: white;
+    overflow: hidden;
+}
+
+.mp-35 {
+    left: 12.2%;
+    top: 47.0%;
+    position: absolute;
+    text-align: center;
+    color: black;
+    font-size: 48px;
+    font-family: Inter;
+    font-weight: 800;
+    line-height: 62.40px;
+    word-wrap: break-word;
+}
+
+.mp-36 {
+    left: 58.6%;
+    top: 14.8%;
+    position: absolute;
+    text-align: center;
+    color: black;
+    font-size: 48px;
+    font-family: Inter;
+    font-weight: 800;
+    line-height: 120px;
+    word-wrap: break-word;
+}
+
+/* Section 8: Logo section */
+.mp-37 {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    background: white;
+    overflow: hidden;
+}
+
+.mp-38 {
+    left: 18.8%;
+    top: 47.0%;
+    position: absolute;
+    text-align: center;
+    color: black;
+    font-size: 48px;
+    font-family: Inter;
+    font-weight: 800;
+    line-height: 62.40px;
+    word-wrap: break-word;
+}
+
+.mp-39 {
+    width: 50%;
+    height: 100%;
+    left: 50%;
+    top: 0;
+    position: absolute;
+    background: black;
+    overflow: hidden;
+}
+
+.logoimageS {
+    width:100%;
+    top: 28.3%;
+    position: absolute;
+}
+
+/* Section 9: Typography */
+.mp-41 {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    background: white;
+    overflow: hidden;
+}
+
+.mp-42 {
+    left: 11.7%;
+    top: 17.0%;
+    position: absolute;
+    text-align: center;
+    color: black;
+    font-size: 40px;
+    font-family: Inter;
+    font-weight: 800;
+    line-height: 52px;
+    word-wrap: break-word;
+}
+
+.mp-43 {
+    left: 11.0%;
+    top: 34.6%;
+    position: absolute;
+    text-align: center;
+    color: black;
+    font-size: 32px;
+    font-family: ITC Avant Garde Gothic Std;
+    font-weight: 700;
+    line-height: 41.60px;
+    word-wrap: break-word;
+}
+
+.mp-44 {
+    left: 14.4%;
+    top: 54.3%;
+    position: absolute;
+    text-align: center;
+    color: black;
+    font-size: 32px;
+    font-family: ITC Avant Garde Gothic Std;
+    font-weight: 700;
+    line-height: 41.60px;
+    word-wrap: break-word;
+}
+
+.mp-45 {
+    left: 65.0%;
+    top: 53.5%;
+    position: absolute;
+    text-align: center;
+    color: black;
+    font-size: 32px;
+    font-family: Antikor Text;
+    font-weight: 350;
+    line-height: 41.60px;
+    word-wrap: break-word;
+}
+
+.mp-46 {
+    left: 59.9%;
+    top: 17.0%;
+    position: absolute;
+    text-align: center;
+    color: black;
+    font-size: 40px;
+    font-family: Inter;
+    font-weight: 800;
+    line-height: 52px;
+    word-wrap: break-word;
+}
+
+.mp-47 {
+    left: 67.0%;
+    top: 34.6%;
+    position: absolute;
+    text-align: center;
+    color: black;
+    font-size: 32px;
+    font-family: Antikor Text;
+    font-weight: 350;
+    line-height: 41.60px;
+    word-wrap: break-word;
+}
+
+/* Section 10: Color palette */
+.mp-48 {
+    width: 100%;
+    min-height: 54vh;
+    position: relative;
+    background: white;
+    overflow: hidden;
+}
+
+.mp-49 {
+    width: 25.6%;
+    height: 100%;
+    left: 72.8%;
+    top: 0;
+    position: absolute;
+    background: #B7C9D3;
+    overflow: hidden;
+}
+
+.mp-50 {
+    left: 35.2%;
+    top: 80.3%;
+    position: absolute;
+    text-align: right;
+    color: black;
+    font-size: 32px;
+    font-family: Inter;
+    font-weight: 300;
+    line-height: 41.60px;
+    word-wrap: break-word;
+}
+
+.mp-51 {
+    width: 25.6%;
+    height: 100%;
+    left: 45.5%;
+    top: 0;
+    position: absolute;
+    background: #131212;
+    overflow: hidden;
+}
+
+.mp-52 {
+    left: 59.7%;
+    top: 88.0%;
+    position: absolute;
+    text-align: right;
+    color: white;
+    font-size: 32px;
+    font-family: Inter;
+    font-weight: 300;
+    line-height: 41.60px;
+    word-wrap: break-word;
+}
+
+.mp-53 {
+    left: 13.0%;
+    top: 40.5%;
+    position: absolute;
+    text-align: center;
+    color: black;
+    font-size: 40px;
+    font-family: Inter;
+    font-weight: 800;
+    line-height: 52px;
+    word-wrap: break-word;
+}
+
+/* Section 11: Mockup images */
+.mp-54 {
+    width: 100%;
+    min-height: 80vh;
+    position: relative;
+    background: white;
+    overflow: hidden;
+}
+
+.mp-55 {
+    width: 45%;
+    height: 41.2%;
+    left: 50%;
+    top: 51.0%;
+    position: absolute;
+}
+
+.mp-56 {
+    width: 25%;
+    height: 88.5%;
+    left: 5.6%;
+    top: 6.2%;
+    position: absolute;
+}
+
+.mp-57 {
+    width: 25%;
+    height: 35.8%;
+    left: 33%;
+    top: 6.0%;
+    position: absolute;
+}
+
+/* Standalone images */
+.finalshot {
+    align-self: stretch;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.finalshot2 {
+    align-self: stretch;
+    height: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Section 14: Black section */
+.mp-64 {
+    width: 100%;
+    position: relative;
+    background: black;
+}
+
+
