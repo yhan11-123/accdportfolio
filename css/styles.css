@@ -5,6 +5,8 @@ body {
     padding: 0;
 }
 
+
+
 .page_layout {
     width: 100%;
     display: flex;
@@ -48,26 +50,42 @@ body {
 }
 
 .statement {
+    
     font-size: 11rem;
     font-weight: 900;
     line-height: 85%;
     text-align: center;
+
     margin-top: 2rem;
 }
 
 .intro {
     width: 80%;
     font-size: 4rem;
-    text-align: center;
+    text-align:center;
+
     margin: 2rem auto;
+
 }
 
 .projects {
     display: block;
+    margin: 4rem 0;
+}
+
+.projects a {
+    text-decoration: none;
 }
 
 .thumbnail {
-    width: 50%;
+    width: 100%;
+    margin: 1rem 0;
+}
+
+.thumbnail img {
+    width: 100%;
+    height: auto;
+    display: block;
 }
 
 .project_explain {
@@ -77,18 +95,23 @@ body {
 
 .project_title {
     font-size: 2rem;
+
 }
 
 .project_intro {
-    display: block;
+    width: 60%;
+    text-align: right;
 }
 
 .project_intro_type {
-    font-size: 1.5rem;
+    font-size: 2rem;
+    text-align: right;
 }
 
 .project_intro_body {
-    font-size: 1rem;
+    font-size: 1.5rem;
+    text-align: justify;
+
 }
 
 .main_right {
