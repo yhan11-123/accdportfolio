@@ -12,18 +12,24 @@
     font-style: normal;
 }
 
+body {
+   background-color: rgb(10, 10, 10); 
+}
+
 /* =====================
    Summer Palm Tree Page
    ===================== */
 
 .spt-page {
-    width: 100%;
+    width: 80%;
     background: white;
     overflow: hidden;
-    display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-end;
+    display: flex;
+    margin-left: auto;
+    margin-right: 0;
 }
 
 .spt-section {
