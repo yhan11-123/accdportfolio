@@ -65,8 +65,33 @@ body {
     font-family: 'W12_bold';
 }
 
-.spt-hero-meta {
+.spt-hero-meta-top {
     position: absolute;
+    left: 0;
+    right: 0;
+    top: 28.91px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-align: center;
+}
+
+.spt-hero-meta-bottom {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 6.2%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-align: center;
+}
+
+.spt-hero-meta {
     color: #2CC7DE;
     font-size: 24px;
     font-family: 'W12_ver.2';
@@ -74,24 +99,37 @@ body {
     word-wrap: break-word;
 }
 
-.spt-hero-meta--font-design {
-    left: 34.3%;
-    top: 28.91px;
+/* Mobile-only hero variant: word-stacked title (meta stays anchored top/bottom, shared with desktop) */
+.spt-hero-title-group {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: #2CC7DE;
 }
 
-.spt-hero-meta--credit {
-    left: 34.1%;
-    bottom: 6.2%;
+.spt-hero-title-word {
+    font-size: 120px;
+    font-weight: 400;
+    word-wrap: break-word;
 }
 
-.spt-hero-meta--reverse {
-    left: 54.5%;
-    top: 28.91px;
+.spt-hero-title-word--regular {
+    font-family: 'W12_ver.2';
 }
 
-.spt-hero-meta--packaging {
-    left: 54.4%;
-    bottom: 6.2%;
+.spt-hero-title-word--bold {
+    font-family: 'W12_bold';
+}
+
+/* Must come after .spt-hero-title-group so its "display: none" wins the cascade
+   by default; the mobile media query re-enables it with "display: flex". */
+.spt-mobile-only {
+    display: none;
 }
 
 /* Sunset Section */
@@ -195,6 +233,11 @@ body {
     color: #FFDC8C;
 }
 
+/* Line break only takes effect on mobile (see mobile media query) */
+.spt-palmtree-header-break {
+    display: none;
+}
+
 /* Alphabet Sections */
 .spt-alphabet--light {
     min-height: 100vh;
@@ -231,6 +274,11 @@ body {
     text-transform: lowercase;
 }
 
+/* Breaks only take effect below desktop width (see tablet/mobile media queries) */
+.spt-alphabet-break {
+    display: none;
+}
+
 /* Numbers Section */
 .spt-numbers {
     min-height: 85vh;
@@ -258,4 +306,233 @@ body {
     width: 100%;
     height: auto;
     display: block;
+}
+
+/* =====================================================
+   Responsive breakpoints
+   Tablet and Mobile ranges are mutually exclusive
+   (no overlap, no cascade between them) so each block
+   is self-contained and mirrors the same section order.
+   ===================================================== */
+
+/* =====================
+   Tablet (601px - 1024px)
+   ===================== */
+@media (min-width: 601px) and (max-width: 1024px) {
+
+    .spt-page {
+        width: 100%;
+    }
+
+    /* Hero Section */
+    .spt-hero-title {
+        font-size: 64px;
+    }
+
+    .spt-hero-title--regular {
+        top: 38%;
+    }
+
+    .spt-hero-title--bold {
+        top: 47%;
+    }
+
+    .spt-hero-meta {
+        font-size: 16px;
+    }
+
+    /* Sunset Section */
+    .spt-sunset {
+        min-height: auto;
+        padding: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+
+    .spt-sunset-text {
+        position: static;
+    }
+
+    .spt-font-regular,
+    .spt-font-bold {
+        font-size: 180px;
+        line-height: 160.4px;
+    }
+
+    /* Palm Tree Section */
+    .spt-palmtree-header {
+        height: 7.3%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .spt-palmtree-header-text {
+        position: static;
+        font-size: 64px;
+        line-height: 57px;
+    }
+
+    .spt-palmtree-box-text {
+        font-size: 64px;
+        line-height: 61px;
+    }
+
+    /* Alphabet Sections */
+    .spt-alphabet-text {
+        font-size: 96px;
+        line-height: 91px;
+    }
+
+    .spt-alphabet-break {
+        display: inline;
+    }
+
+    /* Numbers Section */
+    .spt-numbers-text {
+        font-size: 96px;
+        line-height: 91px;
+    }
+}
+
+/* =====================
+   Mobile (<=600px)
+   ===================== */
+@media (max-width: 600px) {
+
+    .spt-page {
+        width: 100%;
+    }
+
+    /* Hero Section */
+    .spt-hero-meta-top,
+    .spt-hero-meta-bottom {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .spt-desktop-only {
+        display: none;
+    }
+
+    .spt-mobile-only {
+        display: flex;
+    }
+
+    .spt-hero-title-word {
+        font-size: 64px;
+    }
+
+    .spt-hero-meta {
+        font-size: 1.5rem;
+    }
+
+    /* Sunset Section */
+    .spt-sunset {
+        min-height: auto;
+        padding: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+    }
+
+    .spt-sunset-text {
+        position: static;
+    }
+
+    .spt-font-regular,
+    .spt-font-bold {
+        font-size: 96px;
+        line-height: 85.6px;
+    }
+
+    /* Palm Tree Section */
+    .spt-palmtree {
+        min-height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        padding: 16px 0 32px;
+        box-sizing: border-box;
+    }
+
+    .spt-palmtree-header {
+        position: static;
+        width: 100%;
+        height: auto;
+        padding: 20px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .spt-palmtree-header-text {
+        position: static;
+        font-size: 56px;
+        line-height: 50px;
+    }
+
+    .spt-palmtree-header-break {
+        display: inline;
+    }
+
+    .spt-palmtree-box {
+        position: static;
+        width: 90%;
+        height: auto;
+        padding: 40px 0;
+        box-sizing: border-box;
+    }
+
+    .spt-palmtree-box-text {
+        position: static;
+        font-size: 64px;
+        line-height: 58px;
+    }
+
+    /* Alphabet Sections */
+    .spt-alphabet--light,
+    .spt-alphabet--dark {
+        min-height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 48px 20px;
+        box-sizing: border-box;
+    }
+
+    .spt-alphabet--light .spt-alphabet-text,
+    .spt-alphabet--dark .spt-alphabet-text {
+        position: static;
+        top: auto;
+    }
+
+    .spt-alphabet-text {
+        font-size: 56px;
+        line-height: 52px;
+    }
+
+    .spt-alphabet-break {
+        display: inline;
+    }
+
+    /* Numbers Section */
+    .spt-numbers {
+        min-height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 48px 20px;
+        box-sizing: border-box;
+    }
+
+    .spt-numbers-text {
+        position: static;
+        font-size: 56px;
+        line-height: 52px;
+    }
 }
