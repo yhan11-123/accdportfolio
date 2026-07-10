@@ -17,6 +17,43 @@ body{
     margin-right: 0;
 }
 
+/* Left sidebar: home link + project description, sits in the gutter left of .mp-page */
+.mp-sidebar {
+    position: fixed;
+    left: 0;
+    top: 60px;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 32px;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+.mp-sidebar-home {
+    display: inline-block;
+    color: black;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    padding-bottom: 4px;
+    border-bottom: 1px solid black;
+    width: fit-content;
+}
+
+.mp-sidebar-home:hover {
+    opacity: 0.6;
+}
+
+.mp-sidebar-description {
+    margin: 0;
+    color: black;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+}
+
 /* Section 1: Hero image */
 .mp-hero {
     width: 100%;
@@ -602,6 +639,10 @@ body{
    ===================== */
 @media (min-width: 601px) and (max-width: 1024px) {
 
+    .mp-sidebar {
+        display: none;
+    }
+
     .mp-page {
         width: 100%;
         gap: 60px;
@@ -970,6 +1011,10 @@ body{
    Mobile (<=600px)
    ===================== */
 @media (max-width: 600px) {
+
+    .mp-sidebar {
+        display: none;
+    }
 
     .mp-page {
         width: 100%;
