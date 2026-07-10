@@ -640,7 +640,14 @@ body{
 @media (min-width: 601px) and (max-width: 1024px) {
 
     .mp-sidebar {
-        display: none;
+        position: static;
+        width: 100%;
+        gap: 8px;
+        padding: 24px 40px;
+    }
+
+    .mp-sidebar-description {
+        width: 70%;
     }
 
     .mp-page {
@@ -1013,7 +1020,10 @@ body{
 @media (max-width: 600px) {
 
     .mp-sidebar {
-        display: none;
+        position: static;
+        width: 100%;
+        gap: 8px;
+        padding: 20px 24px;
     }
 
     .mp-page {
