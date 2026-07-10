@@ -604,6 +604,16 @@ body{
 
     .mp-page {
         width: 100%;
+        gap: 60px;
+    }
+
+    /* Standalone image groups: cancel the .mp-page gap between consecutive images */
+    .ogrebrand + .ogrebrand,
+    .finalshot + :is(.finalshot, .finalshot2),
+    .finalshot2 + :is(.finalshot, .finalshot2),
+    .finalshot + video,
+    .finalshot2 + video {
+        margin-top: -60px;
     }
 
     /* Hero Section */
@@ -665,7 +675,7 @@ body{
     .mp-about-text,
     .mp-about-tagline {
         position: static;
-        width: 100%;
+        width: 70%;
     }
 
     .mp-about-tagline {
@@ -693,6 +703,7 @@ body{
         min-height: auto;
         display: flex;
         flex-direction: column;
+        align-items: center;
         gap: 20px;
         padding: 40px 24px;
         box-sizing: border-box;
@@ -701,7 +712,7 @@ body{
     .mp-challenge-title,
     .mp-challenge-body {
         position: static;
-        width: 100%;
+        width: 70%;
     }
 
     .mp-challenge-title {
@@ -731,7 +742,7 @@ body{
 
     .mp-quote-block {
         position: static;
-        width: 100%;
+        width: 70%;
     }
 
     .mp-quote-heading {
@@ -753,6 +764,7 @@ body{
         min-height: auto;
         display: flex;
         flex-direction: column;
+        align-items: center;
         gap: 20px;
         padding: 40px 24px;
         box-sizing: border-box;
@@ -764,7 +776,7 @@ body{
     .mp-concept-quote,
     .mp-concept-tagline {
         position: static;
-        width: 100%;
+        width: 70%;
     }
 
     .mp-concept-block { order: 1; }
