@@ -1,0 +1,469 @@
+/* =====================================================
+   Kindle TV — case study
+   Built from the Figma frame "Web — Desktop 1440"
+   (1440 x 9032). The frame is an absolutely positioned
+   composition, so the page keeps a fixed 1440 canvas and
+   scales it down to the viewport (see js at page bottom).
+   ===================================================== */
+
+:root {
+    --kt-ink: #14130f;
+    --kt-muted: #6b675e;
+    --kt-rule: #dcd9d2;
+    --kt-wash: #f2f1ee;
+    --kt-amber: #f90;
+    --kt-dark: #1a1b1d;
+    --kt-dark-muted: #aab7b8;
+}
+
+body {
+    background-color: #fff;
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* The case study sits in the right-hand 80%, the same split manicpanic uses. */
+.kt-viewport {
+    width: 80%;
+    margin-left: auto;
+    margin-right: 0;
+    overflow: hidden;
+}
+
+/* Left sidebar: home link + project description, sits in the gutter left of .kt-viewport */
+.kt-sidebar {
+    position: fixed;
+    left: 0;
+    top: 60px;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 32px;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+.kt-sidebar-home {
+    display: inline-block;
+    color: black;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    padding-bottom: 4px;
+    border-bottom: 1px solid black;
+    width: fit-content;
+}
+
+.kt-sidebar-home:hover {
+    opacity: 0.6;
+}
+
+.kt-sidebar-description {
+    margin: 0;
+    color: black;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+/* Narrow screens: a 20% column is too tight to read, so stack it on top. */
+@media (max-width: 900px) {
+
+    .kt-viewport {
+        width: 100%;
+    }
+
+    .kt-sidebar {
+        position: static;
+        width: 100%;
+        padding: 24px;
+    }
+}
+
+.kt-canvas {
+    position: relative;
+    width: 1440px;
+    height: 9032px;
+    background-color: #fff;
+    transform-origin: top left;
+}
+
+/* Every child of the canvas is placed with --x / --y / --w / --h */
+.kt-a {
+    position: absolute;
+    left: var(--x, 0);
+    top: var(--y, 0);
+    width: var(--w, auto);
+    height: var(--h, auto);
+    overflow-wrap: break-word;
+}
+
+.kt-a img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* =====================
+   Type roles
+   ===================== */
+
+.kt-mono {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 16px;
+    color: var(--kt-muted);
+}
+
+.kt-eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 16px;
+    letter-spacing: 2.1px;
+    color: var(--kt-muted);
+}
+
+.kt-h1 {
+    font-family: "Archivo", sans-serif;
+    font-weight: 700;
+    font-size: 124px;
+    line-height: 0.92;
+    letter-spacing: -2.7px;
+    color: var(--kt-ink);
+}
+
+.kt-h2 {
+    font-family: "Archivo", sans-serif;
+    font-weight: 700;
+    font-size: 52px;
+    line-height: 1.04;
+    letter-spacing: -1.1px;
+    color: var(--kt-ink);
+}
+
+.kt-h3 {
+    font-family: "Archivo", sans-serif;
+    font-weight: 700;
+    font-size: 34px;
+    line-height: 1.12;
+    letter-spacing: -0.7px;
+    color: var(--kt-ink);
+}
+
+.kt-h4 {
+    font-family: "Archivo", sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 1.2;
+    letter-spacing: -0.3px;
+    color: var(--kt-ink);
+}
+
+.kt-lede {
+    font-size: 21px;
+    line-height: 1.5;
+    color: var(--kt-muted);
+}
+
+.kt-body {
+    font-size: 15.5px;
+    line-height: 1.52;
+    color: var(--kt-muted);
+}
+
+.kt-note {
+    font-size: 16px;
+    line-height: 1.52;
+    color: var(--kt-muted);
+}
+
+.kt-rule {
+    background-color: var(--kt-rule);
+}
+
+/* =====================
+   Cover
+   ===================== */
+
+.kt-cover-eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 16px;
+    letter-spacing: 1.9px;
+    color: var(--kt-muted);
+}
+
+.kt-cover-tagline {
+    font-family: "Archivo", sans-serif;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 1.22;
+    letter-spacing: -0.45px;
+    color: var(--kt-ink);
+}
+
+.kt-meta-label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    color: var(--kt-muted);
+}
+
+.kt-meta-value {
+    font-weight: 500;
+    font-size: 15px;
+    color: var(--kt-ink);
+}
+
+/* =====================
+   Numbers
+   ===================== */
+
+.kt-stat {
+    font-family: "Archivo", sans-serif;
+    font-weight: 700;
+    font-size: 52px;
+    line-height: 1;
+    letter-spacing: -1.5px;
+    color: var(--kt-ink);
+}
+
+.kt-stat-label {
+    font-size: 16px;
+    color: var(--kt-muted);
+}
+
+/* =====================
+   Insight list
+   ===================== */
+
+.kt-insight-item {
+    font-family: "Archivo", sans-serif;
+    font-weight: 600;
+    font-size: 26px;
+    letter-spacing: -0.35px;
+    color: var(--kt-ink);
+}
+
+.kt-subhead {
+    font-family: "Archivo", sans-serif;
+    font-weight: 600;
+    font-size: 23px;
+    line-height: 1.22;
+    letter-spacing: -0.3px;
+    color: var(--kt-ink);
+}
+
+.kt-subhead-body {
+    font-size: 15.5px;
+    line-height: 1.5;
+    color: var(--kt-muted);
+}
+
+/* =====================
+   User flow
+   ===================== */
+
+.kt-flow-label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 16px;
+    letter-spacing: 1.8px;
+    color: var(--kt-muted);
+}
+
+.kt-flow-node {
+    border: 1.5px solid #a7a7a7;
+    border-radius: 8px;
+}
+
+.kt-flow-node-active {
+    background-color: var(--kt-amber);
+    border-color: var(--kt-amber);
+}
+
+.kt-flow-node-dashed {
+    border: 1.5px dashed #a7a7a7;
+    border-radius: 8px;
+}
+
+.kt-flow-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.24;
+    color: var(--kt-muted);
+}
+
+.kt-flow-text-on-amber {
+    color: #000;
+}
+
+.kt-flow-caption {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.24;
+    color: var(--kt-muted);
+}
+
+.kt-flow-connector {
+    background-color: #a7a7a7;
+}
+
+.kt-flow-connector-active {
+    background-color: var(--kt-amber);
+}
+
+/* =====================
+   Design system
+   ===================== */
+
+.kt-system-label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 16px;
+    letter-spacing: 1.9px;
+    color: var(--kt-muted);
+}
+
+.kt-swatch {
+    border: 1px solid var(--kt-rule);
+    border-radius: 5px;
+}
+
+.kt-swatch-hex {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 14px;
+    color: var(--kt-muted);
+}
+
+.kt-typeface-name {
+    font-family: "Archivo", sans-serif;
+    font-weight: 600;
+    font-size: 34px;
+    color: var(--kt-ink);
+}
+
+.kt-typeface-name-serif {
+    font-family: "Lora", serif;
+    font-weight: 400;
+    font-size: 34px;
+    color: var(--kt-ink);
+}
+
+.kt-typeface-use {
+    font-size: 16px;
+    color: var(--kt-muted);
+}
+
+.kt-pill-row {
+    background-color: var(--kt-dark);
+    border-radius: 34px;
+    overflow: hidden;
+}
+
+.kt-pill {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 46px;
+    top: 11px;
+    border-radius: 23px;
+    font-weight: 600;
+    font-size: 15px;
+    text-align: center;
+}
+
+.kt-pill-rest {
+    left: 11px;
+    width: 96px;
+    color: #7a766e;
+}
+
+.kt-pill-focused {
+    left: 115px;
+    width: 118px;
+    border: 1.5px solid #efe6d2;
+    color: #efe6d2;
+}
+
+.kt-pill-current {
+    left: 241px;
+    width: 118px;
+    background-color: #efe6d2;
+    color: var(--kt-dark);
+}
+
+.kt-pill-spec {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 14px;
+    letter-spacing: 0.6px;
+    color: var(--kt-muted);
+    white-space: pre-wrap;
+}
+
+/* =====================
+   Prototype screens
+   ===================== */
+
+.kt-screen-title {
+    font-weight: 500;
+    font-size: 22px;
+    color: var(--kt-ink);
+}
+
+.kt-screen-caption {
+    font-size: 19px;
+    color: var(--kt-muted);
+}
+
+/* =====================
+   Visual mode detail
+   ===================== */
+
+.kt-detail-label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 16px;
+    letter-spacing: 1.5px;
+    color: var(--kt-muted);
+}
+
+.kt-rule-amber {
+    background-color: var(--kt-amber);
+}
+
+/* =====================
+   Takeaway
+   ===================== */
+
+.kt-takeaway {
+    background-color: var(--kt-dark);
+}
+
+.kt-takeaway-eyebrow {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 16px;
+    letter-spacing: 2.1px;
+    color: var(--kt-dark-muted);
+}
+
+.kt-takeaway-statement {
+    font-family: "Archivo", sans-serif;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 1.18;
+    letter-spacing: -1px;
+    color: #fff;
+}
+
+.kt-takeaway-quote {
+    font-family: "Archivo", sans-serif;
+    font-weight: 500;
+    font-size: 32px;
+    color: var(--kt-amber);
+}

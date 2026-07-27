@@ -1,0 +1,809 @@
+/* =====================================================
+   atrio — Case Study
+   Built from the Figma frame "atrio — Case Study" (1440 wide).
+   The design is a stack of sections on a 60px margin
+   (120px on the cover) with flexible columns, so this is
+   a fluid layout rather than a fixed canvas.
+   ===================================================== */
+
+:root {
+    --at-bg: #e2e0d8;
+    --at-ink: #23281d;
+    --at-muted: #575a4c;
+    --at-body: #43473a;
+    --at-rule: #a9ac94;
+    --at-rule-light: #e4e5da;
+    --at-clay: #c62828;
+    --at-panel: #f5f4ee;
+    --at-slot: #c0c2ab;
+    --at-paid: #e7e8d5;
+}
+
+/* The page keeps the site background; only the case study itself
+   carries the project's sage. */
+body {
+    background-color: rgb(245, 245, 245);
+    font-family: "Inter", sans-serif;
+    color: var(--at-ink);
+    margin: 0;
+    padding: 0;
+}
+
+/* The case study sits in the right-hand 80%, the same split
+   manicpanic and kindle use. */
+.at-main {
+    width: 80%;
+    margin-left: auto;
+    margin-right: 0;
+}
+
+.at-page {
+    max-width: 1440px;
+    margin: 0 auto;
+    background-color: var(--at-bg);
+}
+
+/* Left sidebar: home link + project description, in the gutter
+   left of .at-main. */
+.at-sidebar {
+    position: fixed;
+    left: 0;
+    top: 60px;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 32px;
+    box-sizing: border-box;
+}
+
+.at-sidebar-home {
+    display: inline-block;
+    width: fit-content;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--at-ink);
+    color: var(--at-ink);
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.at-sidebar-home:hover {
+    opacity: 0.6;
+}
+
+.at-sidebar-description {
+    margin: 0;
+    color: var(--at-body);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.at-section {
+    padding: 60px;
+}
+
+/* =====================
+   Type roles
+   ===================== */
+
+.at-eyebrow {
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 1.28px;
+    color: var(--at-muted);
+}
+
+.at-label {
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: 1.6px;
+    color: var(--at-muted);
+}
+
+.at-h2 {
+    max-width: 1000px;
+    font-size: 46px;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.69px;
+    color: var(--at-ink);
+}
+
+.at-lede {
+    max-width: 820px;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--at-body);
+}
+
+.at-body {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.65;
+    color: var(--at-body);
+}
+
+.at-note {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--at-muted);
+}
+
+/* Rhythm. The Figma file spaces sections with named spacer
+   frames; those heights become margins here. */
+.at-section > .at-eyebrow { margin-top: 64px; }
+.at-section > .at-h2 { margin-top: 40px; }
+.at-section > .at-lede { margin-top: 24px; }
+
+/* A major block break. Listed after the rules above so it wins on an
+   eyebrow that also opens a block. */
+.at-block,
+.at-section > .at-block { margin-top: 96px; }
+
+.at-rule {
+    height: 2px;
+    background-color: var(--at-ink);
+}
+
+.at-hairline {
+    height: 1px;
+    background-color: var(--at-rule);
+}
+
+/* =====================
+   00 Cover
+   ===================== */
+
+/* The cover and overview frames are fixed height in Figma, so their
+   bottom margin is not the nominal padding. These are the real gaps. */
+.at-cover {
+    padding: 99px 120px 98px;
+}
+
+.at-section--overview {
+    padding-bottom: 40px;
+}
+
+.at-cover-head {
+    display: flex;
+    align-items: center;
+    gap: 393px;
+    margin-top: 40px;
+}
+
+.at-logo {
+    position: relative;
+    flex-shrink: 0;
+    width: 247.138px;
+    aspect-ratio: 247.138 / 218.954;
+}
+
+.at-logo img {
+    position: absolute;
+    display: block;
+}
+
+.at-logo-arch {
+    left: 0.619%;
+    top: 0;
+    width: 99.379%;
+}
+
+.at-logo-word {
+    left: 0;
+    top: 73.577%;
+    width: 98.513%;
+}
+
+.at-cover-tagline {
+    width: 541.293px;
+    font-size: 24px;
+    line-height: 1.35;
+    color: var(--at-ink);
+}
+
+.at-cover-hairline {
+    margin-top: 55px;
+    height: 1px;
+    background-color: var(--at-rule);
+}
+
+.at-meta {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 126px;
+    margin-top: 32px;
+    padding-top: 28px;
+}
+
+.at-meta-lines {
+    margin-top: 12px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--at-body);
+}
+
+.at-hero-screens {
+    position: relative;
+    margin-top: 96px;
+    aspect-ratio: 1200 / 831;
+    border: 1px dashed var(--at-slot);
+}
+
+.at-hero-screens img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* =====================
+   Shared column rows
+   ===================== */
+
+.at-cols-3 {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 135px;
+}
+
+.at-cols-3 .at-label + p {
+    margin-top: 25px;
+}
+
+/* =====================
+   02 Problem — who / what / when / where
+   ===================== */
+
+.at-wwww {
+    border-top: 1px solid var(--at-rule-light);
+}
+
+.at-wwww-row {
+    display: grid;
+    grid-template-columns: 474px 1fr;
+    gap: 136px;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--at-rule-light);
+}
+
+.at-wwww-row .at-eyebrow + p {
+    margin-top: 12px;
+    font-size: 20px;
+    line-height: 1.65;
+    color: var(--at-body);
+}
+
+/* Each cell wraps at its own measure in the design. */
+.at-mw-474 { max-width: 474px; }
+.at-mw-435 { max-width: 435px; }
+.at-mw-420 { max-width: 420px; }
+
+/* =====================
+   02 Problem — journey map
+   ===================== */
+
+.at-journey-map {
+    margin-top: 24px;
+}
+
+.at-stages {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    padding-bottom: 24px;
+}
+
+.at-stages h3 {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--at-ink);
+}
+
+.at-curve {
+    display: block;
+    width: 100%;
+    height: auto;
+    background-color: var(--at-panel);
+}
+
+.at-journey-band {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 24px;
+    padding-bottom: 32px;
+}
+
+.at-journey-band--happens p {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--at-body);
+}
+
+.at-journey-band--thinks p {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.6;
+    color: var(--at-ink);
+}
+
+.at-band-label {
+    margin-top: 24px;
+    margin-bottom: 16px;
+}
+
+.at-journey-close {
+    max-width: 820px;
+    margin-top: 28px;
+    font-size: 18px;
+    line-height: 1.65;
+    color: var(--at-ink);
+}
+
+/* =====================
+   03 Principles
+   ===================== */
+
+.at-principle {
+    display: flex;
+    gap: 48px;
+    padding: 36px 0;
+    border-top: 1px solid var(--at-rule);
+}
+
+.at-principle-num {
+    width: 80px;
+    flex-shrink: 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--at-muted);
+}
+
+.at-principle-title {
+    width: 420px;
+    flex-shrink: 0;
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    color: var(--at-ink);
+}
+
+.at-principle-text {
+    width: 560px;
+}
+
+.at-principle-text p {
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--at-body);
+}
+
+.at-principle-text p + p {
+    margin-top: 16px;
+    font-size: 16px;
+    color: var(--at-muted);
+}
+
+/* =====================
+   04 Features
+   ===================== */
+
+.at-feature-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 40px;
+}
+
+.at-slot {
+    position: relative;
+    overflow: hidden;
+    border: 1px dashed var(--at-slot);
+}
+
+.at-slot img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.at-slot--feature { aspect-ratio: 424 / 709; }
+.at-slot--journey { aspect-ratio: 312 / 610; }
+
+.at-feature-num,
+.at-journey-num {
+    margin-top: 14px;
+    font-size: 16px;
+    font-weight: 500;
+    letter-spacing: 1.12px;
+    color: var(--at-muted);
+}
+
+.at-feature-title {
+    margin-top: 14px;
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: -0.3px;
+    color: var(--at-ink);
+}
+
+.at-feature-row p:last-child {
+    margin-top: 14px;
+}
+
+.at-tier-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 60px;
+}
+
+.at-tier {
+    padding: 40px;
+}
+
+.at-tier--free { background-color: #fff; }
+.at-tier--paid { background-color: var(--at-paid); }
+
+.at-tier h3 {
+    margin-top: 14px;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.11px;
+    color: var(--at-ink);
+}
+
+.at-tier h3 + p {
+    margin-top: 14px;
+}
+
+.at-shipped {
+    margin-top: 24px;
+    border-top: 1px solid var(--at-rule);
+}
+
+.at-shipped-row {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 24px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--at-rule);
+}
+
+.at-shipped-row dt {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--at-ink);
+}
+
+.at-shipped-row dd {
+    margin: 0;
+    font-size: 16px;
+    color: var(--at-muted);
+}
+
+/* =====================
+   05 User Journey
+   ===================== */
+
+.at-flow-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 56px 24px;
+}
+
+.at-flow-title {
+    margin-top: 18px;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.11px;
+    color: var(--at-ink);
+}
+
+.at-flow-cell > p:last-child {
+    margin-top: 18px;
+}
+
+.at-flow-cell .at-journey-num { margin-top: 18px; }
+
+/* =====================
+   06 Design System
+   ===================== */
+
+.at-section--system > .at-eyebrow { margin-top: 144px; }
+.at-section--system > .at-h2 { margin-top: 40px; }
+.at-section--system > .at-lede { margin-top: 40px; }
+.at-section--system > .at-palette { margin-top: 114px; }
+.at-section--system > .at-eyebrow--type { margin-top: 176px; }
+.at-section--system > .at-type-scale { margin-top: 104px; }
+.at-section--system > .at-eyebrow--rules { margin-top: 115px; }
+.at-section--system > .at-cols-4 { margin-top: 40px; }
+.at-section--system > .at-eyebrow--components { margin-top: 115px; }
+.at-section--system > .at-specimens { margin-top: 40px; }
+
+.at-swatches {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    margin-top: 24px;
+}
+
+.at-swatch-chip {
+    height: 200px;
+    border: 1px solid var(--at-rule-light);
+}
+
+.at-swatch-chip--bg { border-color: #848484; }
+
+.at-swatch h3 {
+    margin-top: 14px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--at-ink);
+}
+
+.at-swatch-hex,
+.at-swatch p {
+    margin-top: 14px;
+    font-size: 16px;
+    color: var(--at-muted);
+    line-height: 1.6;
+}
+
+.at-palette-note {
+    max-width: 900px;
+    margin-top: 40px;
+    font-size: 20px;
+    line-height: 1.65;
+    color: var(--at-body);
+}
+
+.at-eyebrow--areas { margin-top: 96px; }
+
+.at-areas-note {
+    max-width: 900px;
+    margin-top: 24px;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--at-body);
+}
+
+.at-areas {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+}
+
+.at-area-chip {
+    height: 96px;
+    border: 1px solid var(--at-rule-light);
+}
+
+.at-area p {
+    margin-top: 12px;
+    font-size: 16px;
+    color: var(--at-muted);
+}
+
+.at-type-scale {
+    border-top: 1px solid var(--at-rule);
+    font-variant-numeric: tabular-nums;
+}
+
+.at-type-row {
+    display: grid;
+    grid-template-columns: 220px 210px 1fr;
+    gap: 24px;
+    align-items: center;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--at-rule);
+}
+
+.at-type-row dt {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--at-ink);
+}
+
+.at-type-row .at-type-spec {
+    font-size: 16px;
+    color: var(--at-muted);
+}
+
+.at-type-row dd {
+    margin: 0;
+    color: var(--at-ink);
+}
+
+.at-specimen-hero { font-size: 40px; font-weight: 600; letter-spacing: -0.4px; }
+.at-specimen-title { font-size: 26px; font-weight: 600; letter-spacing: -0.26px; }
+.at-specimen-section { font-size: 21px; font-weight: 600; }
+.at-specimen-card { font-size: 18px; font-weight: 500; }
+.at-specimen-body { font-size: 15px; font-weight: 400; }
+.at-specimen-label { font-size: 11px; font-weight: 500; }
+
+.at-cols-4 {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.at-cols-4 h3 {
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: -0.11px;
+    color: var(--at-ink);
+}
+
+.at-cols-4 p {
+    margin-top: 12px;
+}
+
+.at-specimens {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.at-specimens h3 {
+    margin-top: 14px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--at-ink);
+}
+
+.at-specimens > div > p {
+    margin-top: 14px;
+}
+
+/* The nav and band specimens are crops of a full phone screen, so the
+   image is offset by a share of its own height to keep the crop
+   proportional at any column width. */
+.at-slot--crop img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: auto;
+    object-fit: fill;
+}
+
+.at-slot--nav { aspect-ratio: 424 / 220; }
+.at-slot--nav img { transform: translateY(-76.13%); }
+
+.at-slot--band { aspect-ratio: 424 / 231; }
+.at-slot--band img { transform: translateY(-38.58%); }
+
+.at-slot--change { aspect-ratio: 424 / 220; }
+.at-slot--change img { object-fit: cover; }
+
+.at-change-marker {
+    position: absolute;
+    left: 62.23%;
+    top: 31.04%;
+    width: 11.03%;
+    aspect-ratio: 1;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    background-color: rgba(107, 107, 107, 0.44);
+}
+
+/* =====================
+   07 Closing
+   ===================== */
+
+.at-cols-2 {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+}
+
+.at-cols-2 p + p {
+    margin-top: 20px;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--at-body);
+}
+
+.at-closing-end {
+    margin-top: 96px;
+    height: 1px;
+    background-color: var(--at-rule);
+}
+
+/* =====================================================
+   Responsive
+   ===================================================== */
+
+/* Below the 1440 design width the fixed column widths are what
+   break first, so they become fluid before anything reflows. */
+@media (max-width: 1439px) {
+
+    .at-cover-head { gap: 6%; }
+    .at-cover-tagline { width: auto; max-width: 541px; }
+
+    .at-meta { gap: 10%; }
+    .at-cols-3 { gap: 10%; }
+
+    .at-wwww-row { grid-template-columns: 1fr 1fr; gap: 10%; }
+
+    .at-principle-title { width: 32%; }
+    .at-principle-text { width: auto; flex: 1; }
+
+    .at-shipped-row { grid-template-columns: 26% 1fr; }
+    .at-type-row { grid-template-columns: 17% 16% 1fr; }
+}
+
+@media (max-width: 1080px) {
+
+    /* A 20% column is too narrow to read here, so it stacks on top. */
+    .at-main { width: 100%; }
+
+    .at-sidebar {
+        position: static;
+        width: 100%;
+        padding: 40px 40px 0;
+    }
+
+    .at-section { padding: 40px; }
+    .at-cover { padding: 64px 40px 96px; }
+
+    .at-h2 { font-size: 38px; }
+    .at-lede { font-size: 20px; }
+
+    .at-flow-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .at-swatches { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .at-areas { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .at-cols-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .at-specimens { grid-template-columns: 1fr; }
+
+    .at-journey-band { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+    .at-journey-map {
+    margin-top: 24px;
+}
+
+.at-stages { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+}
+
+@media (max-width: 760px) {
+
+    .at-sidebar { padding: 24px 24px 0; }
+
+    .at-section { padding: 28px 24px; }
+    .at-cover { padding: 40px 24px 64px; }
+
+    .at-h2 { font-size: 30px; letter-spacing: -0.3px; }
+    .at-lede { font-size: 18px; }
+
+    .at-cover-head { flex-direction: column; align-items: flex-start; gap: 40px; }
+    .at-meta { grid-template-columns: 1fr; gap: 32px; }
+    .at-cols-3,
+    .at-cols-2,
+    .at-cols-4 { grid-template-columns: 1fr; gap: 32px; }
+
+    .at-wwww-row { grid-template-columns: 1fr; gap: 24px; }
+    .at-shipped-row { grid-template-columns: 1fr; gap: 8px; }
+    .at-type-row { grid-template-columns: 1fr; gap: 8px; }
+
+    .at-principle { flex-direction: column; gap: 16px; }
+    .at-principle-title { width: auto; font-size: 24px; }
+
+    .at-feature-row,
+    .at-tier-row,
+    .at-flow-grid { grid-template-columns: 1fr; gap: 40px; }
+
+    .at-journey-band,
+    .at-journey-map {
+    margin-top: 24px;
+}
+
+.at-stages { grid-template-columns: 1fr; }
+
+    .at-block { margin-top: 64px; }
+}
