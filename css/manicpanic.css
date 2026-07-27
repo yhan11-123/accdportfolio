@@ -54,6 +54,25 @@ body{
     line-height: 20px;
 }
 
+/* Tools, one per line, under the description. */
+.mp-sidebar-tools {
+    margin: 32px 0 0;
+    padding: 0;
+    list-style: none;
+    color: black;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+}
+
+.mp-sidebar-tools li {
+    font-weight: 600;
+}
+
+.mp-sidebar-tools li + li {
+    margin-top: 8px;
+}
+
 /* Section 1: Hero image */
 .mp-hero {
     width: 100%;

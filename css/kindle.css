@@ -68,6 +68,25 @@ body {
     line-height: 20px;
 }
 
+/* Tools, one per line, under the description. */
+.kt-sidebar-tools {
+    margin: 32px 0 0;
+    padding: 0;
+    list-style: none;
+    color: black;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+}
+
+.kt-sidebar-tools li {
+    font-weight: 600;
+}
+
+.kt-sidebar-tools li + li {
+    margin-top: 8px;
+}
+
 /* Narrow screens: a 20% column is too tight to read, so stack it on top. */
 @media (max-width: 900px) {
 

@@ -69,6 +69,25 @@ body {
     line-height: 20px;
 }
 
+/* Tools, one per line, under the description. */
+.spt-sidebar-tools {
+    margin: 32px 0 0;
+    padding: 0;
+    list-style: none;
+    color: black;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+}
+
+.spt-sidebar-tools li {
+    font-weight: 600;
+}
+
+.spt-sidebar-tools li + li {
+    margin-top: 8px;
+}
+
 .spt-section {
     align-self: stretch;
     position: relative;
