@@ -137,6 +137,27 @@ body {
     right: 2rem;
 }
 
+/* Sits on the same bottom line as .role, on the opposite side. */
+.extras {
+    display: block;
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    text-align: right;
+}
+
+.extras_item {
+    display: block;
+    font-size: 1rem;
+    color: black;
+    text-decoration: none;
+    padding: 2px;
+}
+
+.extras_item:hover {
+    opacity: 0.6;
+}
+
 /* =====================================================
    Responsive breakpoints
    Tablet and Mobile ranges are mutually exclusive
@@ -179,6 +200,12 @@ body {
     }
 
     .connect {
+        position: static;
+        text-align: left;
+        margin-top: 0.5rem;
+    }
+
+    .extras {
         position: static;
         text-align: left;
         margin-top: 0.5rem;
@@ -257,6 +284,12 @@ body {
     }
 
     .connect {
+        position: static;
+        text-align: left;
+        margin-top: 0.5rem;
+    }
+
+    .extras {
         position: static;
         text-align: left;
         margin-top: 0.5rem;
