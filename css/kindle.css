@@ -107,6 +107,12 @@ body {
     height: 9032px;
     background-color: #fff;
     transform-origin: top left;
+    /* Forces the browser to build the compositing layer's backing store
+       at the post-transform resolution instead of caching a lower-res
+       bitmap and stretching it — without this, images inside a scaled
+       (< 1) canvas render noticeably soft. */
+    will-change: transform;
+    backface-visibility: hidden;
 }
 
 /* Every child of the canvas is placed with --x / --y / --w / --h */
