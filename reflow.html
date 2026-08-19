@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Reflow_YounheeHan</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;600&family=Inter:wght@400;500;600&family=Noto+Sans+Display:wght@600&family=Noto+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="css/reset.css" rel="stylesheet" type="text/css">
+<link href="css/reflow.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<div class="rf-sidebar">
+<a class="rf-sidebar-home" href="index.html">&larr; Home</a>
+<p class="rf-sidebar-description">Reflow is a day planner for the moment the day stops going to plan. Thirty minutes becomes an hour and nothing in the day absorbs the difference. A calendar can&rsquo;t help there, because events don&rsquo;t move. What breaks is the work between them. Reflow rebuilds the rest of the day around what&rsquo;s unfinished and hands it back as one proposal you accept in a tap. What didn&rsquo;t finish carries to tomorrow as a task, not as a backlog.</p>
+<ul class="rf-sidebar-tools">
+    <li>Figma</li>
+    <li>Expo &middot; React Native</li>
+    <li>TypeScript</li>
+    <li>Reanimated</li>
+    <li>ActivityKit &middot; Swift</li>
+    <li>Supabase</li>
+    <li>OpenAI gpt-4o-mini</li>
+    <li>EAS &middot; TestFlight</li>
+</ul>
+<div class="rf-sidebar-qr">
+<img src="assets/images/reflow/testflight_qr.png" width="370" height="370" alt="QR code linking to the Reflow TestFlight build">
+<p>Try the build on TestFlight</p>
+</div>
+</div>
+
+<!-- The case study is a fixed 1440-wide artboard, reproduced 1:1 from the
+     Figma frame "Reflow — Case Study" and scaled to fit the column beside
+     the sidebar. -->
+<div class="rf-viewport">
+<div class="rf-stage">
+
+<!-- ============ backgrounds ============ -->
+<div class="rf-bg rf-bg--hero"    style="top:0;height:1609px"></div>
+<div class="rf-bg rf-bg--toblue"  style="top:5699px;height:1607px"></div>
+<div class="rf-bg rf-bg--todark"  style="top:9794px;height:1124px"></div>
+<div class="rf-bg rf-bg--dark"    style="top:10918px;height:1264px"></div>
+<div class="rf-bg rf-bg--cobalt"  style="top:12182px;height:565px"></div>
+<div class="rf-bg rf-bg--dark"    style="top:12747px;height:1403px"></div>
+<div class="rf-bg rf-bg--tolight" style="top:14150px;height:1123px"></div>
+
+<!-- ============ 00 · Hero ============ -->
+<h1 class="rf-wordmark" style="left:307px;top:203px;width:794px">Reflow</h1>
+<p class="rf-tagline" style="left:228.5px;top:435px">A day planner for the moment the day stops going to plan.</p>
+<img class="rf-band" src="assets/images/reflow/cs-hero-phone.webp" alt="" style="left:0px;top:495px;width:1440px">
+<blockquote class="rf-quote" style="left:275.01px;top:1457.94px;width:889.98px">“One task runs long and the rest of the day stops being true. Reflow is a day planner that <b>catches the overrun as it happens</b> and hands you a rebuilt schedule in one tap.”</blockquote>
+
+<!-- ============ ABOUT · Project ============ -->
+<div class="rf-two" style="left:130px;top:1735px;width:1180px">
+  <div class="rf-two-col">
+    <div class="rf-sp16"></div>
+    <p class="rf-label">ABOUT</p>
+    <div class="rf-hairline"></div>
+    <div class="rf-sp8"></div>
+    <p class="rf-about"><span class="rf-geo">Reflow</span> is a day planning app that detects when a task runs over and rebuilds the rest of your day into a plan you can accept in one tap.</p>
+  </div>
+  <div class="rf-two-col">
+    <div class="rf-sp16"></div>
+    <p class="rf-label">Project</p>
+    <div class="rf-hairline"></div>
+    <div class="rf-sp8"></div>
+    <dl class="rf-meta">
+      <div class="rf-meta-row"><dt>Project</dt><dd>Reflow</dd></div>
+      <div class="rf-meta-row"><dt>Industry</dt><dd>Productivity Mobile App</dd></div>
+      <div class="rf-meta-row"><dt>Category</dt><dd>Planning, Task Management &amp; AI</dd></div>
+      <div class="rf-meta-row"><dt>Role</dt><dd>Design &amp; Development</dd></div>
+      <div class="rf-meta-row"><dt>Date</dt><dd>2026</dd></div>
+    </dl>
+  </div>
+</div>
+<img class="rf-band" src="assets/images/reflow/cs-three-phones.webp" alt="" style="left:0px;top:2185px;width:1440px">
+
+<!-- ============ Features ============ -->
+<img class="rf-band" src="assets/images/reflow/cs-card-entry.webp" alt="" style="left:100px;top:3205px;width:560px">
+<div class="rf-chips" style="left:753.14px;top:3463.88px">
+  <span class="rf-chip" style="left:0px">Task Entry</span>
+  <span class="rf-chip" style="left:142px">Progressive Detail</span>
+  <span class="rf-chip" style="left:355px">Signal</span>
+</div>
+<p class="rf-feature-copy" style="left:753.14px;top:3524.88px;width:584.83px">Duration makes the timer meaningful. Importance tells the reschedule where a task belongs. What you record here is what Reflow works with when the day changes.</p>
+<img class="rf-band" src="assets/images/reflow/cs-card-swap.webp" alt="" style="left:730px;top:3910px;width:630px">
+<div class="rf-chips" style="left:130px;top:4123.93px">
+  <span class="rf-chip" style="left:0px">Focus State</span>
+  <span class="rf-chip" style="left:154px">Live Timing</span>
+  <span class="rf-chip" style="left:304px">Estimates</span>
+</div>
+<p class="rf-feature-copy" style="left:130px;top:4184.93px;width:584.83px">Elapsed time never appears alone. It sits against the estimate you set, so going over isn't an alert. It's the number you're already looking at.</p>
+<img class="rf-band" src="assets/images/reflow/cs-card-reschedule.webp" alt="" style="left:90px;top:4505px;width:560px">
+<div class="rf-chips" style="left:753.14px;top:4819.95px">
+  <span class="rf-chip" style="left:0px">Rescheduling</span>
+  <span class="rf-chip" style="left:169px">Deterministic Logic</span>
+  <span class="rf-chip" style="left:393px">Decision Design</span>
+</div>
+<p class="rf-feature-copy" style="left:753.14px;top:4880.95px;width:584.83px">Reflow rebuilds the day around what's still unfinished and shows where every task lands before you accept it.</p>
+<img class="rf-band" src="assets/images/reflow/cs-rows-carried.webp" alt="" style="left:745px;top:5230px;width:640px">
+<div class="rf-chips" style="left:148.17px;top:5275.92px">
+  <span class="rf-chip" style="left:0px">Carry Over</span>
+  <span class="rf-chip" style="left:145px">State Design</span>
+  <span class="rf-chip" style="left:308px">Closure</span>
+</div>
+<p class="rf-feature-copy" style="left:148.17px;top:5336.92px;width:540.97px">What didn't finish carries to tomorrow as a task, not as a backlog. There's no separate pile of missed things, and no day ends in failure.</p>
+<p class="rf-statement" style="left:175.11px;top:5610.92px;width:1094.67px"><span class="rf-geo">Reflow</span>, the day planner that rebuilds your day when it breaks.</p>
+
+<!-- ============ How the reschedule works ============ -->
+<img class="rf-gif" src="assets/images/reflow/AIgif.gif" width="1170" height="2532"
+     alt="Screen recording: naming a task, letting Reflow estimate how long it will take, and adding it to the day"
+     style="left:517.82px;top:5790.59px;width:404.36px">
+<p class="rf-onblue" style="left:146.91px;top:6767.65px;width:1146.19px"><b>Reflow</b> is a day planning app for people who plan carefully and still lose the day to a single overrun. One button rebuilds it around what's still unfinished. AI comes in at the one place judgment beats rules: guessing how long a task you've never done will take.</p>
+<div class="rf-four" style="left:140px;top:7024.86px;width:1160px">
+<div class="rf-col rf-col--dark">
+  <div class="rf-hairline"></div>
+  <h3 class="rf-col-title">Reads</h3>
+  <p class="rf-col-body">Unfinished tasks, duration, importance, fixed times</p>
+</div>
+<div class="rf-col rf-col--dark">
+  <div class="rf-hairline"></div>
+  <h3 class="rf-col-title">Generates</h3>
+  <p class="rf-col-body">Every schedule that fits the time remaining</p>
+</div>
+<div class="rf-col rf-col--dark">
+  <div class="rf-hairline"></div>
+  <h3 class="rf-col-title">Selects</h3>
+  <p class="rf-col-body">One proposal, ranked by importance and fit</p>
+</div>
+<div class="rf-col rf-col--dark">
+  <div class="rf-hairline"></div>
+  <h3 class="rf-col-title">Returns</h3>
+  <p class="rf-col-body">Where each task lands, before you accept</p>
+</div>
+</div>
+<img class="rf-band" src="assets/images/reflow/cs-tilt-nav.webp" alt="" style="left:0px;top:7430px;width:1050px">
+<img class="rf-band" src="assets/images/reflow/cs-tilt-profile.webp" alt="" style="left:690px;top:7955px;width:650px">
+
+<!-- ============ Three costs ============ -->
+<div class="rf-three" style="left:140px;top:9206.92px;width:1160px">
+<div class="rf-col">
+  <div class="rf-hairline"></div>
+  <h3 class="rf-col-title">Days That Don't Close</h3>
+  <p class="rf-col-body">The effort is there. The day still ends with tasks unfinished, and it's rarely clear which decision made it go <br>that way.</p>
+</div>
+<div class="rf-col">
+  <div class="rf-hairline"></div>
+  <h3 class="rf-col-title">Estimates That Miss</h3>
+  <p class="rf-col-body">Thirty minutes becomes an hour. The plan was never wrong about what mattered, only about how long it takes, and nothing in the day absorbs the difference.</p>
+</div>
+<div class="rf-col">
+  <div class="rf-hairline"></div>
+  <h3 class="rf-col-title">Backlog That Compounds</h3>
+  <p class="rf-col-body">What didn't finish lands on tomorrow, which was already full. After enough of those days, making a plan stops feeling worth it.</p>
+</div>
+</div>
+<p class="rf-kicker" style="left:197.76px;top:9547.45px;width:1034px">Each one feeds the next. The plan never gets a chance to catch up.</p>
+<img class="rf-band" src="assets/images/reflow/cs-lockscreen.webp" alt="" style="left:0px;top:9660px;width:1440px">
+
+<!-- ============ What the Day Feels Like ============ -->
+<h2 class="rf-h2 rf-h2--light" style="left:142.56px;top:11061.02px;width:1094.67px">What the Day Feels Like</h2>
+<div class="rf-empathy" style="left:124.09px;top:11202.73px;width:590.67px;height:414.26px"></div>
+<h3 class="rf-empathy-title" style="left:173.04px;top:11259.56px">Says</h3>
+<ul class="rf-empathy-list" style="left:160.37px;top:11337.56px;width:507.72px">
+  <li>I had it all planned out and then one <br>thing ran long.</li>
+  <li>I'll just do it tomorrow.</li>
+  <li>I don't know why I bother planning anymore.</li>
+</ul>
+<div class="rf-empathy" style="left:740.62px;top:11202.73px;width:590.67px;height:414.26px"></div>
+<h3 class="rf-empathy-title" style="left:791.51px;top:11259.56px">Thinks</h3>
+<ul class="rf-empathy-list" style="left:778.2px;top:11337.56px;width:515.51px">
+  <li>I should have known that would take longer.</li>
+  <li>If I move this, what else has to move?</li>
+  <li>Everyone else seems to manage this fine.</li>
+</ul>
+<div class="rf-empathy" style="left:124.09px;top:11641.98px;width:590.67px;height:414.26px"></div>
+<h3 class="rf-empathy-title" style="left:173.04px;top:11687.72px">Does</h3>
+<ul class="rf-empathy-list" style="left:155.37px;top:11765.6px;width:516.63px">
+  <li>Rewrites the list from scratch instead of adjusting it.</li>
+  <li>Pushes the same task forward three days in a row.</li>
+  <li>Stops opening the planner once the day is already off.</li>
+</ul>
+<div class="rf-empathy" style="left:740.62px;top:11641.98px;width:590.67px;height:414.26px"></div>
+<h3 class="rf-empathy-title" style="left:791.51px;top:11687.72px">Feels</h3>
+<ul class="rf-empathy-list" style="left:775.88px;top:11765.6px;width:517.83px">
+  <li>Frustrated that effort didn't turn <br>into progress.</li>
+  <li>Overwhelmed by what's carried over.</li>
+  <li>Resigned, and starts to plan less.</li>
+</ul>
+
+<!-- ============ HMW ============ -->
+<p class="rf-hmw" style="left:191.42px;top:12321.92px;width:1057.15px">How might we help users plan their day so that even when things go wrong, they stay on track?</p>
+<p class="rf-hmw-pillar" style="left:191.43px;top:12563.97px">Organize tasks</p>
+<p class="rf-hmw-pillar" style="left:605px;top:12563.97px">Estimate time</p>
+<p class="rf-hmw-pillar" style="left:1004.58px;top:12563.97px">Auto-reschedule</p>
+
+<!-- ============ How Tasks Live ============ -->
+<h2 class="rf-h2 rf-h2--light" style="left:142.56px;top:12872.94px;width:1094.67px">How Tasks Live</h2>
+<div class="rf-ring" style="left:142.56px;top:13057.98px;width:668.28px;height:668.28px"></div>
+<div class="rf-ring" style="left:256.52px;top:13242.59px;width:440.36px;height:440.36px"></div>
+<div class="rf-ring" style="left:359.93px;top:13411.87px;width:233.55px;height:233.55px"></div>
+<div class="rf-leader" style="left:621.63px;top:13072.42px;width:299.82px"></div>
+<div class="rf-leader" style="left:643.77px;top:13273.64px;width:277.67px"></div>
+<div class="rf-leader" style="left:605.25px;top:13447.26px;width:316.20px"></div>
+<span class="rf-ring-label" style="left:512.85px;top:13040.92px">Area</span>
+<span class="rf-ring-label" style="left:512.85px;top:13238.89px">Project</span>
+<span class="rf-ring-label" style="left:500.85px;top:13411.88px">Task</span>
+<div class="rf-block" style="left:142.77px;top:13812.42px;width:667.85px;height:152.86px"></div>
+<span class="rf-ring-label" style="left:647.85px;top:13780.92px">Time Block</span>
+<p class="rf-ring-copy" style="left:959.01px;top:13040.92px;width:408.23px">The largest container. Separate parts of life that don't mix.</p>
+<p class="rf-ring-copy" style="left:959.01px;top:13241.39px;width:408.23px">A group of tasks that belongs together. Marked as a template when it repeats.</p>
+<p class="rf-ring-copy" style="left:959.01px;top:13414.38px;width:408.23px">The unit of work. Carries a name and whatever detail you chose <br>to add.</p>
+<p class="rf-ring-copy" style="left:921.45px;top:13785.92px;width:445.79px">An optional frame for the day. Set one when you want tasks to fall inside a boundary rather than float freely.</p>
+
+<!-- ============ Critical Path ============ -->
+<h2 class="rf-h2 rf-h2--light" style="left:142.56px;top:14260px;width:1094.67px">Critical Path</h2>
+<img class="rf-band" src="assets/images/reflow/cs-path-row1.webp" alt="" style="left:0px;top:14360px;width:1440px">
+<div class="rf-step" style="left:106.32px;top:14998px;width:360px">
+  <div class="rf-hairline"></div>
+  <h3 class="rf-col-title">Today</h3>
+  <p class="rf-col-body">Timed and untimed tasks in one list. The day is a sequence, not a grid.</p>
+</div>
+<div class="rf-step" style="left:545.16px;top:14998px;width:360px">
+  <div class="rf-hairline"></div>
+  <h3 class="rf-col-title">Make task</h3>
+  <p class="rf-col-body">A name is enough. Duration and importance are optional, and they're what the reschedule reads later.</p>
+</div>
+<div class="rf-step" style="left:983.69px;top:14998px;width:360px">
+  <div class="rf-hairline"></div>
+  <h3 class="rf-col-title">During task</h3>
+  <p class="rf-col-body">Elapsed time never appears alone. It sits against your estimate, so going over isn't an alert.</p>
+</div>
+<img class="rf-band" src="assets/images/reflow/cs-path-row2.webp" alt="" style="left:0px;top:15180px;width:1440px">
+<div class="rf-step" style="left:106.32px;top:15809.85px;width:360px">
+  <div class="rf-hairline"></div>
+  <h3 class="rf-col-title">Task pending</h3>
+  <p class="rf-col-body">Overdue, not failed. The task stays in place with three ways out.</p>
+</div>
+<div class="rf-step" style="left:545.16px;top:15810.85px;width:360px">
+  <div class="rf-hairline"></div>
+  <h3 class="rf-col-title">Reschedule</h3>
+  <p class="rf-col-body">One proposal, not a menu. Every move is shown before you accept it.</p>
+</div>
+<div class="rf-step" style="left:983.69px;top:15811.85px;width:360px">
+  <div class="rf-hairline"></div>
+  <h3 class="rf-col-title">End of day</h3>
+  <p class="rf-col-body">Done, ran over, moved. Counts without a score, and nothing marked as failure.</p>
+</div>
+
+<!-- ============ Design Foundation ============ -->
+<h2 class="rf-h2" style="left:125.16px;top:16135.17px;width:1094.67px">Design Foundation</h2>
+<h3 class="rf-h3" style="left:125.16px;top:16292.92px">Color System</h3>
+
+<div class="rf-swatch" style="left:181.99px;top:16414.43px;width:435px;height:132px;background:#1b3fd1"></div>
+<div class="rf-swatch-copy" style="left:181.99px;top:16550.43px;width:435px">
+  <p class="rf-sw-name">Cobalt</p>
+  <p class="rf-sw-role">Structure and interaction</p>
+  <p class="rf-sw-body">Buttons, selection, toggles, mastheads. The one accent the interface is allowed to use, and it never means urgency.</p>
+  <p class="rf-sw-hex">#1B3FD1&nbsp; /&nbsp; #6C8CFF</p>
+</div>
+<div class="rf-swatch" style="left:841.66px;top:16418.43px;width:435px;height:132px;background:#c62828"></div>
+<div class="rf-swatch-copy" style="left:841.66px;top:16550.43px;width:435px">
+  <p class="rf-sw-name">Clay</p>
+  <p class="rf-sw-role">Live disruption only</p>
+  <p class="rf-sw-body">A task running past its estimate, a destructive action. It never appears on a calm screen, so seeing it is information by itself.</p>
+  <p class="rf-sw-hex">#C62828&nbsp; /&nbsp; #F0655A</p>
+</div>
+
+<h3 class="rf-h4" style="left:122.62px;top:16800.93px;width:360px">Group Color</h3>
+<p class="rf-note" style="left:125.16px;top:16841.93px;width:840px">Twelve options, each a single hex rather than a light and dark pair. The ramp cycles through violet, rose, warm, green, teal and indigo so neighbours stay tellable apart, and contrast is measured per fill.</p>
+<div class="rf-grid" style="left:125.16px;top:16945.93px;width:1200px">
+  <div class="rf-gcell">
+    <div class="rf-gfill" style="background:#5E4E7B"><span>Aa</span></div>
+    <div class="rf-gmeta"><p class="rf-gname">plum haze</p><p class="rf-ghex">#5E4E7B</p></div>
+  </div>
+  <div class="rf-gcell">
+    <div class="rf-gfill" style="background:#A493BE"><span>Aa</span></div>
+    <div class="rf-gmeta"><p class="rf-gname">lilac echo</p><p class="rf-ghex">#A493BE</p></div>
+  </div>
+  <div class="rf-gcell">
+    <div class="rf-gfill" style="background:#C07C92"><span>Aa</span></div>
+    <div class="rf-gmeta"><p class="rf-gname">peony</p><p class="rf-ghex">#C07C92</p></div>
+  </div>
+  <div class="rf-gcell">
+    <div class="rf-gfill" style="background:#C4795F"><span>Aa</span></div>
+    <div class="rf-gmeta"><p class="rf-gname">ember</p><p class="rf-ghex">#C4795F</p></div>
+  </div>
+  <div class="rf-gcell">
+    <div class="rf-gfill" style="background:#DE9E7E"><span>Aa</span></div>
+    <div class="rf-gmeta"><p class="rf-gname">peach</p><p class="rf-ghex">#DE9E7E</p></div>
+  </div>
+  <div class="rf-gcell">
+    <div class="rf-gfill" style="background:#DFC084"><span>Aa</span></div>
+    <div class="rf-gmeta"><p class="rf-gname">honey</p><p class="rf-ghex">#DFC084</p></div>
+  </div>
+  <div class="rf-gcell">
+    <div class="rf-gfill" style="background:#C6CB8E"><span>Aa</span></div>
+    <div class="rf-gmeta"><p class="rf-gname">fennel</p><p class="rf-ghex">#C6CB8E</p></div>
+  </div>
+  <div class="rf-gcell">
+    <div class="rf-gfill" style="background:#7E9E78"><span>Aa</span></div>
+    <div class="rf-gmeta"><p class="rf-gname">sage</p><p class="rf-ghex">#7E9E78</p></div>
+  </div>
+  <div class="rf-gcell">
+    <div class="rf-gfill" style="background:#548059"><span>Aa</span></div>
+    <div class="rf-gmeta"><p class="rf-gname">fern</p><p class="rf-ghex">#548059</p></div>
+  </div>
+  <div class="rf-gcell">
+    <div class="rf-gfill" style="background:#4F9B98"><span>Aa</span></div>
+    <div class="rf-gmeta"><p class="rf-gname">teal</p><p class="rf-ghex">#4F9B98</p></div>
+  </div>
+  <div class="rf-gcell">
+    <div class="rf-gfill" style="background:#5E8CB2"><span>Aa</span></div>
+    <div class="rf-gmeta"><p class="rf-gname">ocean</p><p class="rf-ghex">#5E8CB2</p></div>
+  </div>
+  <div class="rf-gcell">
+    <div class="rf-gfill" style="background:#4F5590"><span>Aa</span></div>
+    <div class="rf-gmeta"><p class="rf-gname">potion</p><p class="rf-ghex">#4F5590</p></div>
+  </div>
+</div>
+
+<!-- ============ Typography ============ -->
+<h3 class="rf-h3" style="left:125.16px;top:17237.39px">Typography</h3>
+<div class="rf-two rf-two--faces" style="left:128.17px;top:17323.66px;width:1197px">
+  <div class="rf-two-col">
+    <div class="rf-hairline"></div><div class="rf-sp20"></div>
+    <p class="rf-eyebrow">PRODUCT UI</p><div class="rf-sp16"></div>
+    <p class="rf-face-name">Noto Sans</p><div class="rf-sp16"></div>
+    <div class="rf-specimen"><p>ABCDEFGHIJKLM</p><p>abcdefghijklm</p><p>0123456789&nbsp; :&nbsp; /&nbsp; +&nbsp; %</p></div>
+    <div class="rf-sp20"></div>
+    <p class="rf-face-use">Every screen in the app</p>
+  </div>
+  <div class="rf-two-col">
+    <div class="rf-hairline"></div><div class="rf-sp20"></div>
+    <p class="rf-eyebrow">BRAND LAYER</p><div class="rf-sp16"></div>
+    <p class="rf-face-name rf-geo">Geologica</p><div class="rf-sp16"></div>
+    <div class="rf-specimen rf-geo"><p>ABCDEFGHIJKLM</p><p>abcdefghijklm</p><p>0123456789&nbsp; :&nbsp; /&nbsp; +&nbsp; %</p></div>
+    <div class="rf-sp20"></div>
+    <p class="rf-face-use">Logotype only, never in product</p>
+  </div>
+</div>
+
+<!-- ============ Logo System ============ -->
+<h3 class="rf-h3" style="left:125.16px;top:17756.11px">Logo System</h3>
+<p class="rf-note" style="left:125.16px;top:17842.45px;width:889.08px">Three waves, each offset from the one above. In motion the top line drops into the middle and the rest make room. It's the same move the app makes with a day: what didn't happen re-enters the flow instead of falling off it.</p>
+<img class="rf-band" src="assets/images/reflow/cs-logo-a.webp" alt="" style="left:222px;top:18025px;width:1058px">
+<img class="rf-band" src="assets/images/reflow/cs-logo-b.webp" alt="" style="left:228px;top:18459px;width:294px">
+<img class="rf-gif" src="assets/images/reflow/logomotion.gif" width="1548" height="1546"
+     alt="The mark in motion: the top wave drops into the middle and the rest make room"
+     style="left:750.11px;top:18342.13px;width:516.3px;border-radius:0">
+
+<!-- ============ Stack ============ -->
+<h3 class="rf-h3 rf-h3--wide" style="left:124.17px;top:19153.26px;width:707px">Designed and built solo over fourteen weeks</h3>
+<div class="rf-rule" style="left:124.17px;top:19235.26px;width:1200px"></div>
+<div class="rf-row" style="left:124.17px;top:19237.26px;width:1200px">
+  <p class="rf-row-label">Design</p>
+  <div class="rf-row-items">
+    <div class="rf-row-chips"><span class="rf-stack-chip">Figma</span></div>
+  </div>
+</div>
+<div class="rf-row" style="left:124.17px;top:19313.26px;width:1200px">
+  <p class="rf-row-label">App</p>
+  <div class="rf-row-items">
+    <div class="rf-row-chips"><span class="rf-stack-chip">Expo</span><span class="rf-stack-chip">React Native</span><span class="rf-stack-chip">React 19</span><span class="rf-stack-chip">TypeScript</span><span class="rf-stack-chip">Expo Router</span><span class="rf-stack-chip">React Compiler</span></div>
+  </div>
+</div>
+<div class="rf-row" style="left:124.17px;top:19389.26px;width:1200px">
+  <p class="rf-row-label">Motion</p>
+  <div class="rf-row-items">
+    <div class="rf-row-chips"><span class="rf-stack-chip">Reanimated</span><span class="rf-stack-chip">Gesture Handler</span></div>
+  </div>
+</div>
+<div class="rf-row" style="left:124.17px;top:19465.26px;width:1200px">
+  <p class="rf-row-label">iOS native</p>
+  <div class="rf-row-items">
+    <div class="rf-row-chips"><span class="rf-stack-chip">ActivityKit</span><span class="rf-stack-chip">App Intents (Swift)</span></div>
+    <p class="rf-row-note">Live Activity needed the real APIs, so this part is written in Swift.</p>
+  </div>
+</div>
+<div class="rf-row" style="left:124.17px;top:19572.26px;width:1200px">
+  <p class="rf-row-label">Backend</p>
+  <div class="rf-row-items">
+    <div class="rf-row-chips"><span class="rf-stack-chip">Supabase</span><span class="rf-stack-chip">Postgres</span><span class="rf-stack-chip">Auth</span><span class="rf-stack-chip">Edge Functions</span></div>
+  </div>
+</div>
+<div class="rf-row" style="left:124.17px;top:19648.26px;width:1200px">
+  <p class="rf-row-label">AI</p>
+  <div class="rf-row-items">
+    <div class="rf-row-chips"><span class="rf-stack-chip">OpenAI gpt-4o-mini</span></div>
+    <p class="rf-row-note">Duration estimates only. The reschedule is deterministic and runs on rules.</p>
+  </div>
+</div>
+<div class="rf-row" style="left:124.17px;top:19755.26px;width:1200px">
+  <p class="rf-row-label">Distribution</p>
+  <div class="rf-row-items">
+    <div class="rf-row-chips"><span class="rf-stack-chip">EAS</span><span class="rf-stack-chip">TestFlight</span></div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<script>
+/* The case study is a fixed 1440 x 19933 artboard; scale it down to fit the
+   column and shrink the wrapper to the scaled height. */
+(function () {
+    var viewport = document.querySelector('.rf-viewport');
+    var stage = document.querySelector('.rf-stage');
+    var W = 1440;
+    var H = 19933;
+
+    function fit() {
+        /* Measure the column, not the window — the sidebar takes 20% of it. */
+        var scale = Math.min(1, viewport.clientWidth / W);
+        stage.style.transform = 'scale(' + scale + ')';
+        viewport.style.height = (H * scale) + 'px';
+    }
+
+    fit();
+    window.addEventListener('resize', fit);
+})();
+</script>
+
+</body>
+</html>

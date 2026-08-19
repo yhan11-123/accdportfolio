@@ -1,0 +1,665 @@
+/* =====================================================
+   Reflow — Case Study
+   Built 1:1 from the Figma frame "Reflow — Case Study"
+   (node 47:19, 1440 × 19933). The artboard is fixed, so
+   everything is positioned at its Figma coordinate inside
+   .rf-stage and the whole stage is scaled to fit the
+   viewport. Every value below is the Figma value.
+   ===================================================== */
+
+:root {
+    --rf-ink: #222;          /* headings, hairlines */
+    --rf-body: #2a394c;      /* body copy */
+    --rf-cobalt: #1b3fd1;    /* structure and interaction */
+    --rf-clay: #c62828;      /* live disruption only */
+    --rf-page: #f7f7f7;
+    --rf-dark: #222;
+    --rf-sw-ink: #14161a;
+    --rf-sw-body: #454b54;
+    --rf-sw-meta: #5c626c;
+    --rf-chip-line: #d2d7de;
+}
+
+body {
+    background-color: var(--rf-page);
+    color: var(--rf-ink);
+    font-family: "Noto Sans", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* The artboard sits in the right-hand 80%, the same split kindle and
+   manicpanic use. */
+.rf-viewport {
+    width: 80%;
+    margin-left: auto;
+    margin-right: 0;
+    overflow: hidden;
+}
+
+/* Left sidebar: home link, project description and tools, in the gutter
+   left of .rf-viewport. */
+.rf-sidebar {
+    position: fixed;
+    left: 0;
+    top: 60px;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 32px;
+    box-sizing: border-box;
+}
+
+.rf-sidebar-home {
+    display: inline-block;
+    width: fit-content;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--rf-ink);
+    color: var(--rf-ink);
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.rf-sidebar-home:hover { opacity: 0.6; }
+
+.rf-sidebar-description {
+    margin: 0;
+    color: var(--rf-body);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    white-space: pre-line;
+}
+
+/* Tools, one per line, under the description. */
+.rf-sidebar-tools {
+    margin: 32px 0 0;
+    padding: 0;
+    list-style: none;
+    color: var(--rf-ink);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+}
+
+.rf-sidebar-tools li + li { margin-top: 8px; }
+
+/* TestFlight QR, under the tools. */
+.rf-sidebar-qr {
+    margin-top: 28px;
+}
+
+.rf-sidebar-qr img {
+    display: block;
+    width: 120px;
+    height: auto;
+    background-color: #fff;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid var(--rf-chip-line);
+    border-radius: 8px;
+    image-rendering: pixelated;
+}
+
+.rf-sidebar-qr p {
+    margin: 10px 0 0;
+    color: var(--rf-sw-meta);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 18px;
+}
+
+/* Narrow screens: a 20% column is too tight to read, so stack it on top. */
+@media (max-width: 900px) {
+
+    .rf-viewport { width: 100%; }
+
+    .rf-sidebar {
+        position: static;
+        width: 100%;
+        padding: 24px;
+    }
+}
+
+.rf-stage {
+    position: relative;
+    width: 1440px;
+    height: 19933px;
+    transform-origin: top left;
+    /* Forces the browser to build the compositing layer's backing store at the
+       post-transform resolution instead of caching a lower-res bitmap and
+       stretching it — without this, the exported bands render soft. */
+    will-change: transform;
+    backface-visibility: hidden;
+}
+
+.rf-stage > * {
+    position: absolute;
+    margin: 0;
+}
+
+/* =====================
+   Section grounds
+   ===================== */
+
+.rf-bg {
+    left: 0;
+    width: 1440px;
+}
+
+/* Figma's gradients carry alpha, and CSS interpolates alpha differently, so
+   each ramp is written out as opaque stops sampled from the frame instead. */
+.rf-bg--hero {
+    background-image: linear-gradient(180deg, #4663D8 0%, #5872DB 12.5%, #6B82DF 25%, #7E92E1 37.5%,
+        #93A4E6 50%, #A9B7E9 62.5%, #C2CBEE 75%, #DBE0F2 87.5%, #F7F7F7 100%);
+}
+
+.rf-bg--toblue {
+    background-image: linear-gradient(180deg, #F7F7F7 0%, #D9DFF2 12.5%, #C1CAEE 25%, #A8B5E9 37.5%,
+        #92A2E5 50%, #7D92E2 62.5%, #6B82DF 75%, #5872DC 87.5%, #4663D8 100%);
+}
+
+.rf-bg--todark {
+    background-image: linear-gradient(180deg, #F7F7F7 0%, #D9D9D9 12.5%, #BDBDBD 25%, #A2A2A2 37.5%,
+        #868686 50%, #6B6B6B 62.5%, #4F4F4F 75%, #333333 87.5%, #222222 100%);
+}
+
+.rf-bg--tolight {
+    background-image: linear-gradient(180deg, #222222 0%, #3B3B3B 12.5%, #575757 25%, #727272 37.5%,
+        #8D8D8D 50%, #A7A7A7 62.5%, #C2C2C2 75%, #DDDDDD 87.5%, #F7F7F7 100%);
+}
+.rf-bg--dark    { background-color: var(--rf-dark); }
+.rf-bg--cobalt  { background-color: var(--rf-cobalt); }
+
+/* Exported bands of the frame: mockups and their ground, cropped at the
+   artboard width so they sit seamlessly on the gradients above. */
+.rf-band {
+    display: block;
+    height: auto;
+}
+
+/* The screen recording this frame stands in for, played in place. It sits on
+   the CSS gradient rather than an exported band, and carries the node's own
+   30px corner. */
+.rf-gif {
+    display: block;
+    height: auto;
+    border-radius: 30px;
+}
+
+/* =====================
+   00 · Hero
+   ===================== */
+
+.rf-wordmark {
+    font-family: Geologica, sans-serif;
+    font-size: 240px;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -4.8px;
+    color: var(--rf-ink);
+    white-space: nowrap;
+}
+
+.rf-tagline {
+    font-family: "Noto Sans Display", "Noto Sans", sans-serif;
+    font-size: 34px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--rf-ink);
+    white-space: nowrap;
+}
+
+.rf-quote {
+    font-size: 32px;
+    font-weight: 500;
+    line-height: 1.6;
+    color: var(--rf-body);
+}
+
+.rf-quote b { font-weight: 700; }
+
+/* Geologica carries the name wherever it appears in running text. */
+.rf-geo { font-family: Geologica, sans-serif; font-weight: 600; }
+
+/* =====================
+   Shared column blocks
+   ===================== */
+
+.rf-two,
+.rf-three,
+.rf-four {
+    display: flex;
+    align-items: flex-start;
+}
+
+.rf-two  { gap: 99px; }
+.rf-three { gap: 40px; }
+.rf-four { gap: 32px; }
+.rf-two--faces { gap: 98px; }
+
+.rf-two-col,
+.rf-col {
+    flex: 1 0 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.rf-hairline { width: 100%; height: 1px; background-color: var(--rf-ink); }
+.rf-sp8  { height: 8px; }
+.rf-sp16 { height: 16px; }
+.rf-sp20 { height: 20px; }
+
+.rf-label {
+    font-family: Inter, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.4;
+    height: 31.97px;
+    color: var(--rf-ink);
+}
+
+.rf-about {
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1.65;
+    color: var(--rf-body);
+}
+
+.rf-meta { width: 100%; }
+
+.rf-meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 41px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.65;
+    color: var(--rf-body);
+}
+
+.rf-meta-row dt,
+.rf-meta-row dd { width: 277.24px; margin: 0; }
+
+/* hairline / title / body, used by the four-up, the three-up and each
+   Critical Path step. */
+.rf-col-title,
+.rf-col-body { width: 100%; }
+
+.rf-col-title {
+    margin-top: 16px;
+    font-family: "Noto Sans Display", "Noto Sans", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.65;
+    color: var(--rf-body);
+}
+
+.rf-col-body {
+    margin-top: 8px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.65;
+    color: var(--rf-body);
+}
+
+.rf-col--dark .rf-hairline { background-color: #fff; }
+.rf-col--dark .rf-col-title,
+.rf-col--dark .rf-col-body { color: #fff; }
+
+.rf-step {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* =====================
+   Feature rows
+   ===================== */
+
+.rf-chips { height: 36px; }
+
+.rf-chip {
+    position: absolute;
+    top: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 15px;
+    border: 1px solid var(--rf-cobalt);
+    border-radius: 28px;
+    font-family: Inter, sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--rf-ink);
+    white-space: nowrap;
+}
+
+.rf-feature-copy {
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--rf-body);
+}
+
+.rf-statement {
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--rf-ink);
+}
+
+/* =====================
+   On the cobalt gradient
+   ===================== */
+
+.rf-onblue {
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #fff;
+}
+
+.rf-onblue b { font-weight: 700; }
+
+/* =====================
+   Headings
+   ===================== */
+
+.rf-h2 {
+    font-size: 48px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--rf-ink);
+}
+
+.rf-h2--light { color: #fff; }
+
+.rf-h3 {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--rf-ink);
+}
+
+.rf-kicker {
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--rf-ink);
+    text-align: center;
+}
+
+.rf-h4 {
+    font-family: "Noto Sans Display", "Noto Sans", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--rf-ink);
+}
+
+/* Chrome sets this line ~1.6% tighter than Figma does, so it carries a hair
+   of tracking to land on the same width. */
+.rf-h3--wide { letter-spacing: 0.26px; white-space: nowrap; }
+
+.rf-note {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 24px;
+    color: var(--rf-body);
+}
+
+/* =====================
+   What the Day Feels Like
+   ===================== */
+
+.rf-empathy {
+    border: 3px solid #d9d9d9;
+    border-radius: 45px;
+}
+
+.rf-empathy-title {
+    font-family: "Noto Sans Display", "Noto Sans", sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.65;
+    color: #fff;
+}
+
+.rf-empathy-list {
+    list-style: disc;
+    font-family: "Noto Sans Display", "Noto Sans", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.65;
+    color: #fff;
+    padding: 0;
+}
+
+.rf-empathy-list li { margin-left: 36px; }
+
+/* =====================
+   HMW
+   ===================== */
+
+.rf-hmw {
+    font-family: Inter, sans-serif;
+    font-size: 46px;
+    font-weight: 500;
+    line-height: 1.42;
+    color: #fff;
+}
+
+.rf-hmw-pillar {
+    font-family: "Noto Sans Display", "Noto Sans", sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.65;
+    color: #fff;
+    white-space: nowrap;
+}
+
+/* =====================
+   How Tasks Live
+   ===================== */
+
+.rf-ring {
+    border: 5px solid #fff;
+    border-radius: 50%;
+}
+
+.rf-block {
+    border: 5px solid #fff;
+    border-radius: 26px;
+}
+
+.rf-leader { height: 3px; background-color: #fff; }
+
+/* The label sits on the ring, so it carries the section ground to knock a
+   gap in the stroke behind it. */
+.rf-ring-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 15px;
+    background-color: var(--rf-dark);
+    font-family: "Noto Sans Display", "Noto Sans", sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.65;
+    color: #fff;
+    white-space: nowrap;
+}
+
+.rf-ring-copy {
+    font-family: "Noto Sans Display", "Noto Sans", sans-serif;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.65;
+    color: #fff;
+}
+
+/* =====================
+   Design Foundation
+   ===================== */
+
+.rf-swatch-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding-top: 22px;
+}
+
+.rf-sw-name {
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 27px;
+    letter-spacing: -0.24px;
+    color: var(--rf-sw-ink);
+}
+
+.rf-sw-role {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24px;
+    color: var(--rf-sw-ink);
+}
+
+.rf-sw-body {
+    width: 100%;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 23px;
+    color: var(--rf-sw-body);
+}
+
+.rf-sw-hex {
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 19px;
+    letter-spacing: 0.4px;
+    color: var(--rf-sw-meta);
+}
+
+.rf-grid {
+    display: flex;
+    gap: 14px;
+}
+
+.rf-gcell { width: 87.17px; background-color: #fff; }
+
+.rf-gfill {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 104px;
+    padding: 0 8px 9px 10px;
+    overflow: hidden;
+}
+
+.rf-gfill span {
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 20px;
+    color: #fff;
+}
+
+.rf-gmeta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-top: 10px;
+    background-color: #fff;
+    white-space: nowrap;
+}
+
+.rf-gname { font-size: 13px; font-weight: 600; line-height: 18px; color: var(--rf-sw-ink); }
+.rf-ghex  { font-size: 11px; font-weight: 400; line-height: 15px; letter-spacing: 0.22px; color: var(--rf-sw-meta); }
+
+/* =====================
+   Typography specimens
+   ===================== */
+
+.rf-eyebrow {
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: 2.24px;
+    color: var(--rf-ink);
+}
+
+.rf-face-name {
+    font-family: Inter, sans-serif;
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.8px;
+    color: var(--rf-ink);
+}
+
+.rf-specimen {
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--rf-body);
+}
+
+.rf-face-use {
+    font-family: Inter, sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--rf-ink);
+}
+
+/* =====================
+   Stack
+   ===================== */
+
+.rf-rule { height: 2px; background-color: var(--rf-ink); }
+
+.rf-row {
+    display: flex;
+    align-items: flex-start;
+    padding: 22px 0;
+}
+
+.rf-row-label {
+    width: 280px;
+    flex-shrink: 0;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    color: var(--rf-sw-ink);
+}
+
+.rf-row-items { flex: 1 0 0; min-width: 0; }
+
+.rf-row-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.rf-stack-chip {
+    padding: 6px 12px;
+    border: 1px solid var(--rf-chip-line);
+    border-radius: 14px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    color: var(--rf-sw-ink);
+    white-space: nowrap;
+}
+
+.rf-row-note {
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+    color: var(--rf-sw-meta);
+}
