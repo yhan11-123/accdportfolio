@@ -1,0 +1,1036 @@
+/* =====================================================
+   Day One — Case Study
+   Built from the Figma frame "Day One — Case Study
+   (Spotlight ver.)" (node 315:3, 1440 x 10478).
+
+   The artboard is a fixed 1440 grid, so every size below
+   is written as its Figma value times --u, one design
+   pixel. --u is derived from the column width, so the
+   whole page scales the way reflow's artboard does —
+   but as real flow layout, so the type stays live.
+   ===================================================== */
+
+:root {
+    --do-green: #00433e;      /* ground, headings, chips */
+    --do-green-deep: #003531; /* cards sitting on green */
+    --do-green-line: #33665e; /* hairline on green */
+    --do-green-chip: #0f524a; /* chip on green */
+    --do-mint: #73de89;       /* the one accent */
+    --do-cream: #f5f1ea;      /* page ground */
+    --do-sand: #ece7dd;       /* method cards on cream */
+    --do-sand-line: #d9d1c4;
+    --do-ink: #161616;        /* body copy on cream */
+    --do-slate: #215a54;      /* labels on cream */
+    --do-mist: #d9e5e0;       /* body copy on green */
+    --do-mist-dim: #99c2b8;   /* secondary on green */
+    --do-mist-meta: #8cb2a8;  /* meta on green */
+    --do-clay: #d98c40;       /* "we saw", the problem side */
+}
+
+body {
+    background-color: var(--do-cream);
+    color: var(--do-ink);
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* The case study sits in the right-hand 80%, the same split kindle,
+   manicpanic and reflow use. */
+.do-viewport {
+    width: 80%;
+    margin-left: auto;
+    margin-right: 0;
+    container-type: inline-size;
+}
+
+/* Left sidebar: home link, project description and tools, in the gutter
+   left of .do-viewport. */
+.do-sidebar {
+    position: fixed;
+    left: 0;
+    top: 60px;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 0 32px;
+    box-sizing: border-box;
+}
+
+.do-sidebar-home {
+    display: inline-block;
+    width: fit-content;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--do-green);
+    color: var(--do-green);
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.do-sidebar-home:hover { opacity: 0.6; }
+
+.do-sidebar-description {
+    margin: 0;
+    color: var(--do-ink);
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.do-sidebar-tools {
+    margin: 32px 0 0;
+    padding: 0;
+    list-style: none;
+    color: var(--do-green);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+}
+
+.do-sidebar-tools li + li { margin-top: 8px; }
+
+/* =====================================================
+   The stage: 1440 design px wide, never scaled past 1:1.
+   1 design px = 100cqw / 1440 of the column.
+   ===================================================== */
+.do-stage {
+    /* Fallback for engines without container query units: measure the window
+       and take the 80% the column occupies. */
+    --u: min(1px, 0.0555556vw);
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+/* Measuring the column itself keeps the scale exact whatever the scrollbar
+   does to vw. */
+@supports (width: 1cqw) {
+    .do-stage { --u: min(1px, 0.0694444cqw); }
+}
+
+.do-sec {
+    padding: calc(60 * var(--u)) calc(100 * var(--u));
+}
+
+.do-sec--green {
+    background-color: var(--do-green);
+}
+
+.do-sec--cream {
+    background-color: var(--do-cream);
+}
+
+/* Vertical rhythm. The Figma frame spaces everything with empty
+   10 x N frames, so these are those frames. */
+.do-s10 { height: calc(10 * var(--u)); }
+.do-s24 { height: calc(24 * var(--u)); }
+.do-s28 { height: calc(28 * var(--u)); }
+.do-s32 { height: calc(32 * var(--u)); }
+.do-s56 { height: calc(56 * var(--u)); }
+
+/* =====================
+   Shared type
+   ===================== */
+
+.do-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: calc(12 * var(--u));
+    margin: 0;
+    font-size: calc(16 * var(--u));
+    font-weight: 600;
+}
+
+.do-eyebrow b {
+    color: var(--do-mint);
+    font-weight: 600;
+}
+
+.do-eyebrow span {
+    color: var(--do-slate);
+    letter-spacing: calc(1.5 * var(--u));
+}
+
+.do-sec--green .do-eyebrow span { color: var(--do-mist-meta); }
+
+.do-h2 {
+    margin: 0;
+    max-width: calc(1050 * var(--u));
+    color: var(--do-green);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: calc(44 * var(--u));
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: calc(-0.88 * var(--u));
+}
+
+/* The problem headline runs one step larger and wider than the rest. */
+.do-h2--lead {
+    max-width: calc(1120 * var(--u));
+    font-size: calc(52 * var(--u));
+    line-height: 1.22;
+    letter-spacing: calc(-1.04 * var(--u));
+}
+
+.do-sec--green .do-h2 { color: var(--do-cream); }
+
+.do-lead {
+    margin: 0;
+    max-width: calc(900 * var(--u));
+    color: var(--do-ink);
+    font-size: calc(22 * var(--u));
+    font-weight: 400;
+    line-height: 1.58;
+}
+
+.do-sec--green .do-lead {
+    max-width: calc(860 * var(--u));
+    color: var(--do-mist);
+    line-height: 1.6;
+}
+
+/* The line that introduces the row below it. */
+.do-kicker {
+    margin: 0;
+    color: var(--do-slate);
+    font-size: calc(22 * var(--u));
+    font-weight: 500;
+}
+
+.do-kicker--tight {
+    color: var(--do-green);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 600;
+    letter-spacing: calc(-0.22 * var(--u));
+}
+
+.do-sec--green .do-kicker { color: var(--do-mist-dim); }
+
+/* =====================
+   Chips and pills
+   ===================== */
+
+.do-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(10 * var(--u));
+}
+
+.do-chip {
+    padding: calc(9 * var(--u)) calc(16 * var(--u));
+    border-radius: 100px;
+    background-color: var(--do-green);
+    color: var(--do-cream);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: calc(16 * var(--u));
+    font-weight: 600;
+    letter-spacing: calc(-0.16 * var(--u));
+    white-space: nowrap;
+}
+
+/* On the green ground the chip inverts: the fill lifts, the type is mint. */
+.do-sec--green .do-chip {
+    background-color: var(--do-green-chip);
+    color: var(--do-mint);
+}
+
+/* Small mint number badge at the top of a step card. */
+.do-badge {
+    padding: calc(6 * var(--u)) calc(14 * var(--u));
+    border-radius: 100px;
+    background-color: var(--do-mint);
+    color: var(--do-green);
+    font-size: calc(16 * var(--u));
+    font-weight: 600;
+    letter-spacing: calc(1 * var(--u));
+    white-space: nowrap;
+}
+
+.do-badge--muted {
+    background-color: #668078;
+    color: var(--do-mist-meta);
+}
+
+/* =====================
+   Grids
+   ===================== */
+
+.do-cols3,
+.do-cols2 {
+    display: grid;
+    gap: calc(24 * var(--u));
+    align-items: stretch;
+}
+
+.do-cols3 { grid-template-columns: repeat(3, 1fr); }
+.do-cols2 { grid-template-columns: repeat(2, 1fr); }
+
+/* =====================
+   Cards
+   ===================== */
+
+.do-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: calc(32 * var(--u)) calc(32 * var(--u)) calc(36 * var(--u));
+    border-radius: calc(16 * var(--u));
+    background-color: #fff;
+    gap: calc(16 * var(--u));
+}
+
+.do-card-title {
+    margin: 0;
+    width: 100%;
+    color: var(--do-green);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: calc(22 * var(--u));
+    font-weight: 600;
+    line-height: 1.26;
+    letter-spacing: calc(-0.22 * var(--u));
+}
+
+.do-card-body {
+    margin: 0;
+    width: 100%;
+    color: var(--do-ink);
+    font-size: calc(16 * var(--u));
+    font-weight: 400;
+    line-height: 1.55;
+}
+
+.do-card-label {
+    margin: 0;
+    color: var(--do-mint);
+    font-size: calc(16 * var(--u));
+    font-weight: 600;
+    letter-spacing: calc(1.2 * var(--u));
+}
+
+/* Method cards: the flat sand blocks that carry research and testing setup. */
+.do-card--sand {
+    padding: calc(26 * var(--u)) calc(28 * var(--u)) calc(28 * var(--u));
+    border-radius: calc(14 * var(--u));
+    background-color: var(--do-sand);
+    gap: calc(10 * var(--u));
+}
+
+.do-card--sand .do-card-title { font-size: calc(20 * var(--u)); letter-spacing: calc(-0.2 * var(--u)); }
+.do-card--sand .do-card-body { line-height: 1.5; }
+
+.do-card--sand .do-card-label {
+    color: var(--do-slate);
+    letter-spacing: calc(1 * var(--u));
+}
+
+/* Cards on the green ground. */
+.do-card--dark {
+    border: 1px solid var(--do-green-line);
+    background-color: var(--do-green-deep);
+}
+
+.do-card--dark .do-card-title { color: var(--do-cream); }
+.do-card--dark .do-card-body { color: var(--do-mist); }
+
+/* Statistic cards. */
+.do-card--stat {
+    padding: calc(34 * var(--u)) calc(36 * var(--u)) calc(30 * var(--u));
+    background-color: var(--do-green);
+    gap: calc(12 * var(--u));
+}
+
+.do-stat-figure {
+    margin: 0;
+    color: var(--do-mint);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: calc(64 * var(--u));
+    font-weight: 700;
+    letter-spacing: calc(-1.28 * var(--u));
+}
+
+.do-stat-body {
+    margin: 0;
+    color: #e0ebe5;
+    font-size: calc(16 * var(--u));
+    line-height: 1.5;
+}
+
+.do-stat-source {
+    margin: 0;
+    color: var(--do-mist-meta);
+    font-size: calc(14 * var(--u));
+    font-weight: 500;
+    letter-spacing: calc(0.5 * var(--u));
+}
+
+/* =====================
+   00 · Hero
+   ===================== */
+
+.do-hero {
+    padding: calc(80 * var(--u)) calc(100 * var(--u)) calc(96 * var(--u));
+}
+
+.do-meta-bar {
+    display: flex;
+    align-items: center;
+    gap: calc(16 * var(--u));
+    margin: 0 0 calc(56 * var(--u));
+    font-size: calc(16 * var(--u));
+}
+
+.do-meta-bar b {
+    color: var(--do-mint);
+    font-weight: 600;
+    letter-spacing: calc(1.5 * var(--u));
+}
+
+.do-meta-bar span { color: #c7d9d4; font-weight: 400; }
+
+.do-hero-grid {
+    display: flex;
+    align-items: flex-start;
+    gap: calc(64 * var(--u));
+}
+
+.do-hero-copy { width: calc(556 * var(--u)); flex: none; }
+
+.do-hero-badge {
+    display: inline-block;
+    padding: calc(10 * var(--u)) calc(18 * var(--u));
+    border-radius: 100px;
+    background-color: var(--do-mint);
+    color: var(--do-green);
+    font-size: calc(16 * var(--u));
+    font-weight: 600;
+    letter-spacing: calc(-0.16 * var(--u));
+}
+
+.do-h1 {
+    margin: calc(27 * var(--u)) 0 0;
+    color: var(--do-cream);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: calc(128 * var(--u));
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: calc(-3.84 * var(--u));
+}
+
+.do-tagline {
+    margin: calc(28 * var(--u)) 0 0;
+    width: calc(560 * var(--u));
+    color: var(--do-mist);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: calc(22 * var(--u));
+    font-weight: 500;
+    line-height: 1.45;
+}
+
+.do-hero-facts {
+    display: flex;
+    gap: calc(40 * var(--u));
+    margin: calc(28 * var(--u)) 0 0;
+    padding: 0;
+    font-size: calc(16 * var(--u));
+}
+
+.do-hero-facts div {
+    display: flex;
+    flex-direction: column;
+    gap: calc(6 * var(--u));
+}
+
+.do-hero-facts dt {
+    color: var(--do-mint);
+    font-weight: 600;
+    letter-spacing: calc(1 * var(--u));
+}
+
+.do-hero-facts dd {
+    margin: 0;
+    color: var(--do-mist);
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+.do-hero-shot {
+    display: block;
+    width: calc(620 * var(--u));
+    height: auto;
+    margin-top: calc(5 * var(--u));
+}
+
+/* =====================
+   00b · Product preview
+   ===================== */
+
+.do-preview {
+    padding: 0 calc(100 * var(--u)) calc(110 * var(--u));
+}
+
+.do-overline {
+    margin: 0;
+    color: var(--do-mist-dim);
+    font-size: calc(16 * var(--u));
+    font-weight: 600;
+    letter-spacing: calc(1.8 * var(--u));
+}
+
+/* Three shots of unequal height, hung from a shared baseline. */
+.do-shots {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: calc(20 * var(--u));
+    align-items: end;
+}
+
+.do-shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.do-shot figcaption {
+    margin: calc(14 * var(--u)) 0 0;
+    color: var(--do-mist);
+    font-size: calc(16 * var(--u));
+    font-weight: 500;
+    text-align: center;
+}
+
+.do-shot { margin: 0; }
+
+/* =====================
+   01 · Problem
+   ===================== */
+
+.do-split {
+    display: flex;
+    align-items: flex-start;
+    gap: calc(80 * var(--u));
+}
+
+.do-split > .do-lead { flex: 1; max-width: none; }
+
+.do-quote {
+    display: flex;
+    flex-direction: column;
+    gap: calc(20 * var(--u));
+    flex: none;
+    width: calc(440 * var(--u));
+    box-sizing: border-box;
+    padding: calc(36 * var(--u));
+    border-left: calc(4 * var(--u)) solid var(--do-mint);
+    border-radius: calc(16 * var(--u));
+    background-color: #fff;
+}
+
+.do-quote-mark {
+    margin: 0;
+    color: var(--do-mint);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: calc(48 * var(--u));
+    font-weight: 700;
+    line-height: 0.6;
+}
+
+.do-quote p {
+    margin: 0;
+    color: var(--do-green);
+    font-size: calc(18 * var(--u));
+    font-style: italic;
+    line-height: 1.55;
+}
+
+.do-quote footer {
+    color: var(--do-slate);
+    font-size: calc(16 * var(--u));
+    font-weight: 600;
+}
+
+/* =====================
+   02 · Solution
+   ===================== */
+
+/* The two-user model: one setup on the left, every newcomer on the right. */
+.do-model {
+    display: flex;
+    align-items: center;
+    gap: calc(40 * var(--u));
+    padding: calc(44 * var(--u)) calc(48 * var(--u));
+    border-radius: calc(20 * var(--u));
+    background-color: var(--do-green);
+}
+
+.do-model-side {
+    display: flex;
+    flex-direction: column;
+    gap: calc(14 * var(--u));
+    flex: 1;
+}
+
+.do-model-label {
+    margin: 0;
+    color: var(--do-mint);
+    font-size: calc(16 * var(--u));
+    font-weight: 600;
+    letter-spacing: calc(1.5 * var(--u));
+}
+
+.do-model-title {
+    margin: 0;
+    color: #fff;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: calc(26 * var(--u));
+    font-weight: 600;
+    letter-spacing: calc(-0.26 * var(--u));
+}
+
+.do-model-body {
+    margin: 0;
+    color: var(--do-mist);
+    font-size: calc(16 * var(--u));
+    line-height: 1.52;
+}
+
+.do-model-hinge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: calc(8 * var(--u));
+    flex: none;
+    width: calc(150 * var(--u));
+    text-align: center;
+}
+
+.do-model-hinge b {
+    color: var(--do-mint);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: calc(40 * var(--u));
+    font-weight: 700;
+}
+
+.do-model-hinge span {
+    color: var(--do-mist-dim);
+    font-size: calc(16 * var(--u));
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* =====================
+   03 · Research
+   ===================== */
+
+/* The affinity boards are cropped windows onto much taller Figma boards. */
+.do-boards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: calc(16 * var(--u));
+}
+
+.do-board {
+    height: calc(300 * var(--u));
+    overflow: hidden;
+    border-radius: calc(12 * var(--u));
+    background-color: #fff;
+    box-shadow: 0 calc(4 * var(--u)) calc(16 * var(--u)) rgba(0, 26, 20, 0.08);
+}
+
+.do-board img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left top;
+}
+
+/* Themes: outlined pills, each led by a mint dot. */
+.do-themes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: calc(12 * var(--u));
+}
+
+.do-theme {
+    display: flex;
+    align-items: center;
+    gap: calc(12 * var(--u));
+    padding: calc(16 * var(--u)) calc(24 * var(--u));
+    border: 1px solid var(--do-sand-line);
+    border-radius: 100px;
+    background-color: #fff;
+    color: var(--do-green);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: calc(18 * var(--u));
+    font-weight: 600;
+    letter-spacing: calc(-0.18 * var(--u));
+}
+
+.do-dot {
+    flex: none;
+    width: calc(10 * var(--u));
+    height: calc(10 * var(--u));
+    border-radius: 50%;
+    background-color: var(--do-mint);
+}
+
+/* =====================
+   04 · Pivot
+   ===================== */
+
+.do-hmw {
+    display: flex;
+    align-items: center;
+    gap: calc(28 * var(--u));
+}
+
+.do-hmw > .do-card { flex: 1; gap: calc(16 * var(--u)); padding: calc(28 * var(--u)) calc(32 * var(--u)) calc(32 * var(--u)); }
+
+.do-hmw-text {
+    margin: 0;
+    width: 100%;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: calc(22 * var(--u));
+    font-weight: 500;
+    line-height: 1.42;
+    letter-spacing: calc(-0.22 * var(--u));
+    color: var(--do-green);
+}
+
+.do-card--dark .do-hmw-text { color: var(--do-mist-meta); }
+
+.do-arrow {
+    flex: none;
+    width: calc(56 * var(--u));
+    color: var(--do-mint);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: calc(36 * var(--u));
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Name and structure: what the pivot actually changed. */
+.do-change {
+    display: flex;
+    align-items: center;
+    gap: calc(12 * var(--u));
+    width: 100%;
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: calc(20 * var(--u));
+    font-weight: 500;
+}
+
+.do-change .do-was { color: var(--do-mist-dim); }
+.do-change .do-to  { color: var(--do-mint); }
+
+.do-change .do-now {
+    color: var(--do-cream);
+    font-weight: 600;
+    letter-spacing: calc(-0.2 * var(--u));
+}
+
+/* =====================
+   05 · Paper prototype
+   ===================== */
+
+.do-frictions {
+    display: flex;
+    flex-direction: column;
+    gap: calc(14 * var(--u));
+}
+
+.do-friction {
+    display: flex;
+    align-items: center;
+    gap: calc(36 * var(--u));
+    padding: calc(24 * var(--u)) calc(32 * var(--u)) calc(26 * var(--u));
+    border-radius: calc(14 * var(--u));
+    background-color: #fff;
+}
+
+.do-friction > div {
+    display: flex;
+    flex-direction: column;
+    gap: calc(7 * var(--u));
+    flex: 1;
+    font-size: calc(16 * var(--u));
+}
+
+.do-friction dt {
+    font-weight: 600;
+    letter-spacing: calc(1.2 * var(--u));
+}
+
+.do-friction .do-saw dt { color: var(--do-clay); }
+.do-friction .do-changed dt { color: var(--do-mint); }
+
+.do-friction dd {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.do-friction .do-saw dd { color: var(--do-ink); }
+
+.do-friction .do-changed dd {
+    color: var(--do-green);
+    font-weight: 500;
+}
+
+.do-friction .do-arrow {
+    width: auto;
+    font-size: calc(22 * var(--u));
+    font-weight: 600;
+}
+
+/* =====================
+   06 · The build
+   ===================== */
+
+.do-spotlight {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.do-flow-head {
+    display: flex;
+    align-items: center;
+    gap: calc(12 * var(--u));
+    margin: 0;
+    color: var(--do-green);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: calc(22 * var(--u));
+    font-weight: 600;
+    letter-spacing: calc(-0.22 * var(--u));
+}
+
+.do-flow-head .do-dot {
+    width: calc(12 * var(--u));
+    height: calc(12 * var(--u));
+}
+
+.do-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: calc(20 * var(--u));
+}
+
+/* The host row hangs from a shared baseline; the newcomer row sits on a
+   shared top edge, exactly as the frame lays them out. */
+.do-steps--baseline { align-items: end; }
+.do-steps--top { align-items: start; }
+
+.do-step { margin: 0; }
+
+.do-step img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.do-step figcaption {
+    display: flex;
+    gap: calc(10 * var(--u));
+    margin: calc(16 * var(--u)) 0 0;
+    font-size: calc(16 * var(--u));
+}
+
+.do-step figcaption b {
+    flex: none;
+    color: var(--do-mint);
+    font-weight: 600;
+}
+
+.do-step figcaption span {
+    display: flex;
+    flex-direction: column;
+    gap: calc(4 * var(--u));
+}
+
+.do-step figcaption strong {
+    color: var(--do-green);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 600;
+}
+
+.do-step figcaption em {
+    color: var(--do-ink);
+    font-style: normal;
+    line-height: 1.48;
+}
+
+/* =====================
+   08 · Reflection
+   ===================== */
+
+.do-learned {
+    display: flex;
+    flex-direction: column;
+    gap: calc(20 * var(--u));
+    padding: calc(32 * var(--u)) calc(36 * var(--u)) calc(36 * var(--u));
+    border: 1px solid var(--do-green-line);
+    border-radius: calc(16 * var(--u));
+    background-color: var(--do-green-deep);
+}
+
+.do-learned h3 {
+    margin: 0;
+    color: var(--do-cream);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: calc(22 * var(--u));
+    font-weight: 600;
+    letter-spacing: calc(-0.22 * var(--u));
+}
+
+.do-learned ul {
+    display: flex;
+    flex-direction: column;
+    gap: calc(20 * var(--u));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.do-learned li {
+    display: flex;
+    align-items: flex-start;
+    gap: calc(14 * var(--u));
+    color: var(--do-mist);
+    font-size: calc(16 * var(--u));
+    line-height: 1.56;
+}
+
+.do-learned .do-dot {
+    width: calc(8 * var(--u));
+    height: calc(8 * var(--u));
+    margin-top: calc(6 * var(--u));
+}
+
+.do-closing {
+    margin: 0;
+    max-width: calc(900 * var(--u));
+    color: var(--do-mint);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: calc(34 * var(--u));
+    font-weight: 800;
+    line-height: 1.28;
+    letter-spacing: calc(-0.68 * var(--u));
+}
+
+.do-rule {
+    width: calc(10 * var(--u));
+    height: 1px;
+    background-color: var(--do-green-line);
+}
+
+.do-sources-label {
+    margin: 0;
+    color: var(--do-mint);
+    font-size: calc(16 * var(--u));
+    font-weight: 600;
+    letter-spacing: calc(1.5 * var(--u));
+}
+
+.do-sources {
+    margin: 0;
+    max-width: calc(1000 * var(--u));
+    color: var(--do-mist-meta);
+    font-size: calc(16 * var(--u));
+    line-height: 1.7;
+}
+
+.do-sources span { margin-right: calc(24 * var(--u)); }
+
+/* =====================================================
+   Narrow screens
+
+   Below 1024px the 20% gutter is too tight to read and
+   the 1440 grid scales past legibility, so the sidebar
+   moves on top, --u is pinned at 1:1, and every fixed
+   Figma width gives way to the column.
+   ===================================================== */
+@media (max-width: 1024px) {
+
+    .do-viewport { width: 100%; }
+
+    .do-sidebar {
+        position: static;
+        width: 100%;
+        padding: 24px;
+        box-sizing: border-box;
+    }
+
+    .do-stage { --u: 1px; }
+
+    .do-sec,
+    .do-hero,
+    .do-preview {
+        padding: 40px 24px;
+    }
+
+    .do-h1 {
+        margin-top: 20px;
+        font-size: clamp(52px, 15vw, 104px);
+    }
+
+    .do-h2,
+    .do-h2--lead {
+        max-width: 100%;
+        font-size: clamp(26px, 5.4vw, 40px);
+    }
+
+    .do-lead,
+    .do-tagline,
+    .do-closing,
+    .do-sources {
+        max-width: 100%;
+        width: auto;
+    }
+
+    .do-lead { font-size: 18px; }
+    .do-tagline { font-size: 19px; }
+    .do-kicker { font-size: 19px; }
+    .do-closing { font-size: 26px; }
+
+    .do-hero-grid,
+    .do-split,
+    .do-hmw,
+    .do-model,
+    .do-friction {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 28px;
+    }
+
+    .do-hero-copy,
+    .do-hero-shot,
+    .do-quote {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .do-hero-facts { flex-wrap: wrap; gap: 24px; }
+
+    .do-cols3,
+    .do-cols2,
+    .do-shots,
+    .do-boards,
+    .do-steps {
+        grid-template-columns: 1fr;
+    }
+
+    /* Stacked, the arrows point down the page rather than across it. */
+    .do-arrow,
+    .do-model-hinge {
+        width: 100%;
+        transform: rotate(90deg);
+    }
+
+    .do-model-hinge span { display: none; }
+
+    .do-board { height: 220px; }
+
+    .do-stat-figure { font-size: 48px; }
+}
