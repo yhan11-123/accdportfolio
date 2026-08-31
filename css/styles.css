@@ -49,13 +49,27 @@ body {
     text-align: center;
 }
 
+/* The statement spans the exact height of the fixed left gutter: YOUNHEE opens
+   on the same line as .name at the top, CONNECTION closes on the same line as
+   the last .role_detail at the bottom. The two stanzas sit at the ends and the
+   slack collects in the gap between them, so the type only shrinks once five
+   lines no longer fit. Constants come from Oswald's metrics at this weight:
+   cap-height starts 0.10712em below a line box, and the last baseline sits
+   0.00988em above the block's bottom edge.
+   All of this is overridden below 1025px, where .name and .role stop being
+   fixed and the statement is just a block in the flow. */
 .statement {
-    
-    font-size: 10rem;
+
+    font-size: min(10rem, calc((100vh - 74px) / 4.633), calc((60vw - 38.4px) / 5.174));
     font-weight: 700;
     line-height: 95%;
     text-align: center;
-    margin-top: 2rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: calc(100vh - 74px + 0.117em);
+    margin-top: calc(0.375rem - 0.10712em);
 
     color: rgb(4, 32, 59);
 }
@@ -214,11 +228,15 @@ body {
     .statement {
         font-size: 6rem;
         margin-top: 1rem;
+        display: block;
+        height: auto;
     }
 
+    /* 0.95em replaces the blank line the <br><br> used to open up; the
+       1.5rem on top of it is the offset this rule always carried. */
     .statement-tagline {
-        display: inline-block;
-        margin-top: 1.5rem;
+        display: block;
+        margin-top: calc(0.95em + 1.5rem);
     }
 
     .intro {
@@ -298,11 +316,14 @@ body {
     .statement {
         font-size: 3rem;
         margin-top: 1rem;
+        display: block;
+        height: auto;
     }
 
+    /* As above: one blank line, plus this rule's original 1rem. */
     .statement-tagline {
-        display: inline-block;
-        margin-top: 1rem;
+        display: block;
+        margin-top: calc(0.95em + 1rem);
     }
 
     .intro {
