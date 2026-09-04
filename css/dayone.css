@@ -428,8 +428,9 @@ body {
 }
 
 .do-hero-facts {
-    display: flex;
-    gap: calc(40 * var(--u));
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: calc(32 * var(--u));
     margin: calc(28 * var(--u)) 0 0;
     padding: 0;
     font-size: calc(16 * var(--u));
@@ -1011,7 +1012,7 @@ body {
         box-sizing: border-box;
     }
 
-    .do-hero-facts { flex-wrap: wrap; gap: 24px; }
+    .do-hero-facts { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 24px; }
 
     .do-cols3,
     .do-cols2,
