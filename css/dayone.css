@@ -751,11 +751,14 @@ body {
     background-color: #fff;
 }
 
-.do-friction > div {
+/* The two columns are <dl>, not <div> — matching on the element keeps them at
+   an even half each, so the arrow lands on the same x in every row. */
+.do-friction > dl {
     display: flex;
     flex-direction: column;
     gap: calc(7 * var(--u));
-    flex: 1;
+    flex: 1 1 0;
+    min-width: 0;
     font-size: calc(16 * var(--u));
 }
 
@@ -780,7 +783,8 @@ body {
 }
 
 .do-friction .do-arrow {
-    width: auto;
+    flex: none;
+    width: calc(22 * var(--u));
     font-size: calc(22 * var(--u));
     font-weight: 600;
 }
