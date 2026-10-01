@@ -86,7 +86,7 @@ body {
 
 .rf-sidebar-tools li + li { margin-top: 8px; }
 
-/* TestFlight QR, under the tools. */
+/* App Store QR, under the tools. */
 .rf-sidebar-qr {
     margin-top: 28px;
 }

@@ -1,174 +1,245 @@
 body {
     background-color: rgb(245, 245, 245);
     font-family: "Oswald", sans-serif;
+    color: rgb(4, 32, 59);
     margin: 0;
     padding: 0;
 }
 
-
+a {
+    color: inherit;
+    text-decoration: none;
+}
 
 .page_layout {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    gap: 2rem;
-    padding: 2rem;
+    display: grid;
+    grid-template-columns: minmax(16rem, 30%) 1fr;
+    gap: 4rem;
+    padding: 0 2rem;
     box-sizing: border-box;
 }
 
-.main_left {
-    width: 15%;
-    display: block;
-    text-align: left;
-}
-
-.name {
-    font-size: 1rem;
-    color: black;
-    position: fixed;
-    top: 2rem;
-    left: 2rem;
-}
-
-.role {
-    display: block;
-    position: fixed;
-    bottom: 2rem;
-    left: 2rem;
-}
-
-.role_detail {
-    font-size: 1rem;
-    color: black;
-    padding: 2px;
-}
-
-.main_middle {
-    width: 60%;
-    display: block;
-    text-align: center;
-}
-
-/* The statement spans the exact height of the fixed left gutter: YOUNHEE opens
-   on the same line as .name at the top, CONNECTION closes on the same line as
-   the last .role_detail at the bottom. The two stanzas sit at the ends and the
-   slack collects in the gap between them, so the type only shrinks once five
-   lines no longer fit. Constants come from Oswald's metrics at this weight:
-   cap-height starts 0.10712em below a line box, and the last baseline sits
-   0.00988em above the block's bottom edge.
-   All of this is overridden below 1025px, where .name and .role stop being
-   fixed and the statement is just a block in the flow. */
-.statement {
-
-    font-size: min(10rem, calc((100vh - 74px) / 4.633), calc((60vw - 38.4px) / 5.174));
-    font-weight: 700;
-    line-height: 95%;
-    text-align: center;
+/* =====================
+   About column (left)
+   Sticks to the viewport; the top block and the extras
+   sit at opposite ends of the full height.
+   ===================== */
+.about {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    padding: 2rem 0;
+    box-sizing: border-box;
 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: calc(100vh - 74px + 0.117em);
-    margin-top: calc(0.375rem - 0.10712em);
+}
 
-    color: rgb(4, 32, 59);
+.name {
+    font-size: 2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.role {
+    margin-top: 0.5rem;
+}
+
+.role_detail {
+    font-size: 1rem;
+    padding: 2px 0;
 }
 
 .intro {
-    width: 80%;
-    font-size: 4rem;
-    text-align:center;
-
-    margin: 2rem auto;
-
-     color: rgb(4, 32, 59);
-
+    font-family: "Inter", sans-serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    max-width: 22rem;
+    margin: 2rem 0;
 }
 
-.projects {
-    font-family: "inter", sans-serif;
-    display: block;
-    margin: 4rem 0;
+.contact {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-.projects a {
-    text-decoration: none;
+.contact_item,
+.extras_item {
+    display: inline-block;
+    font-size: 1rem;
+    padding: 2px 0;
+    transition: opacity 0.2s;
 }
 
-.thumbnail {
-    width: 100%;
-    margin: 1rem 0;
+.contact_item:hover,
+.extras_item:hover {
+    opacity: 0.6;
 }
 
-.thumbnail img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-.project_explain {
+.extras {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* =====================
+   Project index (right)
+   ===================== */
+.project_list {
+    padding: 2rem 0;
+
+    /* Title size, shared by the row grid so the title column is wide
+       enough for the longest name (SUMMER PALM TREE ≈ 8em in Oswald 500)
+       and every row lines up on the same columns. */
+    --title-size: clamp(2rem, 3.2vw, 3.5rem);
+    --title-col: calc(var(--title-size) * 8.4);
+}
+
+.project {
+    border-bottom: 1px solid rgba(4, 32, 59, 0.2);
+}
+
+.project:first-child {
+    border-top: 1px solid rgba(4, 32, 59, 0.2);
+}
+
+.project_row {
+    all: unset;
+    box-sizing: border-box;
+    width: 100%;
+    cursor: pointer;
+
+    display: grid;
+    grid-template-columns: var(--title-col) 1fr 1.5rem;
+    align-items: baseline;
+    align-content: center;
+    gap: 1rem;
+    padding: 1.5rem 0;
+
+    /* Five closed rows fill the viewport, matching the sticky about column
+       (6px = the six 1px row borders). */
+    min-height: calc((100vh - 4rem - 6px) / 5);
+
+    font-family: "Inter", sans-serif;
+    font-size: 0.95rem;
+    color: rgb(4, 32, 59);
+    transition: opacity 0.4s;
+}
+
+.project_row:focus-visible {
+    outline: 1px solid rgb(4, 32, 59);
+    outline-offset: 4px;
+}
+
+/* Dim the other rows while one is hovered. */
+.project_list:hover .project_row {
+    opacity: 0.4;
+}
+
+.project_list .project_row:hover,
+.project.is-open .project_row {
+    opacity: 1;
 }
 
 .project_title {
-    font-size: 2rem;
-    color: black;
-
+    font-family: "Oswald", sans-serif;
+    font-size: var(--title-size);
+    white-space: nowrap;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: 0.01em;
 }
 
-.project_intro {
-    width: 60%;
+.project_tag {
+    opacity: 0.75;
+    justify-self: end;
     text-align: right;
-    color: black;
 }
 
-.project_intro_type {
-    font-size: 2rem;
-    text-align: right;
-    color: black;
+/* Plus that turns into a minus. */
+.project_toggle {
+    position: relative;
+    justify-self: end;
+    width: 0.8rem;
+    height: 0.8rem;
 }
 
-.project_intro_body {
-    font-size: 1.25rem;
-    text-align: justify;
-    color: black;
-
+.project_toggle::before,
+.project_toggle::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.main_right {
-    width: 15%;
+.project_toggle::after {
+    transform: rotate(90deg);
+}
+
+.project.is-open .project_toggle::after {
+    transform: rotate(0deg);
+}
+
+/* Brief: 0fr -> 1fr grid row animates height without measuring it. */
+.project_brief {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project.is-open .project_brief {
+    grid-template-rows: 1fr;
+}
+
+.project_brief_inner {
+    overflow: hidden;
+    min-height: 0;
+
+    display: grid;
+    grid-template-columns: var(--title-col) minmax(0, 1fr);
+    gap: 1rem;
+}
+
+.project_thumb {
+    padding-bottom: 1.5rem;
+}
+
+.project_thumb img {
     display: block;
+    width: 100%;
+    height: auto;
 }
 
-.connect {
+.project_text {
+    padding-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.project_body {
+    font-family: "Inter", sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.55;
+    margin: 0;
+}
+
+.project_link {
+    align-self: flex-end;
     font-size: 1rem;
-    color: black;
-    text-align: right;
-    text-decoration: none;
-    position: fixed;
-    top: 2rem;
-    right: 2rem;
+    border-bottom: 1px solid currentColor;
+    transition: opacity 0.2s;
 }
 
-/* Sits on the same bottom line as .role, on the opposite side. */
-.extras {
-    display: block;
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    text-align: right;
-}
-
-.extras_item {
-    display: block;
-    font-size: 1rem;
-    color: black;
-    text-decoration: none;
-    padding: 2px;
-}
-
-.extras_item:hover {
+.project_link:hover {
     opacity: 0.6;
 }
 
@@ -185,179 +256,109 @@ body {
 @media (min-width: 601px) and (max-width: 1024px) {
 
     .page_layout {
-        flex-direction: column;
-        gap: 1rem;
-        padding: 1.5rem;
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding: 0 1.5rem;
     }
 
-    .main_left,
-    .main_middle,
-    .main_right {
-        width: 100%;
-    }
-
-    .main_left {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-start;
-    }
-
-    .name {
+    .about {
         position: static;
-        font-size: 1rem;
-    }
-
-    .role {
-        position: static;
-        text-align: right;
-    }
-
-    .connect {
-        position: static;
-        text-align: left;
-        margin-top: 0.5rem;
+        height: auto;
+        padding: 1.5rem 0 2rem;
     }
 
     .extras {
-        position: static;
-        text-align: left;
-        margin-top: 0.5rem;
+        margin-top: 1.5rem;
     }
 
-    .statement {
-        font-size: 6rem;
-        margin-top: 1rem;
-        display: block;
-        height: auto;
+    .project_list {
+        padding-top: 0;
     }
 
-    /* 0.95em replaces the blank line the <br><br> used to open up; the
-       1.5rem on top of it is the offset this rule always carried. */
-    .statement-tagline {
-        display: block;
-        margin-top: calc(0.95em + 1.5rem);
+    .project_row {
+        grid-template-columns: 1.6fr 2fr 1.5rem;
+        min-height: 0;
     }
 
-    .intro {
-        width: 100%;
-        font-size: 2.25rem;
+    .project_brief_inner {
+        grid-template-columns: minmax(0, 1.6fr) minmax(0, 2fr);
     }
 
     .project_title {
-        text-align: left;
-    }
-
-    .project_explain {
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-
-    .project_intro {
-        width: 100%;
-        text-align: left;
-    }
-
-    .project_intro_type {
-        text-align: left;
-    }
-
-    .project_intro_body {
-        text-align: left;
+        font-size: 2.25rem;
+        white-space: normal;
     }
 }
 
 /* =====================
    Mobile (<=600px)
+   Row collapses to title on top, tag underneath.
    ===================== */
 @media (max-width: 600px) {
 
     .page_layout {
-        flex-direction: column;
-        gap: 0.75rem;
-        padding: 1rem;
+        grid-template-columns: 1fr;
+        gap: 0;
+        padding: 0 1rem;
     }
 
-    .main_left,
-    .main_middle,
-    .main_right {
-        width: 100%;
-    }
-
-    .main_left {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-start;
+    .about {
+        position: static;
+        height: auto;
+        padding: 1.25rem 0 2rem;
     }
 
     .name {
-        position: static;
-        font-size: 0.9rem;
-    }
-
-    .role {
-        position: static;
-        text-align: right;
-    }
-
-    .connect {
-        position: static;
-        text-align: left;
-        margin-top: 0.5rem;
-    }
-
-    .extras {
-        position: static;
-        text-align: left;
-        margin-top: 0.5rem;
-    }
-
-    .statement {
-        font-size: 3rem;
-        margin-top: 1rem;
-        display: block;
-        height: auto;
-    }
-
-    /* As above: one blank line, plus this rule's original 1rem. */
-    .statement-tagline {
-        display: block;
-        margin-top: calc(0.95em + 1rem);
+        font-size: 1.5rem;
     }
 
     .intro {
-        width: 100%;
-        font-size: 1.25rem;
-        margin: 1.5rem auto;
+        margin: 1.25rem 0;
     }
 
-    .projects {
-        margin: 2rem 0;
+    .extras {
+        margin-top: 1.25rem;
+    }
+
+    .project_list {
+        padding-top: 0;
+    }
+
+    .project_row {
+        grid-template-columns: 1fr 1.25rem;
+        row-gap: 0.4rem;
+        min-height: 0;
+        padding: 1.25rem 0;
     }
 
     .project_title {
-        font-size: 1.5rem;
-        text-align: left;
+        font-size: 1.9rem;
+        white-space: normal;
     }
 
-    .project_explain {
-        flex-direction: column;
-        gap: 0.75rem;
+    .project_toggle {
+        grid-column: 2;
+        grid-row: 1;
     }
 
-    .project_intro {
-        width: 100%;
+    .project_tag {
+        grid-column: 1;
+        justify-self: start;
         text-align: left;
+        font-size: 0.85rem;
     }
 
-    .project_intro_type {
-        font-size: 1.25rem;
-        text-align: left;
+    /* No hover on touch, so no dimming either. */
+    .project_list:hover .project_row {
+        opacity: 1;
     }
 
-    .project_intro_body {
-        font-size: 1rem;
-        text-align: left;
+    .project_brief_inner {
+        grid-template-columns: 1fr;
+    }
+
+    .project_thumb {
+        grid-column: 1;
+        padding-bottom: 0;
     }
 }
