@@ -103,6 +103,19 @@ body {
     image-rendering: pixelated;
 }
 
+/* The whole block links to the App Store, for visitors on the same
+   device who can't scan it. */
+.rf-sidebar-qr a {
+    display: inline-block;
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.rf-sidebar-qr a:hover {
+    opacity: 0.6;
+}
+
 .rf-sidebar-qr p {
     margin: 10px 0 0;
     color: var(--rf-sw-meta);
