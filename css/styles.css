@@ -98,11 +98,8 @@ a {
     --title-col: calc(var(--title-size) * 8.4);
 }
 
-.project {
-    border-bottom: 1px solid rgba(4, 32, 59, 0.2);
-}
-
-.project:first-child {
+/* Lines only between projects, none above the first or below the last. */
+.project + .project {
     border-top: 1px solid rgba(4, 32, 59, 0.2);
 }
 
@@ -120,8 +117,8 @@ a {
     padding: 1.5rem 0;
 
     /* Five closed rows fill the viewport, matching the sticky about column
-       (6px = the six 1px row borders). */
-    min-height: calc((100vh - 4rem - 6px) / 5);
+       (4px = the four 1px lines between rows). */
+    min-height: calc((100vh - 4rem - 4px) / 5);
 
     font-family: "Inter", sans-serif;
     font-size: 0.95rem;
@@ -205,6 +202,7 @@ a {
     display: grid;
     grid-template-columns: var(--title-col) minmax(0, 1fr);
     gap: 1rem;
+    column-gap: 3rem;
 }
 
 .project_thumb {
@@ -230,6 +228,9 @@ a {
     font-size: 0.95rem;
     line-height: 1.55;
     margin: 0;
+
+    /* ~50 characters a line, so the brief reads as a short caption. */
+    max-width: 25rem;
 }
 
 .project_link {
