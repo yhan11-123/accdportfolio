@@ -37,55 +37,6 @@ body {
     overflow: hidden;
 }
 
-/* Left sidebar: home link, project description and tools, in the gutter
-   left of .rf-viewport. */
-.rf-sidebar {
-    position: fixed;
-    left: 0;
-    top: 60px;
-    width: 20%;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 0 32px;
-    box-sizing: border-box;
-}
-
-.rf-sidebar-home {
-    display: inline-block;
-    width: fit-content;
-    padding-bottom: 4px;
-    border-bottom: 1px solid var(--rf-ink);
-    color: var(--rf-ink);
-    font-size: 16px;
-    font-weight: 700;
-    text-decoration: none;
-}
-
-.rf-sidebar-home:hover { opacity: 0.6; }
-
-.rf-sidebar-description {
-    margin: 0;
-    color: var(--rf-body);
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
-    white-space: pre-line;
-}
-
-/* Tools, one per line, under the description. */
-.rf-sidebar-tools {
-    margin: 32px 0 0;
-    padding: 0;
-    list-style: none;
-    color: var(--rf-ink);
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 20px;
-}
-
-.rf-sidebar-tools li + li { margin-top: 8px; }
-
 /* App Store QR, under the tools. */
 .rf-sidebar-qr {
     margin-top: 28px;
@@ -128,12 +79,6 @@ body {
 @media (max-width: 900px) {
 
     .rf-viewport { width: 100%; }
-
-    .rf-sidebar {
-        position: static;
-        width: 100%;
-        padding: 24px;
-    }
 }
 
 .rf-stage {

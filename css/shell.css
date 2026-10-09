@@ -1,0 +1,128 @@
+/* =====================================================
+   Portfolio shell
+   The frame every case study sits in: the left column with
+   the name, the way back, the project description and tools.
+   It matches the index (Oswald for labels, Inter for reading,
+   the same ink and ground) so moving between pages feels like
+   one site. Each project keeps its own look inside .shell-main.
+   ===================================================== */
+
+:root {
+    --shell-ink: rgb(4, 32, 59);
+    --shell-muted: rgba(4, 32, 59, 0.6);
+    --shell-rule: rgba(4, 32, 59, 0.15);
+    --shell-ground: rgb(245, 245, 245);
+
+    --shell-label: "Oswald", sans-serif;
+    --shell-text: "Inter", sans-serif;
+}
+
+.shell-sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 20%;
+    padding: 2.5rem 2rem;
+    box-sizing: border-box;
+    overflow-y: auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 2.25rem;
+
+    background-color: var(--shell-ground);
+    border-right: 1px solid var(--shell-rule);
+    color: var(--shell-ink);
+    font-family: var(--shell-text);
+}
+
+/* Name and the way back, set like the top of the index. */
+.shell-name {
+    display: block;
+    font-family: var(--shell-label);
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: inherit;
+    text-decoration: none;
+}
+
+.shell-home {
+    display: inline-block;
+    width: fit-content;
+    margin-top: -1.5rem; /* sits with the name, not as its own block */
+    font-family: var(--shell-label);
+    font-size: 1rem;
+    color: inherit;
+    text-decoration: none;
+    transition: opacity 0.2s;
+}
+
+.shell-name:hover,
+.shell-home:hover {
+    opacity: 0.6;
+}
+
+.shell-description {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.75;
+}
+
+/* Small uppercase label above a list, like a column heading. */
+.shell-label {
+    margin: 0 0 0.75rem;
+    font-family: var(--shell-label);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--shell-muted);
+}
+
+.shell-tools {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.shell-tools li {
+    font-weight: inherit; /* some project sheets bold every li */
+}
+
+.shell-tools li + li {
+    margin-top: 0.5rem;
+}
+
+/* =====================
+   Tablet and mobile (<=1024px)
+   The column stops being fixed and sits above the project.
+   ===================== */
+@media (max-width: 1024px) {
+
+    .shell-sidebar {
+        position: static;
+        width: 100%;
+        padding: 2.5rem 1.5rem;
+        overflow: visible;
+        border-right: 0;
+        border-bottom: 1px solid var(--shell-rule);
+    }
+
+    .shell-main {
+        width: 100%;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .shell-sidebar {
+        padding: 2rem 1rem;
+    }
+}

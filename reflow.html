@@ -3,21 +3,26 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Reflow_YounheeHan</title>
+<title>Reflow — Younhee Han</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;600&family=Inter:wght@400;500;600&family=Noto+Sans+Display:wght@600&family=Noto+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="css/reset.css" rel="stylesheet" type="text/css">
 <link href="css/reflow.css?v=2" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="css/shell.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
 
-<div class="rf-sidebar">
-<a class="rf-sidebar-home" href="index.html">&larr; Home</a>
-<p class="rf-sidebar-description">Reflow is a day planner for the moment the day stops going to plan. Thirty minutes becomes an hour and nothing in the day absorbs the difference. A calendar can&rsquo;t help there, because events don&rsquo;t move. What breaks is the work between them. Reflow rebuilds the rest of the day around what&rsquo;s unfinished and hands it back as one proposal you accept in a tap. What didn&rsquo;t finish carries to tomorrow as a task, not as a backlog.</p>
-<ul class="rf-sidebar-tools">
+<div class="shell-sidebar">
+<a class="shell-name" href="index.html">Younhee Han</a>
+<a class="shell-home" href="index.html">&larr; All projects</a>
+<p class="shell-description">Reflow is a day planner for the moment the day stops going to plan. When thirty minutes becomes an hour, it rebuilds the rest of the day around what&rsquo;s unfinished and hands it back as one proposal you accept in a tap. What didn&rsquo;t finish carries to tomorrow as a task, not as a backlog.</p>
+<div class="shell-meta">
+<p class="shell-label">Tools</p>
+<ul class="shell-tools">
     <li>Figma</li>
     <li>Expo &middot; React Native</li>
     <li>TypeScript</li>
@@ -27,6 +32,7 @@
     <li>OpenAI gpt-4o-mini</li>
     <li>EAS &middot; App Store</li>
 </ul>
+</div>
 <div class="rf-sidebar-qr">
 <a href="https://apps.apple.com/us/app/reflow-planning-recovery/id6811441252" target="_blank" rel="noopener">
 <img src="assets/images/reflow/appstore_qr.svg" width="370" height="370" alt="QR code linking to Reflow on the App Store">
@@ -38,7 +44,7 @@
 <!-- The case study is a fixed 1440-wide artboard, reproduced 1:1 from the
      Figma frame "Reflow — Case Study" and scaled to fit the column beside
      the sidebar. -->
-<div class="rf-viewport">
+<div class="rf-viewport shell-main">
 <div class="rf-stage">
 
 <!-- ============ backgrounds ============ -->
@@ -81,31 +87,31 @@
     </dl>
   </div>
 </div>
-<img class="rf-band" src="assets/images/reflow/cs-three-phones.webp" alt="" style="left:0px;top:2185px;width:1440px">
+<img class="rf-band" src="assets/images/reflow/cs-three-phones.webp" alt="Three Reflow screens: inbox grouped by area, the week view with today's tasks, and a focus timer" style="left:0px;top:2185px;width:1440px">
 
 <!-- ============ Features ============ -->
-<img class="rf-band" src="assets/images/reflow/cs-card-entry.webp" alt="" style="left:100px;top:3205px;width:560px">
+<img class="rf-band" src="assets/images/reflow/cs-card-entry.webp" alt="Task entry card with date, start, duration, repeat, importance and a Today / Another day choice" style="left:100px;top:3205px;width:560px">
 <div class="rf-chips" style="left:753.14px;top:3463.88px">
   <span class="rf-chip" style="left:0px">Task Entry</span>
   <span class="rf-chip" style="left:142px">Progressive Detail</span>
   <span class="rf-chip" style="left:355px">Signal</span>
 </div>
 <p class="rf-feature-copy" style="left:753.14px;top:3524.88px;width:584.83px">Duration makes the timer meaningful. Importance tells the reschedule where a task belongs. What you record here is what Reflow works with when the day changes.</p>
-<img class="rf-band" src="assets/images/reflow/cs-card-swap.webp" alt="" style="left:730px;top:3910px;width:630px">
+<img class="rf-band" src="assets/images/reflow/cs-card-swap.webp" alt="Focus card for a running task: 00:13 elapsed against a 15 minute estimate, with Done and Postpone" style="left:730px;top:3910px;width:630px">
 <div class="rf-chips" style="left:130px;top:4123.93px">
   <span class="rf-chip" style="left:0px">Focus State</span>
   <span class="rf-chip" style="left:154px">Live Timing</span>
   <span class="rf-chip" style="left:304px">Estimates</span>
 </div>
 <p class="rf-feature-copy" style="left:130px;top:4184.93px;width:584.83px">Elapsed time never appears alone. It sits against the estimate you set, so going over isn't an alert. It's the number you're already looking at.</p>
-<img class="rf-band" src="assets/images/reflow/cs-rows-carried.webp" alt="" style="left:90px;top:4505px;width:586px">
+<img class="rf-band" src="assets/images/reflow/cs-rows-carried.webp" alt="Task rows marked Postponed and Carried, each keeping its category and duration" style="left:90px;top:4505px;width:586px">
 <div class="rf-chips" style="left:753.14px;top:4550.92px">
   <span class="rf-chip" style="left:0px">Carry Over</span>
   <span class="rf-chip" style="left:145px">State Design</span>
   <span class="rf-chip" style="left:308px">Closure</span>
 </div>
 <p class="rf-feature-copy" style="left:753.14px;top:4611.92px;width:584.83px">What didn't finish carries to tomorrow as a task, not as a backlog. There's no separate pile of missed things, and no day ends in failure.</p>
-<img class="rf-band" src="assets/images/reflow/cs-card-reschedule.webp" alt="" style="left:801px;top:4955px;width:560px">
+<img class="rf-band" src="assets/images/reflow/cs-card-reschedule.webp" alt="Reschedule card: three tasks can move, each with where it lands, and an Accept plan button" style="left:801px;top:4955px;width:560px">
 <div class="rf-chips" style="left:148.17px;top:5269.95px">
   <span class="rf-chip" style="left:0px">Rescheduling</span>
   <span class="rf-chip" style="left:169px">Deterministic Logic</span>
@@ -141,8 +147,8 @@
   <p class="rf-col-body">Where each task lands, before you accept</p>
 </div>
 </div>
-<img class="rf-band" src="assets/images/reflow/cs-tilt-nav.webp" alt="" style="left:0px;top:7430px;width:1050px">
-<img class="rf-band" src="assets/images/reflow/cs-tilt-profile.webp" alt="" style="left:690px;top:7955px;width:650px">
+<img class="rf-band" src="assets/images/reflow/cs-tilt-nav.webp" alt="Bottom navigation bar with home, inbox, add, timer and profile" style="left:0px;top:7430px;width:1050px">
+<img class="rf-band" src="assets/images/reflow/cs-tilt-profile.webp" alt="Profile screen with a month calendar showing how the user's days went" style="left:690px;top:7955px;width:650px">
 
 <!-- ============ Three costs ============ -->
 <h2 class="rf-h2" style="left:140px;top:9101.32px;width:1094.67px">Pain Points</h2>
@@ -164,7 +170,7 @@
 </div>
 </div>
 <p class="rf-kicker" style="left:197.76px;top:9547.45px;width:1034px">Each one feeds the next. The plan never gets a chance to catch up.</p>
-<img class="rf-band" src="assets/images/reflow/cs-lockscreen.webp" alt="" style="left:0px;top:9660px;width:1440px">
+<img class="rf-band" src="assets/images/reflow/cs-lockscreen.webp" alt="iPhone lock screen with a Live Activity tracking the current task timer" style="left:0px;top:9660px;width:1440px">
 
 <!-- ============ What the Day Feels Like ============ -->
 <h2 class="rf-h2 rf-h2--light" style="left:142.56px;top:11061.02px;width:1094.67px">What the Day Feels Like</h2>
@@ -223,7 +229,7 @@
 
 <!-- ============ Critical Path ============ -->
 <h2 class="rf-h2 rf-h2--light" style="left:142.56px;top:14260px;width:1094.67px">Critical Path</h2>
-<img class="rf-band" src="assets/images/reflow/cs-path-row1.webp" alt="" style="left:0px;top:14360px;width:1440px">
+<img class="rf-band" src="assets/images/reflow/cs-path-row1.webp" alt="Critical path, part one: today list, task entry, and a task in progress" style="left:0px;top:14360px;width:1440px">
 <div class="rf-step" style="left:106.32px;top:14998px;width:360px">
   <div class="rf-hairline"></div>
   <h3 class="rf-col-title">Today</h3>
@@ -239,7 +245,7 @@
   <h3 class="rf-col-title">During task</h3>
   <p class="rf-col-body">Elapsed time never appears alone. It sits against your estimate, so going over isn't an alert.</p>
 </div>
-<img class="rf-band" src="assets/images/reflow/cs-path-row2.webp" alt="" style="left:0px;top:15180px;width:1440px">
+<img class="rf-band" src="assets/images/reflow/cs-path-row2.webp" alt="Critical path, part two: task pending, the reschedule proposal, and the end-of-day check-in" style="left:0px;top:15180px;width:1440px">
 <div class="rf-step" style="left:106.32px;top:15809.85px;width:360px">
   <div class="rf-hairline"></div>
   <h3 class="rf-col-title">Task pending</h3>
@@ -352,8 +358,8 @@
 <!-- ============ Logo System ============ -->
 <h3 class="rf-h3" style="left:125.16px;top:17756.11px">Logo System</h3>
 <p class="rf-note" style="left:125.16px;top:17842.45px;width:889.08px">Three waves, each offset from the one above. In motion the top line drops into the middle and the rest make room. It's the same move the app makes with a day: what didn't happen re-enters the flow instead of falling off it.</p>
-<img class="rf-band" src="assets/images/reflow/cs-logo-a.webp" alt="" style="left:222px;top:18025px;width:1058px">
-<img class="rf-band" src="assets/images/reflow/cs-logo-b.webp" alt="" style="left:228px;top:18459px;width:294px">
+<img class="rf-band" src="assets/images/reflow/cs-logo-a.webp" alt="Reflow logo lockups: stacked and horizontal versions of the three-wave mark" style="left:222px;top:18025px;width:1058px">
+<img class="rf-band" src="assets/images/reflow/cs-logo-b.webp" alt="Reflow app icon: three white waves on cobalt blue" style="left:228px;top:18459px;width:294px">
 <img class="rf-gif" src="assets/images/reflow/logomotion.gif" width="1548" height="1546"
      alt="The mark in motion: the top wave drops into the middle and the rest make room"
      style="left:750.11px;top:18342.13px;width:516.3px;border-radius:0">

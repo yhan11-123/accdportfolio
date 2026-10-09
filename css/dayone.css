@@ -44,53 +44,6 @@ body {
     container-type: inline-size;
 }
 
-/* Left sidebar: home link, project description and tools, in the gutter
-   left of .do-viewport. */
-.do-sidebar {
-    position: fixed;
-    left: 0;
-    top: 60px;
-    width: 20%;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 0 32px;
-    box-sizing: border-box;
-}
-
-.do-sidebar-home {
-    display: inline-block;
-    width: fit-content;
-    padding-bottom: 4px;
-    border-bottom: 1px solid var(--do-green);
-    color: var(--do-green);
-    font-size: 16px;
-    font-weight: 700;
-    text-decoration: none;
-}
-
-.do-sidebar-home:hover { opacity: 0.6; }
-
-.do-sidebar-description {
-    margin: 0;
-    color: var(--do-ink);
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
-}
-
-.do-sidebar-tools {
-    margin: 32px 0 0;
-    padding: 0;
-    list-style: none;
-    color: var(--do-green);
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 20px;
-}
-
-.do-sidebar-tools li + li { margin-top: 8px; }
-
 /* =====================================================
    The stage: 1440 design px wide, never scaled past 1:1.
    1 design px = 100cqw / 1440 of the column.
@@ -959,13 +912,6 @@ body {
 @media (max-width: 1024px) {
 
     .do-viewport { width: 100%; }
-
-    .do-sidebar {
-        position: static;
-        width: 100%;
-        padding: 24px;
-        box-sizing: border-box;
-    }
 
     .do-stage { --u: 1px; }
 
