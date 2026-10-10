@@ -50,7 +50,7 @@ body {
     padding: 8px;
     box-sizing: border-box;
     border: 1px solid var(--rf-chip-line);
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     image-rendering: pixelated;
 }
 
@@ -290,7 +290,7 @@ body {
     justify-content: center;
     padding: 5px 15px;
     border: 1px solid var(--rf-cobalt);
-    border-radius: 28px;
+    border-radius: var(--radius-pill);
     font-family: Inter, sans-serif;
     font-size: 20px;
     font-weight: 400;
@@ -379,7 +379,7 @@ body {
 
 .rf-empathy {
     border: 3px solid #d9d9d9;
-    border-radius: 45px;
+    border-radius: var(--radius-lg);
 }
 
 .rf-empathy-title {
@@ -429,12 +429,12 @@ body {
 
 .rf-ring {
     border: 5px solid #fff;
-    border-radius: 50%;
+    border-radius: var(--radius-circle);
 }
 
 .rf-block {
     border: 5px solid #fff;
-    border-radius: 26px;
+    border-radius: var(--radius-lg);
 }
 
 .rf-leader { height: 3px; background-color: #fff; }
@@ -606,7 +606,7 @@ body {
 .rf-stack-chip {
     padding: 6px 12px;
     border: 1px solid var(--rf-chip-line);
-    border-radius: 14px;
+    border-radius: var(--radius-pill);
     font-size: 14px;
     font-weight: 500;
     line-height: 20px;

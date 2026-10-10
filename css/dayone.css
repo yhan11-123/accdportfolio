@@ -172,7 +172,7 @@ body {
 
 .do-chip {
     padding: calc(9 * var(--u)) calc(16 * var(--u));
-    border-radius: 100px;
+    border-radius: var(--radius-pill);
     background-color: var(--do-green);
     color: var(--do-cream);
     font-family: "Plus Jakarta Sans", sans-serif;
@@ -191,7 +191,7 @@ body {
 /* Small mint number badge at the top of a step card. */
 .do-badge {
     padding: calc(6 * var(--u)) calc(14 * var(--u));
-    border-radius: 100px;
+    border-radius: var(--radius-pill);
     background-color: var(--do-mint);
     color: var(--do-green);
     font-size: calc(16 * var(--u));
@@ -228,7 +228,7 @@ body {
     flex-direction: column;
     align-items: flex-start;
     padding: calc(32 * var(--u)) calc(32 * var(--u)) calc(36 * var(--u));
-    border-radius: calc(16 * var(--u));
+    border-radius: var(--radius-lg);
     background-color: #fff;
     gap: calc(16 * var(--u));
 }
@@ -264,7 +264,7 @@ body {
 /* Method cards: the flat sand blocks that carry research and testing setup. */
 .do-card--sand {
     padding: calc(26 * var(--u)) calc(28 * var(--u)) calc(28 * var(--u));
-    border-radius: calc(14 * var(--u));
+    border-radius: var(--radius-lg);
     background-color: var(--do-sand);
     gap: calc(10 * var(--u));
 }
@@ -352,7 +352,7 @@ body {
 .do-hero-badge {
     display: inline-block;
     padding: calc(10 * var(--u)) calc(18 * var(--u));
-    border-radius: 100px;
+    border-radius: var(--radius-pill);
     background-color: var(--do-mint);
     color: var(--do-green);
     font-size: calc(16 * var(--u));
@@ -476,7 +476,7 @@ body {
     box-sizing: border-box;
     padding: calc(36 * var(--u));
     border-left: calc(4 * var(--u)) solid var(--do-mint);
-    border-radius: calc(16 * var(--u));
+    border-radius: var(--radius-lg);
     background-color: #fff;
 }
 
@@ -513,7 +513,7 @@ body {
     align-items: center;
     gap: calc(40 * var(--u));
     padding: calc(44 * var(--u)) calc(48 * var(--u));
-    border-radius: calc(20 * var(--u));
+    border-radius: var(--radius-lg);
     background-color: var(--do-green);
 }
 
@@ -587,7 +587,7 @@ body {
 .do-board {
     height: calc(300 * var(--u));
     overflow: hidden;
-    border-radius: calc(12 * var(--u));
+    border-radius: var(--radius-lg);
     background-color: #fff;
     box-shadow: 0 calc(4 * var(--u)) calc(16 * var(--u)) rgba(0, 26, 20, 0.08);
 }
@@ -613,7 +613,7 @@ body {
     gap: calc(12 * var(--u));
     padding: calc(16 * var(--u)) calc(24 * var(--u));
     border: 1px solid var(--do-sand-line);
-    border-radius: 100px;
+    border-radius: var(--radius-pill);
     background-color: #fff;
     color: var(--do-green);
     font-family: "Plus Jakarta Sans", sans-serif;
@@ -626,7 +626,7 @@ body {
     flex: none;
     width: calc(10 * var(--u));
     height: calc(10 * var(--u));
-    border-radius: 50%;
+    border-radius: var(--radius-circle);
     background-color: var(--do-mint);
 }
 
@@ -700,7 +700,7 @@ body {
     align-items: center;
     gap: calc(36 * var(--u));
     padding: calc(24 * var(--u)) calc(32 * var(--u)) calc(26 * var(--u));
-    border-radius: calc(14 * var(--u));
+    border-radius: var(--radius-lg);
     background-color: #fff;
 }
 
@@ -829,7 +829,7 @@ body {
     gap: calc(20 * var(--u));
     padding: calc(32 * var(--u)) calc(36 * var(--u)) calc(36 * var(--u));
     border: 1px solid var(--do-green-line);
-    border-radius: calc(16 * var(--u));
+    border-radius: var(--radius-lg);
     background-color: var(--do-green-deep);
 }
 

@@ -1,0 +1,18 @@
+/* =====================================================
+   Shared tokens
+   Loaded before every page's own stylesheet so the index,
+   the shell and each case study draw from one set of values.
+   ===================================================== */
+
+:root {
+    /* Corner radius. Three steps plus two shapes:
+       sm  small marks (swatches, tiny tags)
+       md  boxes on the index, nodes, images inside a page
+       lg  cards and blocks that hold content
+       pill / circle  for chips, badges, dots and rings */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --radius-pill: 999px;
+    --radius-circle: 50%;
+}

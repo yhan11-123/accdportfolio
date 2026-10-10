@@ -235,7 +235,7 @@ body {
 
 .kt-flow-node {
     border: 1.5px solid #a7a7a7;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
 }
 
 .kt-flow-node-active {
@@ -245,7 +245,7 @@ body {
 
 .kt-flow-node-dashed {
     border: 1.5px dashed #a7a7a7;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
 }
 
 .kt-flow-text {
@@ -295,7 +295,7 @@ body {
 
 .kt-swatch {
     border: 1px solid var(--kt-rule);
-    border-radius: 5px;
+    border-radius: var(--radius-sm);
 }
 
 .kt-swatch-hex {
@@ -325,7 +325,7 @@ body {
 
 .kt-pill-row {
     background-color: var(--kt-dark);
-    border-radius: 34px;
+    border-radius: var(--radius-pill);
     overflow: hidden;
 }
 
@@ -336,7 +336,7 @@ body {
     justify-content: center;
     height: 46px;
     top: 11px;
-    border-radius: 23px;
+    border-radius: var(--radius-pill);
     font-weight: 600;
     font-size: 15px;
     text-align: center;

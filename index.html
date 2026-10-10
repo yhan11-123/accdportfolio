@@ -9,10 +9,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+<link href="css/tokens.css?v=1" rel="stylesheet" type="text/css">
     <link href="css/reset.css" rel="stylesheet" type="text/css">
-	<link href="css/styles.css?v=6" rel="stylesheet" type="text/css">
+	<link href="css/styles.css?v=10" rel="stylesheet" type="text/css">
 
-	<script src="js/scripts.js?v=2"></script>
 </head>
 
 <body>
@@ -42,103 +42,47 @@
         </div>
     </aside>
 
-    <main class="project_list">
+    <main class="project_grid">
 
-        <div class="project">
-            <button class="project_row" type="button" aria-expanded="false" aria-controls="brief-dayone">
-                <span class="project_title">DAY ONE</span>
-                <span class="project_tag">UX · Interaction Design</span>
-                <span class="project_toggle" aria-hidden="true"></span>
-            </button>
-            <div class="project_brief" id="brief-dayone">
-                <div class="project_brief_inner">
-                    <a class="project_thumb" href="dayone.html"><img src="assets/images/dayone/cover.webp" alt="Day One cover"></a>
-                    <div class="project_text">
-                        <p class="project_body">A chat platform plugin for the first day in a group you don't know yet. Newcomers
-                            stay silent for weeks because nobody tells them the unspoken rules, not because they lack the skill. Day One reads
-                            the group's own history, turns it into a short private guide, and drafts a first message so saying hello isn't a
-                            decision made alone.</p>
-                        <a class="project_link" href="dayone.html">View project →</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <a class="card" href="dayone.html">
+            <span class="card_thumb"><img src="assets/images/dayone/thumb.webp?v=2" alt="Day One: the guide panel open beside a group chat"></span>
+            <span class="card_meta">
+                <span class="card_title">Day One</span>
+                <span class="card_tag">UX · Interaction Design</span>
+            </span>
+        </a>
 
-        <div class="project">
-            <button class="project_row" type="button" aria-expanded="false" aria-controls="brief-reflow">
-                <span class="project_title">REFLOW</span>
-                <span class="project_tag">App Design</span>
-                <span class="project_toggle" aria-hidden="true"></span>
-            </button>
-            <div class="project_brief" id="brief-reflow">
-                <div class="project_brief_inner">
-                    <a class="project_thumb" href="reflow.html"><img src="assets/images/reflow/cs-cover.webp" alt="Reflow cover"></a>
-                    <div class="project_text">
-                        <p class="project_body">A personal planner for days with no room in them. You lay out the day, one thing takes
-                            longer than expected, and everything after it is now wrong. Reflow catches that moment while it's still happening and
-                            puts the rest of the day back together in one tap.</p>
-                        <a class="project_link" href="reflow.html">View project →</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <a class="card" href="reflow.html">
+            <span class="card_thumb"><img src="assets/images/reflow/cs-cover.webp" alt="Reflow cover: the week view on an iPhone"></span>
+            <span class="card_meta">
+                <span class="card_title">Reflow</span>
+                <span class="card_tag">App Design</span>
+            </span>
+        </a>
 
-        <div class="project">
-            <button class="project_row" type="button" aria-expanded="false" aria-controls="brief-kindle">
-                <span class="project_title">KINDLE</span>
-                <span class="project_tag">Interface Design</span>
-                <span class="project_toggle" aria-hidden="true"></span>
-            </button>
-            <div class="project_brief" id="brief-kindle">
-                <div class="project_brief_inner">
-                    <a class="project_thumb" href="kindle.html"><img src="assets/images/kindle/insight-tv.webp" alt="Kindle TV cover"></a>
-                    <div class="project_text">
-                        <p class="project_body">A reader for art and design books on the television. Most reading apps render
-                            them as a column of text with the pictures shrunk to fit between paragraphs. Kindle TV gives the image the
-                            whole screen, and turns your phone into a loupe you aim at one spot inside it.</p>
-                        <a class="project_link" href="kindle.html">View project →</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <a class="card" href="kindle.html">
+            <span class="card_thumb"><img src="assets/images/kindle/insight-tv.webp" alt="Kindle TV cover: the book shelf on a television"></span>
+            <span class="card_meta">
+                <span class="card_title">Kindle TV</span>
+                <span class="card_tag">Interface Design</span>
+            </span>
+        </a>
 
-        <div class="project">
-            <button class="project_row" type="button" aria-expanded="false" aria-controls="brief-manicpanic">
-                <span class="project_title">MANIC PANIC</span>
-                <span class="project_tag">Branding · Packaging</span>
-                <span class="project_toggle" aria-hidden="true"></span>
-            </button>
-            <div class="project_brief" id="brief-manicpanic">
-                <div class="project_brief_inner">
-                    <a class="project_thumb" href="manicpanic.html"><img src="assets/images/thumb/mpthumb.jpg" alt="Manic Panic cover"></a>
-                    <div class="project_text">
-                        <p class="project_body">A rebranding and packaging project for Manic Panic. Built on a new logo and a
-                            restrained, black-on-black palette, it returns to punk's core value, giving courage and a stage to voices
-                            outside the mainstream.</p>
-                        <a class="project_link" href="manicpanic.html">View project →</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <a class="card" href="manicpanic.html">
+            <span class="card_thumb"><img src="assets/images/thumb/mpthumb.jpg" alt="Manic Panic cover: the black product line"></span>
+            <span class="card_meta">
+                <span class="card_title">Manic Panic</span>
+                <span class="card_tag">Branding · Packaging</span>
+            </span>
+        </a>
 
-        <div class="project">
-            <button class="project_row" type="button" aria-expanded="false" aria-controls="brief-summerpalmtree">
-                <span class="project_title">SUMMER PALM TREE</span>
-                <span class="project_tag">Type Design</span>
-                <span class="project_toggle" aria-hidden="true"></span>
-            </button>
-            <div class="project_brief" id="brief-summerpalmtree">
-                <div class="project_brief_inner">
-                    <a class="project_thumb" href="summerpalmtree.html"><img src="assets/images/thumb/SPTthumb.jpg" alt="Summer Palm Tree cover"></a>
-                    <div class="project_text">
-                        <p class="project_body">A reverse-stress typeface with weight on the horizontal strokes and
-                            generous, airy spacing. Guided by an easygoing tropical mood—not through decoration, but through
-                            the letterforms themselves, then extended into a beverage packaging mockup.</p>
-                        <a class="project_link" href="summerpalmtree.html">View project →</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <a class="card" href="summerpalmtree.html">
+            <span class="card_thumb"><img src="assets/images/thumb/SPTthumb.jpg" alt="Summer Palm Tree cover: the typeface set in cyan"></span>
+            <span class="card_meta">
+                <span class="card_title">Summer Palm Tree</span>
+                <span class="card_tag">Type Design</span>
+            </span>
+        </a>
 
     </main>
 </div>

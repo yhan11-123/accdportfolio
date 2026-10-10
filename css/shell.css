@@ -37,9 +37,10 @@
     font-family: var(--shell-text);
 }
 
-/* Name and the way back, set like the top of the index. */
+/* The name is the way back, set like the top of the index. */
 .shell-name {
     display: block;
+    width: fit-content;
     font-family: var(--shell-label);
     font-size: 1.5rem;
     font-weight: 600;
@@ -48,21 +49,10 @@
     text-transform: uppercase;
     color: inherit;
     text-decoration: none;
-}
-
-.shell-home {
-    display: inline-block;
-    width: fit-content;
-    margin-top: -1.5rem; /* sits with the name, not as its own block */
-    font-family: var(--shell-label);
-    font-size: 1rem;
-    color: inherit;
-    text-decoration: none;
     transition: opacity 0.2s;
 }
 
-.shell-name:hover,
-.shell-home:hover {
+.shell-name:hover {
     opacity: 0.6;
 }
 

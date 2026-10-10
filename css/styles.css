@@ -86,162 +86,70 @@ a {
 }
 
 /* =====================
-   Project index (right)
+   Project grid (right)
+   Two columns of boxed thumbnails, every box the same size.
    ===================== */
-.project_list {
-    padding: 2rem 0;
-
-    /* Title size, shared by the row grid so the title column is wide
-       enough for the longest name (SUMMER PALM TREE ≈ 8em in Oswald 500)
-       and every row lines up on the same columns. */
-    --title-size: clamp(2rem, 3.2vw, 3.5rem);
-    --title-col: calc(var(--title-size) * 8.4);
-}
-
-/* Lines only between projects, none above the first or below the last. */
-.project + .project {
-    border-top: 1px solid rgba(4, 32, 59, 0.2);
-}
-
-.project_row {
-    all: unset;
-    box-sizing: border-box;
-    width: 100%;
-    cursor: pointer;
+.project_grid {
+    padding: 2rem 0 4rem;
 
     display: grid;
-    grid-template-columns: var(--title-col) 1fr 1.5rem;
-    align-items: baseline;
-    align-content: center;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 2rem;
+    row-gap: 3rem;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
     gap: 1rem;
-    padding: 1.5rem 0;
-
-    /* Five closed rows fill the viewport, matching the sticky about column
-       (4px = the four 1px lines between rows). */
-    min-height: calc((100vh - 4rem - 4px) / 5);
-
-    font-family: "Inter", sans-serif;
-    font-size: 0.95rem;
-    color: rgb(4, 32, 59);
-    transition: opacity 0.4s;
 }
 
-.project_row:focus-visible {
-    outline: 1px solid rgb(4, 32, 59);
-    outline-offset: 4px;
+/* The box: one ratio for every thumbnail so the rows line up,
+   whatever size the source image is. */
+.card_thumb {
+    display: block;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    background-color: rgb(232, 232, 232);
 }
 
-/* Dim the other rows while one is hovered. */
-.project_list:hover .project_row {
-    opacity: 0.4;
+.card_thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.project_list .project_row:hover,
-.project.is-open .project_row {
-    opacity: 1;
+/* Title and field. Under the box by default (touch screens, phones);
+   with a mouse they move onto the box as a veil, see below. */
+.card_meta {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
 }
 
-.project_title {
+.card_title {
     font-family: "Oswald", sans-serif;
-    font-size: var(--title-size);
-    white-space: nowrap;
+    font-size: 1.5rem;
     font-weight: 500;
-    line-height: 1;
+    line-height: 1.1;
     letter-spacing: 0.01em;
+    text-transform: uppercase;
 }
 
-.project_tag {
+.card_tag {
+    font-family: "Inter", sans-serif;
+    font-size: 0.875rem;
     opacity: 0.75;
-    justify-self: end;
     text-align: right;
 }
 
-/* Plus that turns into a minus. */
-.project_toggle {
-    position: relative;
-    justify-self: end;
-    width: 0.8rem;
-    height: 0.8rem;
-}
-
-.project_toggle::before,
-.project_toggle::after {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: currentColor;
-    transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.project_toggle::after {
-    transform: rotate(90deg);
-}
-
-.project.is-open .project_toggle::after {
-    transform: rotate(0deg);
-}
-
-/* Brief: 0fr -> 1fr grid row animates height without measuring it. */
-.project_brief {
-    display: grid;
-    grid-template-rows: 0fr;
-    transition: grid-template-rows 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.project.is-open .project_brief {
-    grid-template-rows: 1fr;
-}
-
-.project_brief_inner {
-    overflow: hidden;
-    min-height: 0;
-
-    display: grid;
-    grid-template-columns: var(--title-col) minmax(0, 1fr);
-    gap: 1rem;
-    column-gap: 3rem;
-}
-
-.project_thumb {
-    padding-bottom: 1.5rem;
-}
-
-.project_thumb img {
-    display: block;
-    width: 100%;
-    height: auto;
-}
-
-.project_text {
-    padding-bottom: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 1.5rem;
-}
-
-.project_body {
-    font-family: "Inter", sans-serif;
-    font-size: 0.95rem;
-    line-height: 1.55;
-    margin: 0;
-
-    /* ~50 characters a line, so the brief reads as a short caption. */
-    max-width: 25rem;
-}
-
-.project_link {
-    align-self: flex-end;
-    font-size: 1rem;
-    border-bottom: 1px solid currentColor;
-    transition: opacity 0.2s;
-}
-
-.project_link:hover {
-    opacity: 0.6;
+.card:focus-visible {
+    outline: 1px solid rgb(4, 32, 59);
+    outline-offset: 6px;
 }
 
 /* =====================================================
@@ -253,6 +161,7 @@ a {
 
 /* =====================
    Tablet (601px - 1024px)
+   About moves on top, the grid keeps two columns.
    ===================== */
 @media (min-width: 601px) and (max-width: 1024px) {
 
@@ -272,28 +181,20 @@ a {
         margin-top: 1.5rem;
     }
 
-    .project_list {
+    .project_grid {
         padding-top: 0;
+        column-gap: 1.5rem;
+        row-gap: 2.5rem;
     }
 
-    .project_row {
-        grid-template-columns: 1.6fr 2fr 1.5rem;
-        min-height: 0;
-    }
-
-    .project_brief_inner {
-        grid-template-columns: minmax(0, 1.6fr) minmax(0, 2fr);
-    }
-
-    .project_title {
-        font-size: 2.25rem;
-        white-space: normal;
+    .card_title {
+        font-size: 1.25rem;
     }
 }
 
 /* =====================
    Mobile (<=600px)
-   Row collapses to title on top, tag underneath.
+   One column; every box keeps the same ratio.
    ===================== */
 @media (max-width: 600px) {
 
@@ -321,45 +222,75 @@ a {
         margin-top: 1.25rem;
     }
 
-    .project_list {
+    .project_grid {
+        grid-template-columns: 1fr;
         padding-top: 0;
+        row-gap: 2.5rem;
     }
 
-    .project_row {
-        grid-template-columns: 1fr 1.25rem;
-        row-gap: 0.4rem;
-        min-height: 0;
-        padding: 1.25rem 0;
+    .card_meta {
+        flex-direction: column;
+        gap: 0.25rem;
     }
 
-    .project_title {
-        font-size: 1.9rem;
-        white-space: normal;
-    }
-
-    .project_toggle {
-        grid-column: 2;
-        grid-row: 1;
-    }
-
-    .project_tag {
-        grid-column: 1;
-        justify-self: start;
+    .card_tag {
         text-align: left;
-        font-size: 0.85rem;
+        font-size: 0.8125rem;
+    }
+}
+
+/* =====================
+   Hover veil
+   With a mouse the grid shows only the work. Pointing at a box
+   lays a white veil over it and names the project on top.
+   Keyboard focus does the same. Phones keep the text below,
+   since there is nothing to hover with. Kept last in the file so
+   it also wins over the tablet block when a tablet has a mouse.
+   ===================== */
+@media (hover: hover) and (min-width: 601px) {
+
+    .project_grid {
+        row-gap: 2rem;
     }
 
-    /* No hover on touch, so no dimming either. */
-    .project_list:hover .project_row {
+    .card {
+        gap: 0;
+    }
+
+    .card_meta {
+        position: absolute;
+        inset: 0;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 1.5rem;
+        text-align: center;
+
+        border-radius: var(--radius-md);
+        background-color: rgba(255, 255, 255, 0.88);
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
+    .card:hover .card_meta,
+    .card:focus-visible .card_meta {
         opacity: 1;
     }
 
-    .project_brief_inner {
-        grid-template-columns: 1fr;
+    .card_title {
+        font-size: 2rem;
     }
 
-    .project_thumb {
-        grid-column: 1;
-        padding-bottom: 0;
+    .card_tag {
+        opacity: 1;
+        text-align: center;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .card_meta {
+        transition: none;
     }
 }
