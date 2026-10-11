@@ -1,9 +1,10 @@
 /* =====================================================
    Kindle TV — case study
-   Built from the Figma frame "Web — Desktop 1440"
-   (1440 x 9032). The frame is an absolutely positioned
-   composition, so the page keeps a fixed 1440 canvas and
-   scales it down to the viewport (see js at page bottom).
+   Follows the final presentation deck (Figma section
+   "Final — 01…10"). The page is composed on a 1440-wide
+   canvas that scales down to its column (see js at page
+   bottom); inside the canvas every section is normal flow,
+   so the height follows the content.
    ===================================================== */
 
 :root {
@@ -42,7 +43,6 @@ body {
 .kt-canvas {
     position: relative;
     width: 1440px;
-    height: 9032px;
     background-color: #fff;
     transform-origin: top left;
     /* Forces the browser to build the compositing layer's backing store
@@ -53,36 +53,60 @@ body {
     backface-visibility: hidden;
 }
 
-/* Every child of the canvas is placed with --x / --y / --w / --h */
-.kt-a {
-    position: absolute;
-    left: var(--x, 0);
-    top: var(--y, 0);
-    width: var(--w, auto);
-    height: var(--h, auto);
-    overflow-wrap: break-word;
+/* Zero-specificity reset, so each role below can set its own margins. */
+.kt-canvas :where(p, h1, h2, h3, h4, ol, ul, figure, blockquote) {
+    margin: 0;
+    padding: 0;
 }
 
-.kt-a img {
+.kt-canvas img {
     display: block;
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    height: auto;
+}
+
+/* =====================
+   Sections
+   ===================== */
+
+.kt-sec {
+    position: relative;
+    box-sizing: border-box;
+    padding: 104px 100px 112px;
+}
+
+.kt-sec-wash {
+    background-color: var(--kt-wash);
+}
+
+/* Eyebrow, then headline and lede sharing one baseline row. */
+.kt-head {
+    margin-bottom: 72px;
+}
+
+.kt-head .kt-eyebrow {
+    margin-bottom: 44px;
+}
+
+.kt-head-row {
+    display: grid;
+    grid-template-columns: 700px 1fr;
+    align-items: end;
+}
+
+.kt-head-row .kt-lede {
+    padding-bottom: 6px;
 }
 
 /* =====================
    Type roles
    ===================== */
 
-.kt-mono {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 16px;
-    color: var(--kt-muted);
-}
-
 .kt-eyebrow {
     font-family: "IBM Plex Mono", monospace;
     font-size: 16px;
     letter-spacing: 2.1px;
+    text-transform: uppercase;
     color: var(--kt-muted);
 }
 
@@ -129,33 +153,77 @@ body {
 }
 
 .kt-body {
-    font-size: 15.5px;
-    line-height: 1.52;
-    color: var(--kt-muted);
-}
-
-.kt-note {
     font-size: 16px;
-    line-height: 1.52;
+    line-height: 1.55;
     color: var(--kt-muted);
 }
 
-.kt-rule {
-    background-color: var(--kt-rule);
+.kt-label {
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 14px;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: var(--kt-muted);
+}
+
+/* A headline that closes a section, under a short ink rule. */
+.kt-closing {
+    width: 560px;
+    margin-top: 72px;
+    padding-top: 20px;
+    border-top: 2px solid var(--kt-ink);
+}
+
+.kt-closing .kt-body {
+    margin-top: 14px;
+}
+
+/* Three points across, each under its own rule. */
+.kt-cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 52px;
+}
+
+.kt-col {
+    padding-top: 22px;
+    border-top: 1px solid var(--kt-rule);
+}
+
+.kt-sec-wash .kt-col {
+    border-top-color: #c9c5bc;
+}
+
+.kt-col-accent {
+    border-top: 2px solid var(--kt-amber);
+    padding-top: 21px;
+}
+
+.kt-col .kt-body {
+    margin-top: 20px;
+}
+
+/* A light mat behind images cut from the deck, whose own ground is the wash. */
+.kt-plate {
+    background-color: var(--kt-wash);
+    border-radius: var(--radius-lg);
+    padding: 28px;
 }
 
 /* =====================
    Cover
    ===================== */
 
-.kt-cover-eyebrow {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 16px;
-    letter-spacing: 1.9px;
-    color: var(--kt-muted);
+.kt-cover {
+    padding: 136px 100px 0;
+}
+
+.kt-cover .kt-h1 {
+    margin: 0 0 0 -8px;
 }
 
 .kt-cover-tagline {
+    margin-top: 24px;
     font-family: "Archivo", sans-serif;
     font-weight: 500;
     font-size: 30px;
@@ -164,24 +232,42 @@ body {
     color: var(--kt-ink);
 }
 
-.kt-meta-label {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 11px;
-    letter-spacing: 1.5px;
-    color: var(--kt-muted);
+/* The television with the phone over its corner, as one cut-out
+   plate. The file carries its own shadow margin, so the box is pulled
+   out by that margin to keep the television on the text column, and
+   the phone dips over the top edge of the wash below. */
+.kt-hero {
+    position: relative;
+    z-index: 1;
+    width: 1362px;
+    margin: 4px 0 -100px -61px;
 }
 
-.kt-meta-value {
-    font-weight: 500;
-    font-size: 15px;
-    color: var(--kt-ink);
+.kt-hero img {
+    max-width: none;
+    width: 100%;
 }
 
 /* =====================
-   Numbers
+   01 What Kindle carries
    ===================== */
 
+.kt-carries {
+    padding-top: 108px;
+}
+
+.kt-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+}
+
 .kt-stat {
+    padding-top: 16px;
+    border-top: 1px solid #c9c5bc;
+}
+
+.kt-stat-num {
     font-family: "Archivo", sans-serif;
     font-weight: 700;
     font-size: 52px;
@@ -191,231 +277,285 @@ body {
 }
 
 .kt-stat-label {
+    margin-top: 14px;
     font-size: 16px;
     color: var(--kt-muted);
 }
 
-/* =====================
-   Insight list
-   ===================== */
-
-.kt-insight-item {
-    font-family: "Archivo", sans-serif;
-    font-weight: 600;
-    font-size: 26px;
-    letter-spacing: -0.35px;
-    color: var(--kt-ink);
-}
-
-.kt-subhead {
-    font-family: "Archivo", sans-serif;
-    font-weight: 600;
-    font-size: 23px;
-    line-height: 1.22;
-    letter-spacing: -0.3px;
-    color: var(--kt-ink);
-}
-
-.kt-subhead-body {
-    font-size: 15.5px;
-    line-height: 1.5;
-    color: var(--kt-muted);
-}
-
-/* =====================
-   User flow
-   ===================== */
-
-.kt-flow-label {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 16px;
-    letter-spacing: 1.8px;
-    color: var(--kt-muted);
-}
-
-.kt-flow-node {
-    border: 1.5px solid #a7a7a7;
-    border-radius: var(--radius-md);
-}
-
-.kt-flow-node-active {
-    background-color: var(--kt-amber);
-    border-color: var(--kt-amber);
-}
-
-.kt-flow-node-dashed {
-    border: 1.5px dashed #a7a7a7;
-    border-radius: var(--radius-md);
-}
-
-.kt-flow-text {
+.kt-devices {
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
+    justify-content: space-between;
+    margin-top: 56px;
+    padding-left: 18px;
+}
+
+.kt-devices-note {
+    margin-top: 8px;
+    font-size: 15px;
+    color: var(--kt-muted);
+}
+
+.kt-carries .kt-closing {
+    width: 470px;
+    margin-top: 24px;
+}
+
+/* =====================
+   02 Research
+   ===================== */
+
+.kt-interviews {
+    display: grid;
+    grid-template-columns: 470px 1fr;
+    gap: 64px;
+    align-items: center;
+}
+
+.kt-readers {
+    list-style: none;
+}
+
+.kt-readers li {
+    padding: 22px 0;
+    border-top: 1px solid var(--kt-rule);
+    font-size: 19px;
+    line-height: 1.45;
+    color: var(--kt-ink);
+}
+
+.kt-readers li:last-child {
+    border-bottom: 1px solid var(--kt-rule);
+}
+
+.kt-readers b {
+    font-weight: 600;
+}
+
+/* =====================
+   03 Problems / key insight
+   ===================== */
+
+/* The conclusion of the problems above it, so it stays on the same
+   ground and sits closer than a new section would. */
+.kt-insight {
+    padding-top: 8px;
+    padding-bottom: 128px;
+}
+
+.kt-quote {
+    max-width: 1040px;
+    margin-top: 44px;
+    font-family: "Archivo", sans-serif;
     font-weight: 700;
-    font-size: 16px;
-    line-height: 1.24;
-    color: var(--kt-muted);
-}
-
-.kt-flow-text-on-amber {
-    color: #000;
-}
-
-.kt-flow-caption {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 1.24;
-    color: var(--kt-muted);
-}
-
-.kt-flow-connector {
-    background-color: #a7a7a7;
-}
-
-.kt-flow-connector-active {
-    background-color: var(--kt-amber);
+    font-size: 44px;
+    line-height: 1.16;
+    letter-spacing: -0.9px;
+    color: var(--kt-ink);
 }
 
 /* =====================
-   Design system
+   04 The product
    ===================== */
 
-.kt-system-label {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 16px;
-    letter-spacing: 1.9px;
-    color: var(--kt-muted);
+/* Screen recordings. The still shows until the clip scrolls into view. */
+.kt-clip {
+    width: 100%;
+    border-radius: var(--radius-md);
+    background-color: var(--kt-dark);
 }
 
-.kt-swatch {
-    border: 1px solid var(--kt-rule);
+.kt-clip[data-anim] {
+    cursor: pointer;
+}
+
+/* Flow diagram: TV on top, the step, the phone under it. */
+.kt-map {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 44px;
+    row-gap: 36px;
+    margin-top: 116px;
+    justify-items: center;
+    align-items: center;
+}
+
+.kt-map-tv {
+    grid-row: 1;
+    width: 100%;
     border-radius: var(--radius-sm);
 }
 
-.kt-swatch-hex {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 14px;
-    color: var(--kt-muted);
-}
-
-.kt-typeface-name {
-    font-family: "Archivo", sans-serif;
-    font-weight: 600;
-    font-size: 34px;
+.kt-map-step {
+    grid-row: 2;
+    position: relative;
+    justify-self: stretch;
+    text-align: center;
+    font-weight: 700;
+    font-size: 20px;
     color: var(--kt-ink);
 }
 
-.kt-typeface-name-serif {
-    font-family: "Lora", serif;
-    font-weight: 400;
-    font-size: 34px;
-    color: var(--kt-ink);
+.kt-map-step span {
+    display: inline-block;
+    padding: 6px 14px;
 }
 
-.kt-typeface-use {
-    font-size: 16px;
-    color: var(--kt-muted);
+.kt-map-step-shared span {
+    border-radius: var(--radius-md);
+    background-color: var(--kt-amber);
+    color: #000;
 }
 
-.kt-pill-row {
-    background-color: var(--kt-dark);
-    border-radius: var(--radius-pill);
-    overflow: hidden;
-}
-
-.kt-pill {
+/* The link back to the step before, centred in the column gap. */
+.kt-map-step + .kt-map-step::before {
+    content: "↔";
     position: absolute;
+    top: 50%;
+    left: -22px;
+    transform: translate(-50%, -50%);
+    font-weight: 400;
+    color: var(--kt-ink);
+}
+
+.kt-map-phone {
+    grid-row: 3;
+    width: 132px;
+    border-radius: var(--radius-md);
+}
+
+/* The two steps where both devices are in play. */
+.kt-map-shared {
+    grid-column: 3 / 5;
+    grid-row: 1 / 4;
+    position: relative;
+    align-self: stretch;
+    justify-self: stretch;
+    margin: -44px -22px -28px;
+    border: 1.5px dashed #8a877f;
+    border-radius: var(--radius-lg);
+    pointer-events: none;
+}
+
+.kt-map-shared span {
+    position: absolute;
+    top: -22px;
+    left: 20px;
+    padding: 6px 14px;
+    border-radius: var(--radius-md);
+    background-color: var(--kt-amber);
+    font-weight: 700;
+    font-size: 20px;
+    color: #000;
+}
+
+/* =====================
+   From thought to screen
+   Each row pairs the thought (small, under the amber rule the
+   problems use) with the screen it became (large, under ink),
+   then gives the full width to the recording.
+   ===================== */
+
+.kt-proof + .kt-proof {
+    margin-top: 120px;
+}
+
+.kt-proof-head {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 80px;
+    margin-bottom: 40px;
+}
+
+.kt-thought {
+    padding-top: 20px;
+    border-top: 2px solid var(--kt-amber);
+}
+
+.kt-answer {
+    padding-top: 20px;
+    border-top: 2px solid var(--kt-ink);
+}
+
+.kt-proof-head .kt-label {
+    margin-bottom: 16px;
+}
+
+.kt-thought .kt-h4 {
+    font-size: 20px;
+}
+
+.kt-thought .kt-body {
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+.kt-answer .kt-body {
+    max-width: 620px;
+    margin-top: 14px;
+    font-size: 18px;
+    color: var(--kt-ink);
+}
+
+.kt-clip + .kt-stage {
+    margin-top: 28px;
+}
+
+/* Recordings that ship as separate TV and phone clips share one dark stage. */
+.kt-stage {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 46px;
-    top: 11px;
-    border-radius: var(--radius-pill);
-    font-weight: 600;
-    font-size: 15px;
-    text-align: center;
+    gap: 56px;
+    padding: 56px;
+    border-radius: var(--radius-md);
+    background-color: #000;
 }
 
-.kt-pill-rest {
-    left: 11px;
-    width: 96px;
-    color: #7a766e;
+.kt-stage .kt-clip {
+    background-color: transparent;
 }
 
-.kt-pill-focused {
-    left: 115px;
-    width: 118px;
-    border: 1.5px solid #efe6d2;
-    color: #efe6d2;
+.kt-stage-tv {
+    width: 860px;
+    border-radius: 0;
 }
 
-.kt-pill-current {
-    left: 241px;
-    width: 118px;
-    background-color: #efe6d2;
-    color: var(--kt-dark);
+.kt-stage-phone {
+    width: 230px;
+    border-radius: 0;
 }
 
-.kt-pill-spec {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 14px;
-    letter-spacing: 0.6px;
-    color: var(--kt-muted);
-    white-space: pre-wrap;
+.kt-stage-light {
+    background-color: var(--kt-wash);
+}
+
+.kt-stage-light .kt-stage-tv {
+    width: 800px;
+}
+
+.kt-stage-light .kt-stage-phone {
+    width: 250px;
 }
 
 /* =====================
-   Prototype screens
-   ===================== */
-
-.kt-screen-title {
-    font-weight: 500;
-    font-size: 22px;
-    color: var(--kt-ink);
-}
-
-.kt-screen-caption {
-    font-size: 19px;
-    color: var(--kt-muted);
-}
-
-/* =====================
-   Visual mode detail
-   ===================== */
-
-.kt-detail-label {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 16px;
-    letter-spacing: 1.5px;
-    color: var(--kt-muted);
-}
-
-.kt-rule-amber {
-    background-color: var(--kt-amber);
-}
-
-/* =====================
-   Takeaway
+   05 Takeaway
    ===================== */
 
 .kt-takeaway {
+    padding-top: 123px;
+    padding-bottom: 150px;
     background-color: var(--kt-dark);
 }
 
-.kt-takeaway-eyebrow {
-    font-family: "IBM Plex Mono", monospace;
-    font-size: 16px;
-    letter-spacing: 2.1px;
+.kt-takeaway .kt-eyebrow {
     color: var(--kt-dark-muted);
 }
 
 .kt-takeaway-statement {
+    max-width: 1060px;
+    margin-top: 44px;
     font-family: "Archivo", sans-serif;
     font-weight: 700;
     font-size: 48px;
@@ -425,6 +565,7 @@ body {
 }
 
 .kt-takeaway-quote {
+    margin-top: 54px;
     font-family: "Archivo", sans-serif;
     font-weight: 500;
     font-size: 32px;
