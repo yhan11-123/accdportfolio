@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>It's Not Your Nose — Younhee Han</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="css/tokens.css?v=1" rel="stylesheet" type="text/css">
+<link href="css/reset.css" rel="stylesheet" type="text/css">
+<link href="css/nose.css?v=8" rel="stylesheet" type="text/css">
+<link href="css/shell.css?v=2" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<div class="shell-sidebar">
+  <a class="shell-name" href="index.html">Younhee Han</a>
+  <p class="shell-description">A website that asks whether you have ever really seen your own face. Long passages of text frame a face with its nose cut out, a gallery of noses tests whether you can recognize your own, and a counter keeps adding up every second you have spent not looking. Shown in the group exhibition &ldquo;Cool Website, Thanks&rdquo; at ArtCenter.</p>
+  <div class="shell-meta">
+    <p class="shell-label">Tools</p>
+    <ul class="shell-tools">
+      <li>HTML · CSS</li>
+      <li>JavaScript</li>
+      <li>Claude</li>
+    </ul>
+  </div>
+  <div class="shell-meta">
+    <p class="shell-label">Live site</p>
+    <ul class="shell-tools">
+      <li><a class="nose-link" href="https://webfromthehat-younheehan.netlify.app/" target="_blank" rel="noopener">Visit the site ↗</a></li>
+    </ul>
+  </div>
+</div>
+
+<main class="nose-page shell-main">
+
+  <header class="nose-head">
+    <p class="nose-kicker">Web · Interaction · 2026</p>
+    <h1 class="nose-title">It's Not Your Nose</h1>
+  </header>
+
+  <section class="nose-sec">
+    <p class="nose-label">The website</p>
+    <div class="nose-grid">
+      <figure class="nose-fig nose-fig--wide">
+        <video autoplay muted loop playsinline preload="metadata" poster="assets/images/nose/screen-hero.jpg" aria-label="Opening screen: the face with its nose cut out, NOT YOU flashing over it">
+          <source src="assets/images/nose/clip-opening.mp4?v=2" type="video/mp4">
+        </video>
+      </figure>
+      <figure class="nose-fig">
+        <video autoplay muted loop playsinline preload="metadata" poster="assets/images/nose/screen-gallery.jpg" aria-label="Nose gallery shuffling while the counter beside it keeps climbing">
+          <source src="assets/images/nose/clip-gallery.mp4?v=2" type="video/mp4">
+        </video>
+      </figure>
+      <figure class="nose-fig">
+        <img src="assets/images/nose/screen-titles.jpg" alt="Closing list of body parts and the Have you looked marquee">
+      </figure>
+    </div>
+  </section>
+
+  <section class="nose-sec">
+    <p class="nose-label">Interaction — Know your nose</p>
+    <p class="nose-note">One tile in the gallery is a scanner. Click it, and the webcam finds your nose, archives it, and then fails to recognize it.</p>
+    <div class="nose-grid nose-grid--steps">
+      <figure class="nose-fig">
+        <img src="assets/images/nose/scan-1-idle.jpg" alt="Black tile reading Know your nose, click to begin">
+      </figure>
+      <figure class="nose-fig">
+        <img src="assets/images/nose/scan-3-archiving.jpg" alt="Live webcam view of a face with five green tracking dots on the nose, status Archiving 93 percent">
+      </figure>
+      <figure class="nose-fig">
+        <img src="assets/images/nose/scan-4-result.jpg" alt="Case number above NOT FOUND in magenta: the archive does not recognize you">
+      </figure>
+    </div>
+  </section>
+
+  <section class="nose-sec">
+    <p class="nose-label">Hidden screens</p>
+    <p class="nose-note">Screens that only show up if you stay long enough or click where you are not told to.</p>
+    <div class="nose-grid">
+      <figure class="nose-fig">
+        <img src="assets/images/nose/hidden-glitch.jpg" alt="NOT and YOU layered in red, green, blue and white over static">
+      </figure>
+      <figure class="nose-fig">
+        <video autoplay muted loop playsinline preload="metadata" poster="assets/images/nose/screen-reveal.jpg" aria-label="Clicking a body part turns the list into a yellow band: More to come, but first, is that your nose?">
+          <source src="assets/images/nose/clip-reveal.mp4?v=2" type="video/mp4">
+        </video>
+      </figure>
+      <figure class="nose-fig nose-fig--wide">
+        <video autoplay muted loop playsinline preload="metadata" poster="assets/images/nose/hidden-exposure-noise.jpg" aria-label="The page breaks into binary noise, warns External exposure detected, then returns">
+          <source src="assets/images/nose/clip-exposure.mp4?v=2" type="video/mp4">
+        </video>
+      </figure>
+    </div>
+  </section>
+
+  <section class="nose-sec">
+    <p class="nose-label">Exhibition — Cool Website, Thanks</p>
+    <p class="nose-note">ArtCenter College of Design, South Campus · Oct 26 – Nov 8, 2026</p>
+    <div class="nose-grid">
+      <figure class="nose-fig">
+        <img src="assets/images/nose/exhibition-poster.jpg" alt="Exhibition poster for Cool Website, Thanks">
+      </figure>
+      <figure class="nose-fig">
+        <img src="assets/images/nose/exhibition-description.jpg" alt="Exhibition wall text">
+      </figure>
+      <!-- Exhibition photos: replace each placeholder with a figure like the ones above. -->
+      <div class="nose-fig nose-placeholder">Exhibition photo</div>
+      <div class="nose-fig nose-placeholder">Exhibition photo</div>
+    </div>
+  </section>
+
+</main>
+
+</body>
+</html>
