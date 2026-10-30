@@ -87,20 +87,6 @@ body {
     height: auto;
 }
 
-/* Holds the slot until exhibition photos arrive. */
-.nose-placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    aspect-ratio: 4 / 3;
-    background-color: rgb(240, 240, 240);
-    font-family: var(--shell-label);
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--shell-muted);
-}
-
 .nose-link {
     color: inherit;
     text-underline-offset: 3px;
