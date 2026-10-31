@@ -21,8 +21,8 @@ a {
 
 /* =====================
    About column (left)
-   Sticks to the viewport; the top block and the extras
-   sit at opposite ends of the full height.
+   Sticks to the viewport; the top block and the contact
+   links sit at opposite ends of the full height.
    ===================== */
 .about {
     position: sticky;
