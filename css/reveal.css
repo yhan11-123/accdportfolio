@@ -1,0 +1,24 @@
+/* =====================================================
+   Scroll reveal (see js/reveal.js)
+   Blocks rise 28px and fade in as they reach the screen; items in a
+   grid follow 90ms apart. Uses the `translate` property so it never
+   fights a layout's own `transform`. Only active once the script has
+   run (.rv-on), so pages are fully visible without JS.
+   ===================================================== */
+.rv-on .rv {
+    opacity: 0;
+    translate: 0 28px;
+    transition:
+        opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+        translate 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+    transition-delay: calc(var(--rv-i, 0) * 90ms);
+}
+
+.rv-on .rv.rv-in {
+    opacity: 1;
+    translate: 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rv-on .rv { opacity: 1; translate: none; transition: none; }
+}

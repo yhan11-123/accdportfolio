@@ -1324,27 +1324,3 @@ body {
     .do-learned li { font-size: 15px; }
     .do-sources { font-size: 12px; }
 }
-
-/* =====================================================
-   Scroll reveal
-   Blocks rise 28px and fade in as they reach the screen; items in a
-   grid follow 90ms apart. Only active once the script has run
-   (.rv-on), so the page is fully visible without JS.
-   ===================================================== */
-.rv-on .rv {
-    opacity: 0;
-    transform: translateY(28px);
-    transition:
-        opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
-        transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
-    transition-delay: calc(var(--rv-i, 0) * 90ms);
-}
-
-.rv-on .rv.rv-in {
-    opacity: 1;
-    transform: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .rv-on .rv { opacity: 1; transform: none; transition: none; }
-}

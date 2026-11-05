@@ -10,9 +10,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="css/tokens.css?v=1" rel="stylesheet" type="text/css">
 <link href="css/reset.css" rel="stylesheet" type="text/css">
-<link href="css/dayone.css?v=26" rel="stylesheet" type="text/css">
+<link href="css/dayone.css?v=27" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="css/shell.css?v=3" rel="stylesheet" type="text/css">
+<link href="css/reveal.css?v=1" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -320,50 +321,6 @@
 </div>
 </div>
 
-<script>
-/* Scroll reveal: each block rises into place as it enters the screen,
-   and the items inside a grid follow one after another, so the page
-   arrives section by section instead of all at once. Skipped entirely
-   for people who ask for reduced motion; without JS nothing is hidden. */
-(function () {
-    if (!('IntersectionObserver' in window)) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    /* Grids whose items arrive one by one; each grid itself stays put. */
-    var groups = '.do-steps, .do-cols3, .do-cols2, .do-boards, .do-themes, .do-evidence, .do-hmw';
-    var targets = [];
-
-    document.querySelectorAll('.shell-main .do-sec').forEach(function (sec) {
-        Array.prototype.forEach.call(sec.children, function (el) {
-            if (/\bdo-s\d+\b/.test(el.className)) return;        /* spacers */
-            if (el.matches(groups)) return;                   /* its items move instead */
-            targets.push({ el: el, i: 0 });
-        });
-    });
-
-    /* Inside grids, stagger the children instead of moving the grid. */
-    document.querySelectorAll(groups).forEach(function (grid) {
-        Array.prototype.forEach.call(grid.children, function (child, i) {
-            targets.push({ el: child, i: i });
-        });
-    });
-
-    document.documentElement.classList.add('rv-on');
-
-    var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-            if (!entry.isIntersecting) return;
-            entry.target.classList.add('rv-in');
-            io.unobserve(entry.target);
-        });
-    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
-
-    targets.forEach(function (t) {
-        t.el.classList.add('rv');
-        t.el.style.setProperty('--rv-i', t.i);
-        io.observe(t.el);
-    });
-})();
-</script>
+<script src="js/reveal.js?v=1" defer></script>
 </body>
 </html>
