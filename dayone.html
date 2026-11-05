@@ -10,16 +10,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="css/tokens.css?v=1" rel="stylesheet" type="text/css">
 <link href="css/reset.css" rel="stylesheet" type="text/css">
-<link href="css/dayone.css?v=2" rel="stylesheet" type="text/css">
+<link href="css/dayone.css?v=26" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
-<link href="css/shell.css?v=2" rel="stylesheet" type="text/css">
+<link href="css/shell.css?v=3" rel="stylesheet" type="text/css">
 </head>
 
 <body>
 
 <div class="shell-sidebar">
 <a class="shell-name" href="index.html">Younhee Han</a>
-<p class="shell-description">Day One is a chat platform plugin for the moment someone joins a group they don&rsquo;t know yet. It reads the group&rsquo;s own chat history, turns the unspoken rules into a short private guide, and drafts a first message that fits. Halfway through, the research told us we were solving the wrong problem, and we let it change our minds.</p>
+<p class="shell-description">A chat platform plugin for the moment someone joins a group they don&rsquo;t know yet.</p>
 <div class="shell-meta">
 <p class="shell-label">Tools</p>
 <ul class="shell-tools">
@@ -41,165 +41,143 @@
 <div class="do-stage">
 
 <!-- ============ 00 · Hero ============ -->
-<section class="do-sec do-sec--green do-hero">
+<section class="do-sec do-sec--cream do-hero">
   <p class="do-meta-bar"><b>IXD CAPSTONE &middot; SUMMER 2026</b><span>Team Project</span></p>
-  <div class="do-hero-grid">
-    <div class="do-hero-copy">
+  <div class="do-hero-top">
+    <div>
       <span class="do-hero-badge">Chat platform plugin</span>
       <h1 class="do-h1">Day One</h1>
       <p class="do-tagline">Reads the group. Guides the newcomer. Drafts the first message.</p>
-      <dl class="do-hero-facts">
-        <div><dt>ROLE</dt><dd>Research &middot; UX<br>UI &middot; Prototyping</dd></div>
-        <div><dt>TIMELINE</dt><dd>14 weeks</dd></div>
-        <div><dt>TOOLS</dt><dd>Figma &middot; design<br>Claude &middot; synthesis<br>Perplexity &middot; research</dd></div>
-      </dl>
     </div>
-    <img class="do-hero-shot" src="assets/images/dayone/hero-panel.webp" width="1240" height="775"
-         alt="The Day One panel open beside a Slack channel, showing what the group talks about and the words it uses">
+    <dl class="do-hero-facts">
+      <div><dt>PROBLEM</dt><dd>Newcomers stay silent for weeks because they don&rsquo;t know a group&rsquo;s unspoken rules.</dd></div>
+      <div><dt>SOLUTION</dt><dd>A private guide built from the group&rsquo;s own chat history, plus help writing the first message.</dd></div>
+      <div><dt>ROLE</dt><dd>Research &middot; UX &middot; UI &middot; Prototyping</dd></div>
+      <div><dt>TIMELINE</dt><dd>14 weeks</dd></div>
+    </dl>
+  </div>
+  <div class="do-hero-stage">
+    <img class="do-hero-photo" src="assets/images/dayone/hero-mockup.webp?v=1" width="2400" height="1596"
+         alt="A laptop on a dark bench showing Slack with the Day One guide open beside the channel">
   </div>
 </section>
 
-<!-- ============ 00b · Product preview ============ -->
-<section class="do-sec do-sec--green do-preview">
-  <p class="do-overline">A LOOK AT WHAT WE BUILT</p>
-  <div class="do-s28"></div>
-  <div class="do-shots">
-    <figure class="do-shot">
-      <img src="assets/images/dayone/preview-marketplace.webp" width="800" height="704"
-           alt="The Day One listing in the Slack App Directory">
-      <figcaption>Discovered in the Slack Marketplace</figcaption>
+<!-- ============ 01 · How it works: two people, one system, one result ============ -->
+<section class="do-sec do-sec--cream do-sec--afterhero">
+  <p class="do-eyebrow"><b>01</b><span>HOW IT WORKS</span></p>
+  <div class="do-s32"></div>
+  <h2 class="do-h2">The group already explains itself. Day One just reads it back.</h2>
+  <div class="do-s56"></div>
+  <div class="do-sys">
+    <div class="do-sys-people">
+      <div class="do-sys-person">
+        <svg class="do-person do-person--host" viewBox="0 0 120 120" role="img" aria-label="Host"><circle cx="60" cy="64" r="25"/><circle cx="51" cy="61" r="3.2" class="f"/><circle cx="69" cy="61" r="3.2" class="f"/><path d="M51 72q9 7 18 0"/><path d="M30 112q3-13 16-19"/><path d="M90 112q-3-13-16-19"/><path d="M60 92l-5 5 5 17 5-17z"/></svg>
+        <p class="do-node-label">HOST &middot; ONCE</p>
+        <p class="do-node-title">Sets it up in ~2 minutes</p>
+      </div>
+      <div class="do-sys-person">
+        <svg class="do-person do-person--newcomer" viewBox="0 0 120 120" role="img" aria-label="Newcomer, unsure"><circle cx="60" cy="64" r="25"/><circle cx="51" cy="61" r="3.2" class="f"/><circle cx="69" cy="61" r="3.2" class="f"/><path d="M51 72q9 7 18 0"/><path d="M30 112q3-13 16-19"/><path d="M90 112q-3-13-16-19"/><path d="M35 16l5 10"/><path d="M85 16l-5 10"/><path d="M54 14q0-8 6-8t6 6q0 5-6 7v3"/><circle cx="60" cy="29" r="2.6" class="f"/></svg>
+        <p class="do-node-label">NEWCOMER</p>
+        <p class="do-node-title">Opens it the moment they join</p>
+      </div>
+    </div>
+    <div class="do-sys-in">
+      <div class="do-sys-arrow do-sys-arrow--left" aria-hidden="true"><svg class="do-sys-diag" viewBox="0 0 100 80" aria-hidden="true"><path d="M8 6L86 68"/><path d="M81.2 57L86 68 74.2 65.8"/></svg></div>
+      <div class="do-sys-arrow do-sys-arrow--right" aria-hidden="true"><svg class="do-sys-diag" viewBox="0 0 100 80" aria-hidden="true"><path d="M8 6L86 68"/><path d="M81.2 57L86 68 74.2 65.8"/></svg></div>
+    </div>
+    <article class="do-node do-node--core">
+      <p class="do-node-label">DAY ONE</p>
+      <ol class="do-core-steps">
+        <li><b>Reads</b><span>The last 60 days, in channels the host allows</span></li>
+        <li><b>Builds</b><span>A private guide. Patterns only, nobody named</span></li>
+        <li><b>Drafts</b><span>An editable first message in the group&rsquo;s tone</span></li>
+      </ol>
+    </article>
+    <div class="do-sys-down">
+      <svg class="do-sys-drop" viewBox="0 0 16 80" aria-hidden="true"><path d="M8 0V74"/><path d="M2 66l6 8 6-8"/></svg>
+    </div>
+    <article class="do-result">
+      <div class="do-result-icon"><svg class="do-person do-person--talk" viewBox="0 0 120 120" role="img" aria-label="Newcomer, speaking up"><circle cx="50" cy="66" r="25"/><circle cx="41" cy="63" r="3.2" class="f"/><circle cx="59" cy="63" r="3.2" class="f"/><path d="M41 74q9 7 18 0"/><path d="M20 114q3-13 16-19"/><path d="M80 114q-3-13-16-19"/><path d="M80 12h22a10 10 0 0 1 10 10v8a10 10 0 0 1-10 10H90l-9 8 1-8a10 10 0 0 1-12-10v-8a10 10 0 0 1 10-10z"/><circle cx="83" cy="26" r="2.2" class="f"/><circle cx="91" cy="26" r="2.2" class="f"/><circle cx="99" cy="26" r="2.2" class="f"/></svg></div>
+      <p class="do-node-label">WHAT IT CHANGES</p>
+      <p class="do-result-title">A first message on day one, not weeks of silence.</p>
+      <dl>
+        <div><dt>For the host</dt><dd>One setup covers every newcomer</dd></div>
+        <div><dt>For the newcomer</dt><dd>Learn the rules without anyone seeing</dd></div>
+      </dl>
+    </article>
+  </div>
+</section>
+
+<!-- ============ 02 · The experience ============ -->
+<section class="do-sec do-sec--cream do-sec--flush">
+  <p class="do-eyebrow"><b>02</b><span>THE EXPERIENCE</span></p>
+  <div class="do-s32"></div>
+  <p class="do-flow-head"><i class="do-dot"></i>Newcomer &middot; the first ten minutes</p>
+  <div class="do-s24"></div>
+  <div class="do-steps do-steps--top">
+    <figure class="do-step">
+      <div class="do-screen">
+        <img src="assets/images/dayone/hf-about.webp" width="2560" height="1600" alt="The guide panel ranking what the group talks about">
+      </div>
+      <figcaption><b>01</b><span><strong>See what the group is about</strong><em>Topics ranked by how often they come up, plus the group&rsquo;s in-words.</em></span></figcaption>
     </figure>
-    <figure class="do-shot">
-      <img src="assets/images/dayone/preview-guide.webp" width="800" height="566"
-           alt="The private guide panel, built from the group's history">
-      <figcaption>A private guide, built from the group&rsquo;s history</figcaption>
+    <figure class="do-step">
+      <div class="do-screen">
+        <img src="assets/images/dayone/hf-timing.webp" width="2560" height="1600" alt="The guide panel showing when the group is active and typical reply time">
+      </div>
+      <figcaption><b>02</b><span><strong>Learn when &amp; how people talk</strong><em>So a slow reply reads as the group&rsquo;s pace, not a snub.</em></span></figcaption>
     </figure>
-    <figure class="do-shot">
-      <img src="assets/images/dayone/preview-firstmessage.webp" width="800" height="566"
-           alt="Editable message starters sitting above the composer">
-      <figcaption>Help writing the very first message</figcaption>
+    <figure class="do-step">
+      <div class="do-screen">
+        <img src="assets/images/dayone/hf-starter.webp" width="2560" height="1600" alt="Editable message starters sitting directly above the Slack composer">
+      </div>
+      <figcaption><b>03</b><span><strong>Get help with the first message</strong><em>Editable starters in the group&rsquo;s tone. Nothing sends until they press send.</em></span></figcaption>
+    </figure>
+  </div>
+  <div class="do-s56"></div>
+  <p class="do-flow-head"><i class="do-dot"></i>Host &middot; sets it up once</p>
+  <div class="do-s24"></div>
+  <div class="do-steps do-steps--baseline">
+    <figure class="do-step">
+      <img src="assets/images/dayone/hf-market.webp" width="2560" height="2040" alt="The Day One listing in Slack's App Directory">
+      <figcaption><b>01</b><span><strong>Install from the Marketplace</strong><em>Added to the workspace from Slack&rsquo;s App Directory.</em></span></figcaption>
+    </figure>
+    <figure class="do-step">
+      <img src="assets/images/dayone/hf-consent.webp" width="2560" height="1800" alt="A consent screen listing exactly what Day One reads">
+      <figcaption><b>02</b><span><strong>Grant access, transparently</strong><em>Spells out what Day One reads, and what it never does.</em></span></figcaption>
+    </figure>
+    <figure class="do-step">
+      <img src="assets/images/dayone/hf-setup.webp" width="2560" height="1600" alt="The host editing an AI-drafted welcome message">
+      <figcaption><b>03</b><span><strong>Edit the AI-drafted welcome</strong><em>Drafted from the group&rsquo;s history. The host tweaks and publishes.</em></span></figcaption>
     </figure>
   </div>
 </section>
 
-<!-- ============ 01 · The problem ============ -->
+<!-- ============ 03 · The problem, and the research behind it ============ -->
 <section class="do-sec do-sec--cream">
-  <p class="do-eyebrow"><b>01</b><span>THE PROBLEM</span></p>
+  <p class="do-eyebrow"><b>03</b><span>THE PROBLEM</span></p>
   <div class="do-s32"></div>
   <h2 class="do-h2 do-h2--lead">The hardest part of joining isn&rsquo;t the work. It&rsquo;s not knowing the unspoken rules, and being afraid to ask.</h2>
-  <div class="do-s32"></div>
-  <div class="do-chips">
-    <span class="do-chip">Unspoken rules</span>
-    <span class="do-chip">Fear of asking</span>
-    <span class="do-chip">Weeks of silence</span>
-  </div>
   <div class="do-s56"></div>
-  <div class="do-split">
-    <p class="do-lead">They don&rsquo;t know the norms. When to post, how formal to be, whether a question is welcome. So they stay silent and read for weeks. The barrier isn&rsquo;t skill. It&rsquo;s the risk of getting it wrong in front of everyone.</p>
-    <blockquote class="do-quote">
-      <p class="do-quote-mark" aria-hidden="true">&ldquo;</p>
-      <p>She lent me an eraser once when I&rsquo;d forgotten mine, and we became friends. Early on it made me feel safe, knowing I wasn&rsquo;t the only one in that situation.</p>
-      <footer>Interview participant, on switching schools</footer>
-    </blockquote>
-  </div>
-  <div class="do-s56"></div>
-  <p class="do-kicker do-kicker--tight">And it is measurable across onboarding, peer support, and repeated exposure.</p>
-  <div class="do-s32"></div>
-  <div class="do-cols3">
+  <div class="do-evidence">
     <div class="do-card do-card--stat">
       <p class="do-stat-figure">12%</p>
       <p class="do-stat-body">of employees strongly agree their organization onboarded them well.</p>
       <p class="do-stat-source">Gallup &middot; via StrongDM</p>
     </div>
-    <div class="do-card do-card--stat">
-      <p class="do-stat-figure">29%</p>
-      <p class="do-stat-body">drop in anxiety symptoms within 90 days when newcomers had peer support.</p>
-      <p class="do-stat-source">Peer-support study &middot; PMC (NIH)</p>
-    </div>
-    <div class="do-card do-card--stat">
-      <p class="do-stat-figure">208</p>
-      <p class="do-stat-body">experiments confirm repeated exposure reliably builds confidence in unfamiliar settings.</p>
-      <p class="do-stat-source">Meta-analysis &middot; 208 experiments</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 02 · The solution ============ -->
-<section class="do-sec do-sec--cream">
-  <p class="do-eyebrow"><b>02</b><span>THE SOLUTION</span></p>
-  <div class="do-s32"></div>
-  <h2 class="do-h2" style="max-width:calc(1000 * var(--u))">The group already explains itself. Day One just reads it back.</h2>
-  <div class="do-s32"></div>
-  <p class="do-lead" style="max-width:calc(760 * var(--u))">It reads the group&rsquo;s own chat history and turns it into a short, private guide, then helps write a first message that fits.</p>
-  <div class="do-s56"></div>
-  <div class="do-cols3">
-    <div class="do-card">
-      <span class="do-badge">01</span>
-      <p class="do-card-title">Reads the history</p>
-      <p class="do-card-body">Last 60 days, channels the host allows. Patterns only, nobody quoted by name.</p>
-    </div>
-    <div class="do-card">
-      <span class="do-badge">02</span>
-      <p class="do-card-title">Builds a private guide</p>
-      <p class="do-card-body">Each newcomer&rsquo;s own view: what the group talks about, when people post, who to ask.</p>
-    </div>
-    <div class="do-card">
-      <span class="do-badge">03</span>
-      <p class="do-card-title">Drafts the first message</p>
-      <p class="do-card-body">An editable opener, so saying hello isn&rsquo;t a decision made alone.</p>
-    </div>
+    <blockquote class="do-quote">
+      <p>She lent me an eraser once when I&rsquo;d forgotten mine, and we became friends. Early on it made me feel safe, knowing I wasn&rsquo;t the only one in that situation.</p>
+      <footer>Interview participant, on switching schools</footer>
+    </blockquote>
   </div>
   <div class="do-s56"></div>
-  <div class="do-model">
-    <div class="do-model-side">
-      <p class="do-model-label">HOST &middot; ONCE</p>
-      <p class="do-model-title">Sets it up in ~2 minutes</p>
-      <p class="do-model-body">Picks channels, edits the auto-drafted welcome, sets who counts as new. Then never touches it again.</p>
-    </div>
-    <div class="do-model-hinge">
-      <b aria-hidden="true">&rarr;</b>
-      <span>one setup,<br>every newcomer</span>
-    </div>
-    <div class="do-model-side">
-      <p class="do-model-label">NEWCOMER &middot; EVERY TIME</p>
-      <p class="do-model-title">Gets a private guide, automatically</p>
-      <p class="do-model-body">The moment they join: their own read-only guide and message help. Private, so nobody sees what they read.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 03 · Research ============ -->
-<section class="do-sec do-sec--cream">
-  <p class="do-eyebrow"><b>03</b><span>HOW WE GOT THERE &middot; RESEARCH</span></p>
-  <div class="do-s32"></div>
-  <h2 class="do-h2" style="max-width:calc(900 * var(--u))">We started wide: who feels new, and why?</h2>
-  <div class="do-s24"></div>
-  <p class="do-lead" style="max-width:calc(820 * var(--u))">Before building anything, we interviewed very different kinds of &ldquo;new&rdquo;: new hires, movers, career-switchers, looking for the pattern underneath.</p>
-  <div class="do-s56"></div>
-  <div class="do-cols3">
-    <div class="do-card do-card--sand">
-      <p class="do-card-title">Qualitative interviews</p>
-      <p class="do-card-body">Across relocation, new jobs, career switches, and new personal practices.</p>
-    </div>
-    <div class="do-card do-card--sand">
-      <p class="do-card-title">4 participant types</p>
-      <p class="do-card-body">From &ldquo;new to a community&rdquo; to &ldquo;an insider who feels new,&rdquo; mapped to compare.</p>
-    </div>
-    <div class="do-card do-card--sand">
-      <p class="do-card-title">Affinity mapping</p>
-      <p class="do-card-body">Clustered every quote into themes, then pulled the recurring tensions out.</p>
-    </div>
-  </div>
-  <div class="do-s56"></div>
-  <p class="do-kicker">Affinity maps: clustering interview quotes into themes</p>
+  <p class="do-kicker">We interviewed new hires, movers and career-switchers, then clustered every quote into six themes.</p>
   <div class="do-s24"></div>
   <div class="do-boards">
     <div class="do-board"><img src="assets/images/dayone/affinity-1.webp" width="838" height="600" alt="Affinity board: interview quotes clustered into coloured theme columns"></div>
     <div class="do-board"><img src="assets/images/dayone/affinity-2.webp" width="870" height="600" alt="Affinity board: a second cluster of quotes grouped by theme"></div>
     <div class="do-board"><img src="assets/images/dayone/affinity-3.webp" width="838" height="600" alt="Affinity board: a third cluster of quotes grouped by theme"></div>
   </div>
-  <div class="do-s32"></div>
-  <p class="do-kicker">Six themes surfaced. Read together, they pointed one direction:</p>
   <div class="do-s24"></div>
   <div class="do-themes">
     <span class="do-theme"><i class="do-dot"></i>Unclear expectations</span>
@@ -215,15 +193,9 @@
 <section class="do-sec do-sec--green">
   <p class="do-eyebrow"><b>04</b><span>THE PIVOT</span></p>
   <div class="do-s32"></div>
-  <h2 class="do-h2" style="max-width:calc(1000 * var(--u))">Halfway through, the research told us we were solving the wrong problem.</h2>
-  <div class="do-s32"></div>
-  <div class="do-chips">
-    <span class="do-chip">Wrong problem</span>
-    <span class="do-chip">Silent Researcher</span>
-    <span class="do-chip">New direction</span>
-  </div>
-  <div class="do-s56"></div>
-  <p class="do-lead">Our first instinct was loneliness. But the &ldquo;Silent Researcher&rdquo; persona showed the real barrier. It wasn&rsquo;t being alone. It was not knowing how the group works, and being afraid to reveal it.</p>
+  <h2 class="do-h2">Halfway through, the research told us we were solving the wrong problem.</h2>
+  <div class="do-s24"></div>
+  <p class="do-lead">Our first instinct was loneliness. The &ldquo;Silent Researcher&rdquo; persona showed the real barrier: not knowing how the group works, and being afraid to reveal it.</p>
   <div class="do-s56"></div>
   <div class="do-hmw">
     <div class="do-card do-card--dark">
@@ -236,176 +208,162 @@
       <p class="do-hmw-text">How might we give a newcomer early, low-risk guidance into a group&rsquo;s unspoken norms, so they feel &ldquo;I know how this works&rdquo;?</p>
     </div>
   </div>
-  <div class="do-s56"></div>
-  <p class="do-kicker">That shift changed the product itself, not just the words on a slide:</p>
   <div class="do-s24"></div>
   <div class="do-cols2">
-    <div class="do-card do-card--dark" style="gap:calc(18 * var(--u));padding:calc(30 * var(--u)) calc(32 * var(--u)) calc(32 * var(--u))">
+    <div class="do-card do-card--dark do-card--change">
       <p class="do-card-label">THE NAME</p>
       <p class="do-change"><span class="do-was">First Step Guide</span><span class="do-to" aria-hidden="true">&rarr;</span><span class="do-now">Day One</span></p>
-      <p class="do-card-body">&ldquo;First Step Guide&rdquo; described a feature. &ldquo;Day One&rdquo; names the feeling: the first day, made survivable.</p>
     </div>
-    <div class="do-card do-card--dark" style="gap:calc(18 * var(--u));padding:calc(30 * var(--u)) calc(32 * var(--u)) calc(32 * var(--u))">
+    <div class="do-card do-card--dark do-card--change">
       <p class="do-card-label">THE STRUCTURE</p>
-      <p class="do-change"><span class="do-was">New channel</span><span class="do-to" aria-hidden="true">&rarr;</span><span class="do-now">Read-only panel</span></p>
-      <p class="do-card-body">The early version made a public channel in everyone&rsquo;s sidebar. Now: one private box, only the newcomer sees it, read-only.</p>
+      <p class="do-change"><span class="do-was">Public channel</span><span class="do-to" aria-hidden="true">&rarr;</span><span class="do-now">Private read-only panel</span></p>
     </div>
   </div>
 </section>
 
-<!-- ============ 05 · Test before building ============ -->
+<!-- ============ 05 · Test, then fix ============ -->
 <section class="do-sec do-sec--cream">
   <p class="do-eyebrow"><b>05</b><span>TEST BEFORE BUILDING</span></p>
   <div class="do-s32"></div>
-  <h2 class="do-h2">Before designing a single real screen, we tested the flow on paper.</h2>
+  <h2 class="do-h2">Before designing a real screen, we tested the flow on paper.</h2>
   <div class="do-s24"></div>
-  <p class="do-lead">We tested the flow on paper before investing in real screens. Three people, four tasks, host and newcomer. We watched for hesitation, skips, and whether they reached a first message.</p>
-  <div class="do-s56"></div>
+  <p class="do-kicker">3 people &middot; 4 tasks &middot; think-aloud. Three frictions became three fixes.</p>
+  <div class="do-s32"></div>
   <div class="do-cols3">
-    <div class="do-card do-card--sand">
-      <p class="do-card-label">PARTICIPANTS</p>
-      <p class="do-card-body">Jack (IxD) &middot; Seiya (Film) &middot; Alex (Transportation)</p>
-    </div>
-    <div class="do-card do-card--sand">
-      <p class="do-card-label">TASKS</p>
-      <p class="do-card-body">Download the agent &middot; Personalize settings &middot; Read group info &middot; Write &amp; send first message</p>
-    </div>
-    <div class="do-card do-card--sand">
-      <p class="do-card-label">METHOD</p>
-      <p class="do-card-body">Paper prototype, run as a think-aloud walkthrough</p>
-    </div>
-  </div>
-  <div class="do-s56"></div>
-  <p class="do-kicker">Three frictions surfaced. Each one became a fix we carried into the real build:</p>
-  <div class="do-s24"></div>
-  <div class="do-frictions">
-    <div class="do-friction">
-      <dl class="do-saw"><dt>WE SAW</dt><dd>People couldn&rsquo;t find where to start. The agent&rsquo;s entry point wasn&rsquo;t obvious on first landing.</dd></dl>
-      <div class="do-arrow" aria-hidden="true">&rarr;</div>
-      <dl class="do-changed"><dt>WE CHANGED</dt><dd>Made the Day One box the one mint-accented element in the sidebar, so it&rsquo;s the first thing that stands out.</dd></dl>
-    </div>
-    <div class="do-friction">
-      <dl class="do-saw"><dt>WE SAW</dt><dd>Setup showed too many options at once; users skipped past the summary preview.</dd></dl>
-      <div class="do-arrow" aria-hidden="true">&rarr;</div>
-      <dl class="do-changed"><dt>WE CHANGED</dt><dd>Broke setup into numbered steps with a live preview of the newcomer&rsquo;s view.</dd></dl>
-    </div>
-    <div class="do-friction">
-      <dl class="do-saw"><dt>WE SAW</dt><dd>No path existed if a host declined to let the agent read history. The flow dead-ended.</dd></dl>
-      <div class="do-arrow" aria-hidden="true">&rarr;</div>
-      <dl class="do-changed"><dt>WE CHANGED</dt><dd>Added a consent screen with an explicit, handled decline path.</dd></dl>
-    </div>
-  </div>
-  <div class="do-s32"></div>
-  <p class="do-kicker do-kicker--tight">With the flow validated, we built it for real. &darr;</p>
-</section>
-
-<!-- ============ 06 · The build ============ -->
-<section class="do-sec do-sec--cream">
-  <p class="do-eyebrow"><b>06</b><span>THE BUILD</span></p>
-  <div class="do-s32"></div>
-  <h2 class="do-h2" style="max-width:calc(1000 * var(--u))">From validated flow to a real product.</h2>
-  <div class="do-s24"></div>
-  <img class="do-spotlight" src="assets/images/dayone/build-spotlight.webp" width="2480" height="1550"
-       alt="The Day One panel lit against a dimmed Slack workspace, with a note reading: the lit panel is our plugin, everything dimmed behind it is the group's existing Slack">
-  <div class="do-s56"></div>
-  <div class="do-s56"></div>
-  <p class="do-flow-head"><i class="do-dot"></i>Host &middot; sets it up once</p>
-  <div class="do-s24"></div>
-  <div class="do-steps do-steps--baseline">
-    <figure class="do-step">
-      <img src="assets/images/dayone/host-1.webp" width="800" height="638" alt="The Day One listing in Slack's App Directory">
-      <figcaption><b>01</b><span><strong>Install from the Marketplace</strong><em>Host finds Day One in Slack&rsquo;s App Directory and adds it to the workspace.</em></span></figcaption>
-    </figure>
-    <figure class="do-step">
-      <img src="assets/images/dayone/host-2.webp" width="800" height="614" alt="A consent screen listing exactly what Day One reads">
-      <figcaption><b>02</b><span><strong>Grant access, transparently</strong><em>A consent screen spells out exactly what Day One reads, and what it never does.</em></span></figcaption>
-    </figure>
-    <figure class="do-step">
-      <img src="assets/images/dayone/host-3.webp" width="800" height="552" alt="The host editing an AI-drafted welcome message">
-      <figcaption><b>03</b><span><strong>Edit the AI-drafted welcome</strong><em>Day One drafts a welcome from the group&rsquo;s own history. The host tweaks and publishes.</em></span></figcaption>
-    </figure>
-  </div>
-  <div class="do-s56"></div>
-  <p class="do-flow-head"><i class="do-dot"></i>Newcomer &middot; the first ten minutes</p>
-  <div class="do-s24"></div>
-  <div class="do-steps do-steps--top">
-    <figure class="do-step">
-      <img src="assets/images/dayone/new-1.webp" width="800" height="552" alt="The guide panel ranking what the group talks about">
-      <figcaption><b>04</b><span><strong>See what the group is about</strong><em>Topics ranked by how often they come up, plus the group&rsquo;s own in-words a newcomer wouldn&rsquo;t know yet.</em></span></figcaption>
-    </figure>
-    <figure class="do-step">
-      <img src="assets/images/dayone/new-2.webp" width="800" height="552" alt="The guide panel showing activity rhythm and typical reply time">
-      <figcaption><b>05</b><span><strong>Learn when &amp; how people talk</strong><em>Activity rhythm and reply time, so a slow reply reads as the group&rsquo;s pace &mdash; not a snub.</em></span></figcaption>
-    </figure>
-    <figure class="do-step">
-      <img src="assets/images/dayone/new-3.webp" width="800" height="552" alt="Editable message starters sitting directly above the Slack composer">
-      <figcaption><b>06</b><span><strong>Get help with the first message</strong><em>Editable starters in the group&rsquo;s tone, right above the composer. Nothing sends until they press send.</em></span></figcaption>
-    </figure>
+    <article class="do-fix">
+      <div class="do-crop" style="--z:3.4;--x:2.5;--y:30.9"><img src="assets/images/dayone/hf-setup.webp" width="2560" height="1600" alt="The Slack sidebar with Day One listed in its own App/Agent section"></div>
+      <dl>
+        <div class="do-saw"><dt>WE SAW</dt><dd>People couldn&rsquo;t find where to start.</dd></div>
+        <div class="do-changed"><dt>WE CHANGED</dt><dd>Made the Day One entry easy to spot in the sidebar.</dd></div>
+      </dl>
+    </article>
+    <article class="do-fix">
+      <div class="do-crop" style="--z:1.6;--x:27;--y:6.6"><img src="assets/images/dayone/hf-setup.webp" width="2560" height="1600" alt="Setup at step 2 of 3, with a progress bar above the welcome message editor"></div>
+      <dl>
+        <div class="do-saw"><dt>WE SAW</dt><dd>Setup showed too many options at once.</dd></div>
+        <div class="do-changed"><dt>WE CHANGED</dt><dd>Broke setup into numbered steps.</dd></div>
+      </dl>
+    </article>
+    <article class="do-fix">
+      <div class="do-branch" role="img" aria-label="On the consent screen, Cancel means nothing is read; Agree and continue starts reading, only in the channels the host picks next">
+        <p class="do-branch-label">CONSENT SCREEN</p>
+        <p class="do-branch-check"><i aria-hidden="true"></i>I understand that AI will read this group&rsquo;s message history.</p>
+        <div class="do-branch-paths">
+          <div class="do-branch-path">
+            <span class="do-branch-btn">Cancel</span>
+            <span class="do-branch-line" aria-hidden="true"></span>
+            <span class="do-branch-result">Nothing is read</span>
+          </div>
+          <div class="do-branch-path">
+            <span class="do-branch-btn do-branch-btn--primary">Agree and continue</span>
+            <span class="do-branch-line" aria-hidden="true"></span>
+            <span class="do-branch-result">Reading starts, only in the channels picked next</span>
+          </div>
+        </div>
+      </div>
+      <dl>
+        <div class="do-saw"><dt>WE SAW</dt><dd>The flow dead-ended if a host declined access.</dd></div>
+        <div class="do-changed"><dt>WE CHANGED</dt><dd>Added a consent screen with a handled decline path.</dd></div>
+      </dl>
+    </article>
   </div>
 </section>
 
-<!-- ============ 07 · Design decisions ============ -->
-<section class="do-sec do-sec--cream">
-  <p class="do-eyebrow"><b>07</b><span>DESIGN DECISIONS</span></p>
+<!-- ============ 06 · Design decisions: the reasoning sits on the screen ============ -->
+<section class="do-sec do-sec--cream do-sec--flush">
+  <p class="do-eyebrow"><b>06</b><span>DESIGN DECISIONS</span></p>
   <div class="do-s32"></div>
   <h2 class="do-h2">Every screen came down to one principle: lower the risk of being seen.</h2>
   <div class="do-s56"></div>
-  <div class="do-cols2">
-    <div class="do-card" style="gap:calc(14 * var(--u));padding:calc(32 * var(--u)) calc(36 * var(--u)) calc(34 * var(--u))">
-      <p class="do-card-label">LANGUAGE</p>
-      <p class="do-card-title">We never say &ldquo;anxiety&rdquo; in the UI</p>
-      <p class="do-card-body" style="line-height:1.58">The research is about anxiety; the product isn&rsquo;t. In-app copy stays functional, like &ldquo;when people talk&rdquo; and &ldquo;who to ask,&rdquo; because naming the fear on screen makes the user feel watched.</p>
-    </div>
-    <div class="do-card" style="gap:calc(14 * var(--u));padding:calc(32 * var(--u)) calc(36 * var(--u)) calc(34 * var(--u))">
-      <p class="do-card-label">PRIVACY</p>
-      <p class="do-card-title">Anonymous by construction</p>
-      <p class="do-card-body" style="line-height:1.58">Hosts control the guide with rules, not names: a join date, a message count. Patterns only, never who posts most or who read what. Privacy is the data model, not a setting.</p>
-    </div>
-    <div class="do-card" style="gap:calc(14 * var(--u));padding:calc(32 * var(--u)) calc(36 * var(--u)) calc(34 * var(--u))">
-      <p class="do-card-label">PRESENCE</p>
-      <p class="do-card-title">One quiet box, never a channel</p>
-      <p class="do-card-body" style="line-height:1.58">The old version added a channel to everyone&rsquo;s sidebar. Now: one dashed box only the newcomer sees. Dashed borders mark every surface the app owns.</p>
-    </div>
-    <div class="do-card" style="gap:calc(14 * var(--u));padding:calc(32 * var(--u)) calc(36 * var(--u)) calc(34 * var(--u))">
-      <p class="do-card-label">RESTRAINT</p>
-      <p class="do-card-title">Mint appears once per screen</p>
-      <p class="do-card-body" style="line-height:1.58">In Slack&rsquo;s dense aubergine UI, one accent is enough. Mint marks only the Day One row, so it&rsquo;s findable without competing for attention.</p>
-    </div>
+  <div class="do-annot">
+    <div class="do-screen">
+        <img src="assets/images/dayone/hf-about.webp" width="2560" height="1600" alt="The Day One guide open as a side panel beside the channel"><i class="do-pin" style="left:66.9%;top:10.7%">1</i><i class="do-pin" style="left:66.9%;top:30%">2</i><i class="do-pin" style="left:66.9%;top:44.3%">3</i>
+      </div>
+    <ol class="do-notes">
+      <li><b>1</b><div><strong>A private panel, not a channel</strong><p>Only the newcomer sees it, so nobody knows what they read.</p></div></li>
+      <li><b>2</b><div><strong>Patterns, not people</strong><p>Topics by share of conversation. Never who posts most.</p></div></li>
+      <li><b>3</b><div><strong>Functional language</strong><p>We never say &ldquo;anxiety&rdquo; in the UI. Naming the fear makes the user feel watched.</p></div></li>
+    </ol>
+  </div>
+  <div class="do-s56"></div>
+  <div class="do-annot do-annot--flip">
+    <div class="do-screen">
+        <img src="assets/images/dayone/hf-starter.webp" width="2560" height="1600" alt="Message starters above the composer, with tone options and an editable draft"><i class="do-pin" style="left:43%;top:55.2%">1</i><i class="do-pin" style="left:27%;top:67.8%">2</i><i class="do-pin" style="left:26.8%;top:88%">3</i>
+      </div>
+    <ol class="do-notes">
+      <li><b>1</b><div><strong>Starters in the group&rsquo;s tone</strong><p>Casual, neutral or formal, so the first message fits how this group talks.</p></div></li>
+      <li><b>2</b><div><strong>A draft, not a script</strong><p>Editable, so saying hello isn&rsquo;t a decision made alone.</p></div></li>
+      <li><b>3</b><div><strong>Nothing sends on its own</strong><p>Help sits right above the composer. The newcomer always presses send.</p></div></li>
+    </ol>
   </div>
 </section>
 
-<!-- ============ 08 · Reflection ============ -->
+<!-- ============ 07 · Reflection ============ -->
 <section class="do-sec do-sec--green">
-  <p class="do-eyebrow"><b>08</b><span>REFLECTION</span></p>
+  <p class="do-eyebrow"><b>07</b><span>REFLECTION</span></p>
   <div class="do-s32"></div>
-  <h2 class="do-h2" style="max-width:calc(1000 * var(--u))">The best decision we made was letting the research change our mind.</h2>
-  <div class="do-s24"></div>
-  <p class="do-lead">We could have shipped the first idea. Instead we followed the interviews to a sharper problem, and the product got quieter, more private, more useful.</p>
-  <div class="do-s56"></div>
+  <h2 class="do-h2">The best decision we made was letting the research change our mind.</h2>
+  <div class="do-s32"></div>
   <div class="do-learned">
-    <h3>What we learned</h3>
     <ul>
-      <li><i class="do-dot"></i>The barrier to belonging is information, not personality. People go quiet because they don&rsquo;t know the rules, not because they&rsquo;re shy.</li>
-      <li><i class="do-dot"></i>Framing matters twice: &ldquo;anxiety&rdquo; belongs in the research, but never on the screen the anxious person is reading.</li>
-      <li><i class="do-dot"></i>A privacy-first data model isn&rsquo;t a constraint on the design. It became the reason people would trust the product at all.</li>
+      <li><i class="do-dot"></i>The barrier to belonging is information, not personality.</li>
+      <li><i class="do-dot"></i>&ldquo;Anxiety&rdquo; belongs in the research, never on the screen the anxious person is reading.</li>
+      <li><i class="do-dot"></i>A privacy-first data model became the reason people would trust the product.</li>
     </ul>
   </div>
   <div class="do-s56"></div>
   <p class="do-closing">Weeks of silent observation, shrunk to a first day.</p>
-  <div class="do-s56"></div>
-  <div class="do-rule"></div>
-  <div class="do-s24"></div>
-  <p class="do-sources-label">SOURCES</p>
-  <div class="do-s24"></div>
-  <p class="do-sources">
-    <span>Onboarding: Gallup, State of the Global Workplace, cited via StrongDM &ldquo;Employee Onboarding Statistics.&rdquo;</span>
-    <span>Peer support: randomized peer-support intervention, PMC/NIH (PMC9358944).</span>
-    <span>Repeated exposure: meta-analysis of 208 experiments on exposure and confidence in unfamiliar settings.</span>
-  </p>
+  <div class="do-s32"></div>
+  <p class="do-sources">12%: Gallup, State of the Global Workplace, cited via StrongDM &ldquo;Employee Onboarding Statistics.&rdquo;</p>
 </section>
 
 </div>
 </div>
 
+<script>
+/* Scroll reveal: each block rises into place as it enters the screen,
+   and the items inside a grid follow one after another, so the page
+   arrives section by section instead of all at once. Skipped entirely
+   for people who ask for reduced motion; without JS nothing is hidden. */
+(function () {
+    if (!('IntersectionObserver' in window)) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    /* Grids whose items arrive one by one; each grid itself stays put. */
+    var groups = '.do-steps, .do-cols3, .do-cols2, .do-boards, .do-themes, .do-evidence, .do-hmw';
+    var targets = [];
+
+    document.querySelectorAll('.shell-main .do-sec').forEach(function (sec) {
+        Array.prototype.forEach.call(sec.children, function (el) {
+            if (/\bdo-s\d+\b/.test(el.className)) return;        /* spacers */
+            if (el.matches(groups)) return;                   /* its items move instead */
+            targets.push({ el: el, i: 0 });
+        });
+    });
+
+    /* Inside grids, stagger the children instead of moving the grid. */
+    document.querySelectorAll(groups).forEach(function (grid) {
+        Array.prototype.forEach.call(grid.children, function (child, i) {
+            targets.push({ el: child, i: i });
+        });
+    });
+
+    document.documentElement.classList.add('rv-on');
+
+    var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('rv-in');
+            io.unobserve(entry.target);
+        });
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
+
+    targets.forEach(function (t) {
+        t.el.classList.add('rv');
+        t.el.style.setProperty('--rv-i', t.i);
+        io.observe(t.el);
+    });
+})();
+</script>
 </body>
 </html>

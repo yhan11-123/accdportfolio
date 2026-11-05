@@ -92,27 +92,64 @@
 
 /* =====================
    Tablet and mobile (<=1024px)
-   The column stops being fixed and sits above the project.
+   On a narrow screen the project comes first. The column dissolves:
+   the name becomes a slim bar at the top (still the way back), and
+   the description and tools move below the project as a footer, so
+   the first screen is the work, not the tool list.
    ===================== */
 @media (max-width: 1024px) {
 
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+
     .shell-sidebar {
-        position: static;
-        width: 100%;
-        padding: 2.5rem 1.5rem;
-        overflow: visible;
-        border-right: 0;
-        border-bottom: 1px solid var(--shell-rule);
+        display: contents;
     }
 
     .shell-main {
+        order: 1;
         width: 100%;
+    }
+
+    .shell-name {
+        order: 0;
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        width: auto;
+        padding: 0.875rem 1.5rem;
+        border-bottom: 1px solid var(--shell-rule);
+        background-color: var(--shell-ground);
+        color: var(--shell-ink);
+        font-size: 1.125rem;
+    }
+
+    .shell-sidebar > :not(.shell-name) {
+        order: 2;
+        margin: 0;
+        padding: 1.75rem 1.5rem 0;
+        background-color: var(--shell-ground);
+        color: var(--shell-ink);
+        font-family: var(--shell-text);
+    }
+
+    .shell-name + * {
+        padding-top: 2.5rem;
+        border-top: 1px solid var(--shell-rule);
+    }
+
+    .shell-sidebar > :last-child {
+        padding-bottom: 2.5rem;
     }
 }
 
 @media (max-width: 600px) {
 
-    .shell-sidebar {
-        padding: 2rem 1rem;
+    .shell-name,
+    .shell-sidebar > :not(.shell-name) {
+        padding-left: 1rem;
+        padding-right: 1rem;
     }
 }

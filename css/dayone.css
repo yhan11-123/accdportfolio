@@ -107,6 +107,9 @@ body {
 
 .do-sec--green .do-eyebrow span { color: var(--do-mist-meta); }
 
+/* Mint is too light to read on cream. */
+.do-sec--cream .do-eyebrow b { color: var(--do-green); }
+
 .do-h2 {
     margin: 0;
     max-width: calc(1050 * var(--u));
@@ -161,32 +164,8 @@ body {
 .do-sec--green .do-kicker { color: var(--do-mist-dim); }
 
 /* =====================
-   Chips and pills
+   Badges
    ===================== */
-
-.do-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: calc(10 * var(--u));
-}
-
-.do-chip {
-    padding: calc(9 * var(--u)) calc(16 * var(--u));
-    border-radius: var(--radius-pill);
-    background-color: var(--do-green);
-    color: var(--do-cream);
-    font-family: "Plus Jakarta Sans", sans-serif;
-    font-size: calc(16 * var(--u));
-    font-weight: 600;
-    letter-spacing: calc(-0.16 * var(--u));
-    white-space: nowrap;
-}
-
-/* On the green ground the chip inverts: the fill lifts, the type is mint. */
-.do-sec--green .do-chip {
-    background-color: var(--do-green-chip);
-    color: var(--do-mint);
-}
 
 /* Small mint number badge at the top of a step card. */
 .do-badge {
@@ -322,14 +301,14 @@ body {
    ===================== */
 
 .do-hero {
-    padding: calc(80 * var(--u)) calc(100 * var(--u)) calc(96 * var(--u));
+    padding: calc(64 * var(--u)) calc(100 * var(--u)) 0;
 }
 
 .do-meta-bar {
     display: flex;
     align-items: center;
     gap: calc(16 * var(--u));
-    margin: 0 0 calc(56 * var(--u));
+    margin: 0 0 calc(40 * var(--u));
     font-size: calc(16 * var(--u));
 }
 
@@ -341,13 +320,28 @@ body {
 
 .do-meta-bar span { color: #c7d9d4; font-weight: 400; }
 
-.do-hero-grid {
-    display: flex;
-    align-items: flex-start;
+.do-hero-top {
+    display: grid;
+    grid-template-columns: 5fr 6fr;
     gap: calc(64 * var(--u));
+    align-items: start;
 }
 
-.do-hero-copy { width: calc(556 * var(--u)); flex: none; }
+/* The hero sits on the same light ground as the rest of the page; the
+   product gets one block of Day One green, so the colour belongs to
+   the work rather than to the page chrome. */
+.do-hero-stage {
+    margin: calc(56 * var(--u)) 0 0;
+}
+
+.do-sec--cream .do-h1 { color: var(--do-green); }
+.do-sec--cream .do-tagline { color: var(--do-ink); }
+.do-sec--cream .do-meta-bar b { color: var(--do-green); }
+.do-sec--cream .do-meta-bar span { color: var(--do-slate); }
+.do-sec--cream .do-hero-facts dt { color: var(--do-slate); }
+.do-sec--cream .do-hero-facts dd { color: var(--do-ink); }
+
+.do-sec--afterhero { padding-top: calc(88 * var(--u)); }
 
 .do-hero-badge {
     display: inline-block;
@@ -371,101 +365,345 @@ body {
 }
 
 .do-tagline {
-    margin: calc(28 * var(--u)) 0 0;
-    width: calc(560 * var(--u));
+    margin: calc(24 * var(--u)) 0 0;
     color: var(--do-mist);
     font-family: "Plus Jakarta Sans", sans-serif;
     font-size: calc(22 * var(--u));
     font-weight: 500;
     line-height: 1.45;
+    text-wrap: balance;
 }
 
 .do-hero-facts {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: calc(32 * var(--u));
-    margin: calc(28 * var(--u)) 0 0;
+    grid-template-columns: repeat(2, 1fr);
+    gap: calc(28 * var(--u)) calc(32 * var(--u));
+    margin: 0;
     padding: 0;
-    font-size: calc(16 * var(--u));
-}
-
-.do-hero-facts div {
-    display: flex;
-    flex-direction: column;
-    gap: calc(6 * var(--u));
 }
 
 .do-hero-facts dt {
     color: var(--do-mint);
+    font-size: calc(14 * var(--u));
     font-weight: 600;
     letter-spacing: calc(1 * var(--u));
 }
 
 .do-hero-facts dd {
-    margin: 0;
-    color: var(--do-mist);
-    font-weight: 400;
-    line-height: 1.6;
+    margin: calc(6 * var(--u)) 0 0;
+    color: var(--do-cream);
+    font-size: calc(18 * var(--u));
+    line-height: 1.4;
+    text-wrap: pretty;
 }
 
-.do-hero-shot {
-    display: block;
-    width: calc(620 * var(--u));
-    height: auto;
-    margin-top: calc(5 * var(--u));
-}
-
-/* =====================
-   00b · Product preview
-   ===================== */
-
-.do-preview {
-    padding: 0 calc(100 * var(--u)) calc(110 * var(--u));
-}
-
-.do-overline {
-    margin: 0;
-    color: var(--do-mist-dim);
-    font-size: calc(16 * var(--u));
-    font-weight: 600;
-    letter-spacing: calc(1.8 * var(--u));
-}
-
-/* Three shots of unequal height, hung from a shared baseline. */
-.do-shots {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: calc(20 * var(--u));
-    align-items: end;
-}
-
-.do-shot img {
+.do-hero-photo {
     display: block;
     width: 100%;
     height: auto;
+    border-radius: calc(32 * var(--u));
 }
 
-.do-shot figcaption {
-    margin: calc(14 * var(--u)) 0 0;
-    color: var(--do-mist);
-    font-size: calc(16 * var(--u));
-    font-weight: 500;
+/* =====================
+   Screens
+   A plain 16:10 frame. The radius trims the corners baked into the
+   exported screenshots; the frame can also carry numbered pins.
+   ===================== */
+
+.do-screen {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    border-radius: calc(12 * var(--u));
+    background-color: #fff;
+    box-shadow: 0 0 0 1px rgba(0, 53, 49, 0.08), 0 calc(10 * var(--u)) calc(28 * var(--u)) rgba(0, 30, 25, 0.12);
+}
+
+.do-screen img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    object-fit: cover;
+    object-position: top;
+}
+
+/* =====================
+   System diagram
+   Two people side by side, each slanting into Day One; Day One and the
+   result share one width so the whole thing reads as a single column.
+   No captions on the arrows: the people and the boxes say it.
+   ===================== */
+
+.do-sys {
+    max-width: calc(760 * var(--u));
+    margin: 0 auto;
+}
+
+.do-sys-people {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     text-align: center;
 }
 
-.do-shot { margin: 0; }
-
-/* =====================
-   01 · Problem
-   ===================== */
-
-.do-split {
-    display: flex;
-    align-items: flex-start;
-    gap: calc(80 * var(--u));
+/* People are drawn as round line art in the page's green, one weight
+   throughout: the diagram is about who does what. */
+.do-person {
+    display: block;
+    fill: none;
+    stroke: var(--do-green);
+    stroke-width: 5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
-.do-split > .do-lead { flex: 1; max-width: none; }
+.do-person .f { fill: var(--do-green); stroke: none; }
+
+.do-sys-person .do-person {
+    width: calc(88 * var(--u));
+    height: calc(88 * var(--u));
+    margin: 0 auto calc(8 * var(--u));
+}
+
+.do-sys-person .do-node-title { font-size: calc(22 * var(--u)); }
+
+/* Each arrow starts under its person (a quarter in from the side) and
+   lands on the top edge of Day One, toward the middle. */
+.do-sys-in {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin-top: calc(14 * var(--u));
+}
+
+.do-sys-arrow--left { grid-column: 2; display: flex; justify-content: flex-start; }
+.do-sys-arrow--right { grid-column: 3; display: flex; justify-content: flex-end; }
+
+.do-sys-diag {
+    display: block;
+    width: 62%;
+    height: auto;
+    overflow: visible;
+    fill: none;
+    stroke: var(--do-green);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.do-sys-arrow--right .do-sys-diag { transform: scaleX(-1); }
+
+.do-sys .do-node--core {
+    margin-top: calc(10 * var(--u));
+    padding: calc(28 * var(--u)) calc(32 * var(--u));
+    border-radius: var(--radius-lg);
+}
+
+/* On a wide screen the three steps sit side by side. */
+.do-sys .do-core-steps {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: calc(24 * var(--u));
+}
+
+.do-sys-down {
+    display: flex;
+    justify-content: center;
+    padding: calc(12 * var(--u)) 0;
+}
+
+.do-sys-drop {
+    width: calc(16 * var(--u));
+    height: calc(56 * var(--u));
+    overflow: visible;
+    fill: none;
+    stroke: var(--do-green);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.do-result-icon .do-person { width: calc(88 * var(--u)); height: calc(88 * var(--u)); }
+
+.do-node-label {
+    margin: 0;
+    color: var(--do-slate);
+    font-size: calc(14 * var(--u));
+    font-weight: 600;
+    letter-spacing: calc(1.2 * var(--u));
+}
+
+.do-node-title {
+    margin: calc(6 * var(--u)) 0 0;
+    color: var(--do-green);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: calc(20 * var(--u));
+    font-weight: 600;
+    line-height: 1.28;
+    text-wrap: balance;
+}
+
+.do-node--core {
+    padding: calc(28 * var(--u));
+    background-color: var(--do-green);
+}
+
+.do-node--core .do-node-label { color: var(--do-mint); }
+
+.do-core-steps {
+    display: flex;
+    flex-direction: column;
+    gap: calc(16 * var(--u));
+    margin: calc(16 * var(--u)) 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.do-core-steps b {
+    display: block;
+    color: var(--do-cream);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: calc(22 * var(--u));
+    font-weight: 700;
+}
+
+.do-core-steps span {
+    display: block;
+    margin-top: calc(2 * var(--u));
+    color: var(--do-mist);
+    font-size: calc(16 * var(--u));
+    line-height: 1.4;
+    text-wrap: pretty;
+}
+
+.do-result {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: calc(28 * var(--u));
+    row-gap: calc(6 * var(--u));
+    align-items: center;
+    padding: calc(32 * var(--u));
+    border-radius: var(--radius-lg);
+    background-color: var(--do-mint);
+}
+
+.do-result-icon { grid-column: 1; grid-row: 1 / span 2; }
+.do-result .do-node-label { grid-column: 2; align-self: end; color: var(--do-green); }
+
+.do-result-title {
+    grid-column: 2;
+    align-self: start;
+    margin: 0;
+    color: var(--do-green);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: calc(30 * var(--u));
+    font-weight: 700;
+    line-height: 1.22;
+    letter-spacing: calc(-0.3 * var(--u));
+    text-wrap: balance;
+}
+
+.do-result dl {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: calc(24 * var(--u));
+    margin: calc(20 * var(--u)) 0 0;
+    padding-top: calc(18 * var(--u));
+    border-top: 1px solid rgba(0, 67, 62, 0.2);
+}
+
+.do-result dt {
+    color: var(--do-green);
+    font-size: calc(14 * var(--u));
+    font-weight: 600;
+}
+
+.do-result dd {
+    margin: calc(4 * var(--u)) 0 0;
+    color: var(--do-green);
+    font-size: calc(18 * var(--u));
+    font-weight: 500;
+    line-height: 1.35;
+    text-wrap: pretty;
+}
+
+/* =====================
+   Annotated screens: why, placed on the thing it explains
+   ===================== */
+
+.do-annot {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    gap: calc(32 * var(--u));
+    align-items: center;
+}
+
+.do-annot--flip { grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); }
+.do-annot--flip .do-screen { order: 2; }
+
+.do-pin {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(30 * var(--u));
+    height: calc(30 * var(--u));
+    transform: translate(-50%, -50%);
+    border: calc(2 * var(--u)) solid #fff;
+    border-radius: var(--radius-circle);
+    background-color: var(--do-green);
+    box-shadow: 0 calc(2 * var(--u)) calc(8 * var(--u)) rgba(0, 0, 0, 0.3);
+    color: #fff;
+    font-size: calc(14 * var(--u));
+    font-style: normal;
+    font-weight: 600;
+}
+
+.do-notes {
+    display: flex;
+    flex-direction: column;
+    gap: calc(24 * var(--u));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.do-notes li {
+    display: flex;
+    gap: calc(14 * var(--u));
+}
+
+.do-notes > li > b {
+    flex: none;
+    width: calc(26 * var(--u));
+    height: calc(26 * var(--u));
+    border-radius: var(--radius-circle);
+    background-color: var(--do-green);
+    color: #fff;
+    font-size: calc(14 * var(--u));
+    font-weight: 600;
+    line-height: calc(26 * var(--u));
+    text-align: center;
+}
+
+.do-notes strong {
+    color: var(--do-green);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: calc(20 * var(--u));
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.do-notes p {
+    margin: calc(4 * var(--u)) 0 0;
+    color: var(--do-ink);
+    font-size: calc(16 * var(--u));
+    line-height: 1.45;
+    text-wrap: pretty;
+}
+
+/* =====================
+   Problem
+   ===================== */
 
 .do-quote {
     display: flex;
@@ -478,15 +716,6 @@ body {
     border-left: calc(4 * var(--u)) solid var(--do-mint);
     border-radius: var(--radius-lg);
     background-color: #fff;
-}
-
-.do-quote-mark {
-    margin: 0;
-    color: var(--do-mint);
-    font-family: "Plus Jakarta Sans", sans-serif;
-    font-size: calc(48 * var(--u));
-    font-weight: 700;
-    line-height: 0.6;
 }
 
 .do-quote p {
@@ -504,77 +733,7 @@ body {
 }
 
 /* =====================
-   02 · Solution
-   ===================== */
-
-/* The two-user model: one setup on the left, every newcomer on the right. */
-.do-model {
-    display: flex;
-    align-items: center;
-    gap: calc(40 * var(--u));
-    padding: calc(44 * var(--u)) calc(48 * var(--u));
-    border-radius: var(--radius-lg);
-    background-color: var(--do-green);
-}
-
-.do-model-side {
-    display: flex;
-    flex-direction: column;
-    gap: calc(14 * var(--u));
-    flex: 1;
-}
-
-.do-model-label {
-    margin: 0;
-    color: var(--do-mint);
-    font-size: calc(16 * var(--u));
-    font-weight: 600;
-    letter-spacing: calc(1.5 * var(--u));
-}
-
-.do-model-title {
-    margin: 0;
-    color: #fff;
-    font-family: "Plus Jakarta Sans", sans-serif;
-    font-size: calc(26 * var(--u));
-    font-weight: 600;
-    letter-spacing: calc(-0.26 * var(--u));
-}
-
-.do-model-body {
-    margin: 0;
-    color: var(--do-mist);
-    font-size: calc(16 * var(--u));
-    line-height: 1.52;
-}
-
-.do-model-hinge {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: calc(8 * var(--u));
-    flex: none;
-    width: calc(150 * var(--u));
-    text-align: center;
-}
-
-.do-model-hinge b {
-    color: var(--do-mint);
-    font-family: "Plus Jakarta Sans", sans-serif;
-    font-size: calc(40 * var(--u));
-    font-weight: 700;
-}
-
-.do-model-hinge span {
-    color: var(--do-mist-dim);
-    font-size: calc(16 * var(--u));
-    font-weight: 500;
-    line-height: 1.4;
-}
-
-/* =====================
-   03 · Research
+   Research boards and themes
    ===================== */
 
 /* The affinity boards are cropped windows onto much taller Figma boards. */
@@ -631,7 +790,7 @@ body {
 }
 
 /* =====================
-   04 · Pivot
+   Pivot
    ===================== */
 
 .do-hmw {
@@ -686,64 +845,7 @@ body {
 }
 
 /* =====================
-   05 · Paper prototype
-   ===================== */
-
-.do-frictions {
-    display: flex;
-    flex-direction: column;
-    gap: calc(14 * var(--u));
-}
-
-.do-friction {
-    display: flex;
-    align-items: center;
-    gap: calc(36 * var(--u));
-    padding: calc(24 * var(--u)) calc(32 * var(--u)) calc(26 * var(--u));
-    border-radius: var(--radius-lg);
-    background-color: #fff;
-}
-
-/* The two columns are <dl>, not <div> — matching on the element keeps them at
-   an even half each, so the arrow lands on the same x in every row. */
-.do-friction > dl {
-    display: flex;
-    flex-direction: column;
-    gap: calc(7 * var(--u));
-    flex: 1 1 0;
-    min-width: 0;
-    font-size: calc(16 * var(--u));
-}
-
-.do-friction dt {
-    font-weight: 600;
-    letter-spacing: calc(1.2 * var(--u));
-}
-
-.do-friction .do-saw dt { color: var(--do-clay); }
-.do-friction .do-changed dt { color: var(--do-mint); }
-
-.do-friction dd {
-    margin: 0;
-    line-height: 1.5;
-}
-
-.do-friction .do-saw dd { color: var(--do-ink); }
-
-.do-friction .do-changed dd {
-    color: var(--do-green);
-    font-weight: 500;
-}
-
-.do-friction .do-arrow {
-    flex: none;
-    width: calc(22 * var(--u));
-    font-size: calc(22 * var(--u));
-    font-weight: 600;
-}
-
-/* =====================
-   06 · The build
+   Product flows
    ===================== */
 
 .do-spotlight {
@@ -797,7 +899,7 @@ body {
 
 .do-step figcaption b {
     flex: none;
-    color: var(--do-mint);
+    color: var(--do-slate);
     font-weight: 600;
 }
 
@@ -820,7 +922,7 @@ body {
 }
 
 /* =====================
-   08 · Reflection
+   Reflection
    ===================== */
 
 .do-learned {
@@ -877,29 +979,197 @@ body {
     letter-spacing: calc(-0.68 * var(--u));
 }
 
-.do-rule {
-    width: calc(10 * var(--u));
-    height: 1px;
-    background-color: var(--do-green-line);
-}
-
-.do-sources-label {
-    margin: 0;
-    color: var(--do-mint);
-    font-size: calc(16 * var(--u));
-    font-weight: 600;
-    letter-spacing: calc(1.5 * var(--u));
-}
-
 .do-sources {
     margin: 0;
     max-width: calc(1000 * var(--u));
     color: var(--do-mist-meta);
-    font-size: calc(16 * var(--u));
-    line-height: 1.7;
+    font-size: calc(14 * var(--u));
+    line-height: 1.6;
 }
 
-.do-sources span { margin-right: calc(24 * var(--u)); }
+/* =====================
+   Evidence: one number, one voice
+   ===================== */
+
+.do-evidence {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    gap: calc(24 * var(--u));
+    align-items: stretch;
+}
+
+.do-evidence .do-quote {
+    width: auto;
+    justify-content: center;
+    margin: 0;
+}
+
+/* =====================
+   Screen cards: a crop of the real UI above its point
+   ===================== */
+
+.do-fix {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    background-color: #fff;
+}
+
+/* A window onto a screen. --z is the zoom; --x and --y are where the
+   window starts, as a percentage of the image. */
+.do-crop {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-bottom: 1px solid var(--do-sand);
+}
+
+.do-crop img {
+    display: block;
+    width: calc(var(--z) * 100%);
+    max-width: none;
+    height: auto;
+    transform: translate(calc(var(--x) * -1%), calc(var(--y) * -1%));
+}
+
+/* The decline path has no screen of its own, so the card draws the
+   decision instead: the consent screen's two buttons, and where each
+   one leads. Copy comes from the consent screen itself. */
+.do-branch {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: calc(18 * var(--u));
+    aspect-ratio: 4 / 3;
+    box-sizing: border-box;
+    padding: calc(24 * var(--u)) calc(28 * var(--u));
+    border-bottom: 1px solid var(--do-sand);
+    background-color: #f6f7f6;
+}
+
+.do-branch p { margin: 0; }
+
+.do-branch-label {
+    color: var(--do-slate);
+    font-size: calc(12 * var(--u));
+    font-weight: 600;
+    letter-spacing: calc(1.2 * var(--u));
+}
+
+.do-branch-check {
+    display: flex;
+    align-items: flex-start;
+    gap: calc(8 * var(--u));
+    color: var(--do-ink);
+    font-size: calc(14 * var(--u));
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.do-branch-check i {
+    flex: none;
+    position: relative;
+    width: calc(16 * var(--u));
+    height: calc(16 * var(--u));
+    margin-top: calc(1 * var(--u));
+    border-radius: calc(4 * var(--u));
+    background-color: #1d7a5c;
+}
+
+.do-branch-check i::after {
+    content: "";
+    position: absolute;
+    left: 32%;
+    top: 16%;
+    width: 28%;
+    height: 50%;
+    border: solid #fff;
+    border-width: 0 calc(2 * var(--u)) calc(2 * var(--u)) 0;
+    transform: rotate(45deg);
+}
+
+.do-branch-paths {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: calc(16 * var(--u));
+}
+
+.do-branch-path {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.do-branch-btn {
+    padding: calc(8 * var(--u)) calc(14 * var(--u));
+    border: 1px solid #c9ccca;
+    border-radius: calc(6 * var(--u));
+    background-color: #fff;
+    color: var(--do-ink);
+    font-size: calc(14 * var(--u));
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.do-branch-btn--primary {
+    border-color: #1d7a5c;
+    background-color: #1d7a5c;
+    color: #fff;
+}
+
+.do-branch-line {
+    width: 1px;
+    height: calc(22 * var(--u));
+    margin: calc(6 * var(--u)) 0;
+    background-color: var(--do-slate);
+}
+
+.do-branch-result {
+    color: var(--do-green);
+    font-size: calc(14 * var(--u));
+    font-weight: 600;
+    line-height: 1.35;
+    text-wrap: balance;
+}
+
+.do-fix dl {
+    display: flex;
+    flex-direction: column;
+    gap: calc(16 * var(--u));
+    margin: 0;
+    padding: calc(24 * var(--u)) calc(28 * var(--u)) calc(28 * var(--u));
+}
+
+.do-fix dt {
+    font-size: calc(14 * var(--u));
+    font-weight: 600;
+    letter-spacing: calc(1.2 * var(--u));
+}
+
+.do-fix .do-saw dt { color: #9a5a1a; }
+.do-fix .do-changed dt { color: var(--do-slate); }
+
+.do-fix dd {
+    margin: calc(4 * var(--u)) 0 0;
+    color: var(--do-ink);
+    font-size: calc(18 * var(--u));
+    line-height: 1.4;
+    text-wrap: pretty;
+}
+
+.do-fix .do-changed dd {
+    color: var(--do-green);
+    font-weight: 600;
+}
+
+.do-sec--flush { padding-top: 0; }
+
+.do-card--change {
+    gap: calc(12 * var(--u));
+    padding: calc(24 * var(--u)) calc(32 * var(--u));
+}
 
 /* =====================================================
    Narrow screens
@@ -916,10 +1186,31 @@ body {
     .do-stage { --u: 1px; }
 
     .do-sec,
-    .do-hero,
-    .do-preview {
+    .do-hero {
         padding: 40px 24px;
     }
+
+    .do-hero-stage { margin: 32px 0 0; }
+    .do-hero-photo { border-radius: 16px; }
+    .do-hero { padding-bottom: 0; }
+    .do-sec--afterhero { padding-top: 48px; }
+    .do-hero-top,
+    .do-annot { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+    .do-meta-bar { flex-wrap: wrap; gap: 6px 12px; margin-bottom: 28px; }
+    .do-meta-bar b { white-space: nowrap; }
+    .do-annot--flip { grid-template-columns: minmax(0, 1fr); }
+    .do-annot--flip .do-screen { order: 0; }
+
+    .do-sys-person .do-person { width: 60px; height: 60px; }
+    .do-sys-person .do-node-title { font-size: 17px; }
+    .do-sys .do-core-steps { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+    .do-sys-drop { height: 44px; }
+    .do-result-icon .do-person { width: 64px; height: 64px; }
+    .do-result-title { font-size: 22px; }
+    .do-result dl { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+    
+    .do-pin { width: 20px; height: 20px; border-width: 1.5px; font-size: 11px; }
+
 
     .do-h1 {
         margin-top: 20px;
@@ -945,43 +1236,115 @@ body {
     .do-kicker { font-size: 19px; }
     .do-closing { font-size: 26px; }
 
-    .do-hero-grid,
-    .do-split,
-    .do-hmw,
-    .do-model,
-    .do-friction {
+    .do-hmw {
         flex-direction: column;
         align-items: stretch;
         gap: 28px;
     }
 
-    .do-hero-copy,
-    .do-hero-shot,
-    .do-quote {
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .do-hero-facts { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 24px; }
 
     .do-cols3,
     .do-cols2,
-    .do-shots,
+    .do-evidence,
     .do-boards,
     .do-steps {
         grid-template-columns: 1fr;
     }
 
     /* Stacked, the arrows point down the page rather than across it. */
-    .do-arrow,
-    .do-model-hinge {
+    .do-arrow {
         width: 100%;
         transform: rotate(90deg);
     }
 
-    .do-model-hinge span { display: none; }
+    .do-sec--flush { padding-top: 0; }
 
     .do-board { height: 220px; }
 
     .do-stat-figure { font-size: 48px; }
+}
+
+/* Phones: the hero facts read top to bottom, one per line. */
+@media (max-width: 600px) {
+    .do-hero-facts { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+}
+
+/* =====================================================
+   Phone type scale
+   At 1:1 the desktop sizes read loud on a 375px screen, the bold
+   display type most of all. One step down for every level: body
+   15–16px, subheads 17–18px, section titles 22px, the name 44px.
+   ===================================================== */
+@media (max-width: 600px) {
+
+    .do-h1 { font-size: 44px; letter-spacing: -1.2px; }
+    .do-h2,
+    .do-h2--lead { font-size: 22px; letter-spacing: -0.3px; }
+    .do-tagline { font-size: 17px; }
+    .do-lead { font-size: 16px; }
+    .do-kicker { font-size: 16px; }
+    .do-closing { font-size: 21px; }
+
+    .do-eyebrow { font-size: 13px; }
+    .do-hero-badge { padding: 7px 14px; font-size: 13px; }
+    .do-meta-bar { font-size: 13px; }
+    .do-hero-facts dt { font-size: 12px; }
+    .do-hero-facts dd { font-size: 15px; }
+
+    .do-sys-person .do-node-title { font-size: 15px; }
+    .do-node-label { font-size: 12px; }
+    .do-core-steps b { font-size: 17px; }
+    .do-core-steps span { font-size: 14px; }
+    .do-result-title { font-size: 19px; }
+    .do-result dt { font-size: 12px; }
+    .do-result dd { font-size: 15px; }
+
+    .do-flow-head { font-size: 17px; }
+    .do-step figcaption { font-size: 14px; }
+
+    .do-stat-figure { font-size: 40px; }
+    .do-stat-body { font-size: 15px; }
+    .do-quote p { font-size: 15px; }
+    .do-quote footer { font-size: 13px; }
+
+    .do-themes { gap: 8px; }
+    .do-theme { gap: 8px; padding: 8px 14px; font-size: 14px; }
+
+    .do-hmw-text { font-size: 17px; }
+    .do-badge { font-size: 12px; }
+    .do-card-label { font-size: 12px; }
+    .do-change { font-size: 16px; }
+
+    .do-fix dt { font-size: 12px; }
+    .do-fix dd { font-size: 15px; }
+
+    .do-notes strong { font-size: 16px; }
+    .do-notes p { font-size: 14px; }
+
+    .do-learned li { font-size: 15px; }
+    .do-sources { font-size: 12px; }
+}
+
+/* =====================================================
+   Scroll reveal
+   Blocks rise 28px and fade in as they reach the screen; items in a
+   grid follow 90ms apart. Only active once the script has run
+   (.rv-on), so the page is fully visible without JS.
+   ===================================================== */
+.rv-on .rv {
+    opacity: 0;
+    transform: translateY(28px);
+    transition:
+        opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+        transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+    transition-delay: calc(var(--rv-i, 0) * 90ms);
+}
+
+.rv-on .rv.rv-in {
+    opacity: 1;
+    transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rv-on .rv { opacity: 1; transform: none; transition: none; }
 }

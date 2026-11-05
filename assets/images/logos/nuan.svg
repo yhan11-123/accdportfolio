@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 498 500" role="img" aria-label="Nuan">
+  <defs>
+    <linearGradient id="nuan-ground" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#b6d1ee"/>
+      <stop offset="0.6" stop-color="#e2e9f2"/>
+      <stop offset="1" stop-color="#f3eee7"/>
+    </linearGradient>
+  </defs>
+  <rect width="498" height="500" rx="112" fill="url(#nuan-ground)"/>
+  <g fill="#000" stroke="#000" stroke-width="4" stroke-linejoin="round">
+    <path d="M78 109 237 192V293L78 210Z"/>
+    <path d="M78 239 237 322V422L78 339Z"/>
+    <path d="M264 78 421 160V260L264 178Z"/>
+    <path d="M264 207 421 289V390L264 307Z"/>
+  </g>
+</svg>
