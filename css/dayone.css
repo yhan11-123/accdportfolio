@@ -404,6 +404,116 @@ body {
     border-radius: calc(32 * var(--u));
 }
 
+/* Hero tiles
+   The plugin lives inside Slack, so a photo of a laptop hides it. Here
+   the product's own pieces are cut out and laid on Day One green like a
+   sticker sheet: panels, drafts, consent and the icon. The canvas keeps
+   one fixed ratio and every tile is placed in percent of it, so the
+   composition scales as a whole. Two outer columns run off both edges on purpose: they are
+   there to be felt, not read, and say "there is more of this". */
+.do-tiles {
+    position: relative;
+    aspect-ratio: 1240 / 720;
+    overflow: hidden;
+    border-radius: calc(32 * var(--u));
+    background-color: var(--do-green);
+}
+
+.do-tiles-canvas {
+    position: absolute;
+    inset: 0;
+    container-type: inline-size;
+}
+
+.do-tile {
+    position: absolute;
+    display: block;
+    height: auto;
+    border-radius: 1.3cqw;
+    background-color: #fff;
+    box-shadow: 0 0.4cqw 1.6cqw rgba(0, 20, 18, 0.28);
+}
+
+.do-tile--about   { left: 9.798%; top: -4.167%; width: 21.774%; }
+.do-tile--consent { left: 9.798%; top: 40.972%; width: 21.774%; }
+.do-tile--starter { left: 34.476%; top: 51.111%; width: 31.048%; }
+.do-tile--guide   { left: 34.476%; top: 80.278%; width: 31.048%; }
+.do-tile--timing  { left: 68.427%; top: 5.556%; width: 21.774%; }
+.do-tile--logo    { left: 74.032%; top: 43.889%; width: 10.565%; border-radius: 21%;
+                    box-shadow: 0 0 0 1px var(--do-green-line), 0 0.4cqw 1.6cqw rgba(0, 20, 18, 0.28); }
+.do-tile--talk    { left: 68.427%; top: 67.222%; width: 21.774%; }
+.do-tile--e1      { left: -14.395%; top: 2.500%; width: 21.774%; }
+.do-tile--e3      { left: -17.137%; top: 69.444%; width: 21.774%; }
+.do-tile--e7      { left: 92.460%; top: 24.444%; width: 21.774%; }
+.do-tile--e8      { left: 94.879%; top: 72.500%; width: 21.774%; }
+
+/* The one tile drawn in code: the product's name on the accent colour,
+   the way a launch page would introduce it. */
+.do-tile--mint {
+    left: 34.476%;
+    top: 9.722%;
+    width: 31.048%;
+    height: 36.389%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 2.8cqw;
+    background-color: var(--do-mint);
+    color: var(--do-green);
+    font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+.do-tile--mint p { margin: 0; }
+
+.do-tile-eyebrow {
+    font-size: 0.95cqw;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.do-tile-word {
+    margin-top: 0.6cqw !important;
+    font-size: 5.9cqw;
+    font-weight: 800;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+}
+
+.do-tile-sub {
+    margin-top: 1cqw !important;
+    max-width: 22cqw;
+    font-size: 1.15cqw;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.do-tile-btn {
+    margin-top: 1.6cqw;
+    padding: 0.65cqw 1.3cqw;
+    border-radius: 999px;
+    background-color: var(--do-green);
+    color: var(--do-cream);
+    font-size: 0.9cqw;
+    font-weight: 600;
+}
+
+/* Phones: a squarer window onto the middle of the sheet, so the tiles
+   stay big enough to read instead of shrinking to a third. */
+@media (max-width: 600px) {
+    .do-tiles { aspect-ratio: 1 / 1; border-radius: 16px; }
+    .do-tiles-canvas {
+        inset: auto;
+        top: 50%;
+        left: 50%;
+        width: 200%;
+        aspect-ratio: 1240 / 720;
+        translate: -50% -50%;
+    }
+}
+
 /* =====================
    Screens
    A plain 16:10 frame. The radius trims the corners baked into the
