@@ -990,6 +990,14 @@ body {
 /* The host row hangs from a shared baseline; the newcomer row sits on a
    shared top edge, exactly as the frame lays them out. */
 .do-steps--baseline { align-items: end; }
+
+/* Host screens are full browser frames of different heights, so they
+   are plain images rather than .do-screen crops; give them the same
+   corners and lift as the newcomer screens so both rows read as one set. */
+.do-steps--baseline .do-step img {
+    border-radius: calc(12 * var(--u));
+    box-shadow: 0 0 0 1px rgba(0, 53, 49, 0.08), 0 calc(10 * var(--u)) calc(28 * var(--u)) rgba(0, 30, 25, 0.12);
+}
 .do-steps--top { align-items: start; }
 
 .do-step { margin: 0; }
