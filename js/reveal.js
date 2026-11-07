@@ -20,7 +20,7 @@
     /* Grids whose items arrive one by one; the grid itself stays put. */
     var GROUPS = [
         '.project_grid',
-        '.do-steps', '.do-cols3', '.do-cols2', '.do-boards', '.do-themes', '.do-evidence', '.do-hmw',
+        '.do-steps', '.do-cols3', '.do-cols2', '.do-wf', '.do-tasks', '.do-boards', '.do-themes', '.do-evidence', '.do-hmw',
         '.kt-stats', '.kt-devices', '.kt-interviews', '.kt-cols',
         '.nose-grid'
     ].join(', ');

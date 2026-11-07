@@ -903,6 +903,57 @@ body {
    Pivot
    ===================== */
 
+/* Wireframes: the pivot shown, not told. Two versions of the same
+   moment side by side, so the change in structure is visible at a glance. */
+.do-wf-label {
+    margin: 0;
+    color: var(--do-mint);
+    font-size: calc(14 * var(--u));
+    font-weight: 600;
+    letter-spacing: calc(1 * var(--u));
+}
+
+.do-wf {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: calc(24 * var(--u));
+}
+
+.do-wf-item { margin: 0; }
+
+.do-wf-item img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: calc(12 * var(--u));
+}
+
+.do-wf-item figcaption {
+    display: flex;
+    flex-direction: column;
+    gap: calc(6 * var(--u));
+    margin-top: calc(16 * var(--u));
+    color: var(--do-mist);
+    font-size: calc(16 * var(--u));
+    line-height: 1.48;
+    text-wrap: pretty;
+}
+
+.do-wf-item figcaption b {
+    color: var(--do-mist-meta);
+    font-size: calc(13 * var(--u));
+    font-weight: 600;
+    letter-spacing: calc(1 * var(--u));
+}
+
+.do-wf-item:last-child figcaption b { color: var(--do-mint); }
+
+@media (max-width: 600px) {
+    .do-wf { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+    .do-wf-label { font-size: 12px; }
+    .do-wf-item figcaption { font-size: 14px; }
+}
+
 .do-hmw {
     display: flex;
     align-items: center;
@@ -1125,6 +1176,61 @@ body {
 /* =====================
    Screen cards: a crop of the real UI above its point
    ===================== */
+
+/* Paper test: the four tasks as a 2x2 of what people actually did.
+   Tasks 1 and 2 are the recorded sessions (hands only), looping without
+   sound; 3 and 4 are stills of the paper screens. One 16:10 frame for all
+   four so the grid reads as one set. */
+.do-tasks {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: calc(32 * var(--u)) calc(24 * var(--u));
+}
+
+.do-task { margin: 0; }
+
+.do-task-media {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    border-radius: calc(12 * var(--u));
+    background-color: var(--do-sand);
+}
+
+.do-task-media video,
+.do-task-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.do-task figcaption {
+    display: flex;
+    gap: calc(10 * var(--u));
+    align-items: baseline;
+    margin-top: calc(14 * var(--u));
+    font-size: calc(16 * var(--u));
+}
+
+.do-task figcaption b {
+    flex: none;
+    color: var(--do-slate);
+    font-size: calc(13 * var(--u));
+    font-weight: 600;
+    letter-spacing: calc(1 * var(--u));
+}
+
+.do-task figcaption span {
+    color: var(--do-green);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 600;
+}
+
+@media (max-width: 600px) {
+    .do-tasks { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+    .do-task figcaption { font-size: 15px; }
+    .do-task figcaption b { font-size: 12px; }
+}
 
 .do-fix {
     display: flex;

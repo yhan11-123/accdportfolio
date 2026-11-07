@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="css/tokens.css?v=1" rel="stylesheet" type="text/css">
 <link href="css/reset.css" rel="stylesheet" type="text/css">
-<link href="css/dayone.css?v=35" rel="stylesheet" type="text/css">
+<link href="css/dayone.css?v=38" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="css/shell.css?v=3" rel="stylesheet" type="text/css">
 <link href="css/reveal.css?v=1" rel="stylesheet" type="text/css">
@@ -240,6 +240,21 @@
       <p class="do-change"><span class="do-was">Public channel</span><span class="do-to" aria-hidden="true">&rarr;</span><span class="do-now">Private read-only panel</span></p>
     </div>
   </div>
+  <div class="do-s56"></div>
+  <p class="do-wf-label">WIREFRAMES &middot; THE SAME MOMENT, BEFORE AND AFTER</p>
+  <div class="do-s24"></div>
+  <div class="do-wf">
+    <figure class="do-wf-item">
+      <img src="assets/images/dayone/wf-v1.webp" width="2560" height="1600" loading="lazy"
+           alt="Version 1 wireframe: the guide lives in its own channel in the sidebar, with a message box at the bottom">
+      <figcaption><b>VERSION 1</b><span>The guide was a channel of its own, added to the sidebar, with a message box like any other channel.</span></figcaption>
+    </figure>
+    <figure class="do-wf-item">
+      <img src="assets/images/dayone/wf-v2.webp" width="2560" height="1600" loading="lazy"
+           alt="Version 2 wireframe: a small box under the channel list opens a read-only side panel next to the group's channel">
+      <figcaption><b>VERSION 2</b><span>No new channel. A box under the channel list opens a side panel they can read but never post into, and nobody is told they opened it.</span></figcaption>
+    </figure>
+  </div>
 </section>
 
 <!-- ============ 05 · Test, then fix ============ -->
@@ -248,7 +263,36 @@
   <div class="do-s32"></div>
   <h2 class="do-h2">Before designing a real screen, we tested the flow on paper.</h2>
   <div class="do-s24"></div>
-  <p class="do-kicker">3 people &middot; 4 tasks &middot; think-aloud. Three frictions became three fixes.</p>
+  <p class="do-kicker">3 people &middot; 4 tasks &middot; think-aloud.</p>
+  <div class="do-s32"></div>
+  <div class="do-tasks">
+    <figure class="do-task">
+      <div class="do-task-media">
+        <video src="assets/images/dayone/paper/task1-install.mp4?v=2" poster="assets/images/dayone/paper/task1-install.webp?v=2" width="1280" height="800" muted loop playsinline preload="metadata" aria-label="Paper prototype test: a hand taps through More, Apps and Download to install the plug-in, then reads the welcome screen and ticks the chat-history consent box"></video>
+      </div>
+      <figcaption><b>TASK 1</b><span>Find the plug-in and install it</span></figcaption>
+    </figure>
+    <figure class="do-task">
+      <div class="do-task-media">
+        <video src="assets/images/dayone/paper/task2-setup.mp4" poster="assets/images/dayone/paper/task2-setup.webp" width="1280" height="800" muted loop playsinline preload="metadata" aria-label="Paper prototype test: a hand picks an organization type, fills in the group background and excludes a channel from what the AI reads"></video>
+      </div>
+      <figcaption><b>TASK 2</b><span>Tell the AI what kind of group this is</span></figcaption>
+    </figure>
+    <figure class="do-task">
+      <div class="do-task-media">
+        <img src="assets/images/dayone/paper/task3-guide.webp" width="1280" height="800" loading="lazy" alt="Paper prototype: a hand-drawn Group 3 overview card listing About this group, Topics and Happening now">
+      </div>
+      <figcaption><b>TASK 3</b><span>Read the group overview</span></figcaption>
+    </figure>
+    <figure class="do-task">
+      <div class="do-task-media">
+        <img src="assets/images/dayone/paper/task4-message.webp" width="1280" height="800" loading="lazy" alt="Paper prototype: suggested first messages pop up above the message box">
+      </div>
+      <figcaption><b>TASK 4</b><span>Write a first message</span></figcaption>
+    </figure>
+  </div>
+  <div class="do-s56"></div>
+  <p class="do-kicker">Three frictions became three fixes.</p>
   <div class="do-s32"></div>
   <div class="do-cols3">
     <article class="do-fix">
@@ -341,6 +385,25 @@
 </div>
 </div>
 
-<script src="js/reveal.js?v=1" defer></script>
+<script src="js/reveal.js?v=3" defer></script>
+<script>
+/* Paper-test clips play only while on screen, and never on their own
+   for people who asked for less motion: they get the controls instead. */
+(function () {
+  var vids = document.querySelectorAll('.do-task video');
+  var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (still || !('IntersectionObserver' in window)) {
+    vids.forEach(function (v) { v.controls = true; });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { var p = e.target.play(); if (p && p.catch) p.catch(function () {}); }
+      else e.target.pause();
+    });
+  }, { threshold: 0.35 });
+  vids.forEach(function (v) { io.observe(v); });
+})();
+</script>
 </body>
 </html>
