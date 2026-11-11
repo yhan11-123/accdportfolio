@@ -1,23 +1,28 @@
 /* =====================================================
    Reflow — Case Study
-   Built 1:1 from the Figma frame "Reflow — Case Study"
-   (node 47:19, 1440 × 19933). The artboard is fixed, so
-   everything is positioned at its Figma coordinate inside
-   .rf-stage and the whole stage is scaled to fit the
-   viewport. Every value below is the Figma value.
+   Flow layout on the 1440 design grid the Figma frame
+   "Reflow — Case Study" used. Every size is its design
+   value times --u (one design px), derived from the
+   column width, the same way Day One scales. Reading
+   text carries a px floor so it stays legible when the
+   column is phone-narrow.
+
+   Story order: problem -> insight -> flow -> decisions
+   -> visual system -> reflection.
    ===================================================== */
 
 :root {
-    --rf-ink: #222;          /* headings, hairlines */
+    --rf-ink: #222;          /* headings */
     --rf-body: #2a394c;      /* body copy */
     --rf-cobalt: #1b3fd1;    /* structure and interaction */
+    --rf-cobalt-soft: #6c8cff;
     --rf-clay: #c62828;      /* live disruption only */
     --rf-page: #f7f7f7;
     --rf-dark: #222;
+    --rf-line: #d2d7de;
+    --rf-meta: #5c626c;
     --rf-sw-ink: #14161a;
     --rf-sw-body: #454b54;
-    --rf-sw-meta: #5c626c;
-    --rf-chip-line: #d2d7de;
 }
 
 body {
@@ -28,19 +33,19 @@ body {
     padding: 0;
 }
 
-/* The artboard sits in the right-hand 80%, the same split kindle and
-   manicpanic use. */
 .rf-viewport {
     width: 80%;
     margin-left: auto;
     margin-right: 0;
-    overflow: hidden;
+    container-type: inline-size;
+}
+
+@media (max-width: 900px) {
+    .rf-viewport { width: 100%; }
 }
 
 /* App Store QR, under the tools. */
-.rf-sidebar-qr {
-    margin-top: 28px;
-}
+.rf-sidebar-qr { margin-top: 28px; }
 
 .rf-sidebar-qr img {
     display: block;
@@ -49,13 +54,11 @@ body {
     background-color: #fff;
     padding: 8px;
     box-sizing: border-box;
-    border: 1px solid var(--rf-chip-line);
+    border: 1px solid var(--rf-line);
     border-radius: var(--radius-md);
     image-rendering: pixelated;
 }
 
-/* The whole block links to the App Store, for visitors on the same
-   device who can't scan it. */
 .rf-sidebar-qr a {
     display: inline-block;
     color: inherit;
@@ -63,463 +66,644 @@ body {
     transition: opacity 0.2s;
 }
 
-.rf-sidebar-qr a:hover {
-    opacity: 0.6;
-}
+.rf-sidebar-qr a:hover { opacity: 0.6; }
 
 .rf-sidebar-qr p {
     margin: 10px 0 0;
-    color: var(--rf-sw-meta);
+    color: var(--rf-meta);
     font-size: 13px;
     font-weight: 500;
     line-height: 18px;
 }
 
-/* Narrow screens: a 20% column is too tight to read, so stack it on top. */
-@media (max-width: 900px) {
-
-    .rf-viewport { width: 100%; }
-}
-
+/* =====================================================
+   Stage and scale
+   ===================================================== */
 .rf-stage {
-    position: relative;
-    width: 1440px;
-    height: 19933px;
-    transform-origin: top left;
-    /* Forces the browser to build the compositing layer's backing store at the
-       post-transform resolution instead of caching a lower-res bitmap and
-       stretching it — without this, the exported bands render soft. */
-    will-change: transform;
-    backface-visibility: hidden;
+    --u: min(1px, 0.0555556vw);
+    /* Reading sizes: design value, but never smaller than the floor. */
+    --fs-body: max(calc(20 * var(--u)), 15px);
+    --fs-small: max(calc(16 * var(--u)), 13px);
+    --fs-lead: max(calc(24 * var(--u)), 17px);
+    --fs-title: max(calc(26 * var(--u)), 18px);
+    --fs-h2: max(calc(48 * var(--u)), 26px);
+    max-width: 1440px;
+    margin: 0 auto;
 }
 
-.rf-stage > * {
-    position: absolute;
-    margin: 0;
+@supports (width: 1cqw) {
+    .rf-stage { --u: min(1px, 0.0694444cqw); }
 }
 
-/* =====================
-   Section grounds
-   ===================== */
+.rf-stage p,
+.rf-stage h1,
+.rf-stage h2,
+.rf-stage h3,
+.rf-stage ul,
+.rf-stage ol,
+.rf-stage dl,
+.rf-stage dd,
+.rf-stage figure { margin: 0; }
 
-.rf-bg {
-    left: 0;
-    width: 1440px;
+.rf-stage img { display: block; max-width: 100%; height: auto; }
+
+/* No single word stranded on a last line: body copy wraps "pretty",
+   headings balance their lines. */
+.rf-stage p,
+.rf-stage li,
+.rf-stage dd,
+.rf-stage em,
+.rf-stage span { text-wrap: pretty; }
+
+.rf-stage h1,
+.rf-stage h2,
+.rf-stage h3,
+.rf-stage strong,
+.rf-stage b { text-wrap: balance; }
+
+/* Short captions (two or three lines) balance too: "pretty" isn't in
+   every browser yet, and balance fixes orphans just as well at this length. */
+.rf-pillar span,
+.rf-engine span,
+.rf-path span,
+.rf-facts dd,
+.rf-vs dd,
+.tl-step-text em { text-wrap: balance; }
+
+.rf-geo { font-family: Geologica, sans-serif; font-weight: 600; }
+
+/* =====================================================
+   Sections
+   ===================================================== */
+.rf-sec {
+    display: flex;
+    flex-direction: column;
+    gap: calc(48 * var(--u));
+    padding: calc(140 * var(--u)) calc(130 * var(--u));
 }
 
-/* Figma's gradients carry alpha, and CSS interpolates alpha differently, so
-   each ramp is written out as opaque stops sampled from the frame instead. */
-.rf-bg--hero {
+.rf-sec--flush { padding: 0; }
+.rf-sec--light { background-color: var(--rf-page); }
+.rf-sec--white { background-color: #fff; }
+.rf-sec--dark { background-color: var(--rf-dark); color: #fff; }
+.rf-sec--cobalt { background-color: var(--rf-cobalt); color: #fff; }
+
+/* Two sections on the same ground read as one long stretch; the hairline
+   marks where the story turns. */
+.rf-sec--light + .rf-sec--light:not(.rf-sec--decisions) { padding-top: calc(60 * var(--u)); }
+.rf-sec--decisions { border-top: 1px solid var(--rf-line); }
+
+/* The hero gradient, sampled from the frame as opaque stops. */
+.rf-sec--hero {
+    align-items: center;
+    gap: 0;
+    padding-top: calc(80 * var(--u));
+    padding-bottom: calc(100 * var(--u));
+    text-align: center;
     background-image: linear-gradient(180deg, #4663D8 0%, #5872DB 12.5%, #6B82DF 25%, #7E92E1 37.5%,
         #93A4E6 50%, #A9B7E9 62.5%, #C2CBEE 75%, #DBE0F2 87.5%, #F7F7F7 100%);
 }
 
-.rf-bg--toblue {
-    background-image: linear-gradient(180deg, #F7F7F7 0%, #D9DFF2 12.5%, #C1CAEE 25%, #A8B5E9 37.5%,
-        #92A2E5 50%, #7D92E2 62.5%, #6B82DF 75%, #5872DC 87.5%, #4663D8 100%);
+/* =====================================================
+   Hero
+   ===================================================== */
+.rf-meta-bar {
+    align-self: stretch;
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+    padding-bottom: calc(14 * var(--u));
+    border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+    font-family: Inter, sans-serif;
+    font-size: var(--fs-small);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: #fff;
+    text-align: left;
 }
 
-.rf-bg--todark {
-    background-image: linear-gradient(180deg, #F7F7F7 0%, #D9D9D9 12.5%, #BDBDBD 25%, #A2A2A2 37.5%,
-        #868686 50%, #6B6B6B 62.5%, #4F4F4F 75%, #333333 87.5%, #222222 100%);
-}
-
-.rf-bg--tolight {
-    background-image: linear-gradient(180deg, #222222 0%, #3B3B3B 12.5%, #575757 25%, #727272 37.5%,
-        #8D8D8D 50%, #A7A7A7 62.5%, #C2C2C2 75%, #DDDDDD 87.5%, #F7F7F7 100%);
-}
-.rf-bg--dark    { background-color: var(--rf-dark); }
-.rf-bg--cobalt  { background-color: var(--rf-cobalt); }
-
-/* Exported bands of the frame: mockups and their ground, cropped at the
-   artboard width so they sit seamlessly on the gradients above. */
-.rf-band {
-    display: block;
-    height: auto;
-}
-
-/* The screen recording this frame stands in for, played in place. It sits on
-   the CSS gradient rather than an exported band, and carries the node's own
-   30px corner. */
-.rf-gif {
-    display: block;
-    height: auto;
-    border-radius: 30px;
-}
-
-/* =====================
-   00 · Hero
-   ===================== */
+.rf-meta-bar b { font-weight: 600; }
 
 .rf-wordmark {
+    margin-top: calc(90 * var(--u));
     font-family: Geologica, sans-serif;
-    font-size: 240px;
+    font-size: max(calc(240 * var(--u)), 88px);
     font-weight: 600;
     line-height: 1;
-    letter-spacing: -4.8px;
+    letter-spacing: -0.02em;
     color: var(--rf-ink);
-    white-space: nowrap;
 }
 
 .rf-tagline {
+    margin-top: calc(28 * var(--u));
     font-family: "Noto Sans Display", "Noto Sans", sans-serif;
-    font-size: 34px;
+    font-size: max(calc(34 * var(--u)), 19px);
     font-weight: 600;
     line-height: 1.35;
     color: var(--rf-ink);
-    white-space: nowrap;
 }
 
-.rf-quote {
-    font-size: 32px;
-    font-weight: 500;
+.rf-hero-phone {
+    width: calc(727 * var(--u));
+    min-width: 260px;
+    margin-top: calc(20 * var(--u));
+}
+
+.rf-facts {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: calc(32 * var(--u));
+    align-self: stretch;
+    margin-top: calc(40 * var(--u));
+    text-align: left;
+}
+
+.rf-facts div {
+    padding-top: calc(16 * var(--u));
+    border-top: 1px solid var(--rf-ink);
+}
+
+.rf-facts dt {
+    font-family: Inter, sans-serif;
+    font-size: var(--fs-small);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--rf-cobalt);
+}
+
+.rf-facts dd {
+    margin-top: calc(10 * var(--u));
+    font-size: var(--fs-body);
+    line-height: 1.55;
+    color: var(--rf-body);
+}
+
+.rf-bleed { width: 100%; }
+
+/* =====================================================
+   Shared type
+   ===================================================== */
+.rf-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: calc(12 * var(--u));
+    margin-bottom: calc(-24 * var(--u));
+    font-family: Inter, sans-serif;
+    font-size: var(--fs-small);
+    font-weight: 600;
+}
+
+.rf-eyebrow b { color: var(--rf-cobalt); font-weight: 600; }
+.rf-eyebrow span { color: var(--rf-meta); letter-spacing: 0.1em; }
+.rf-sec--dark .rf-eyebrow b,
+.rf-sec--cobalt .rf-eyebrow b { color: #fff; }
+.rf-sec--dark .rf-eyebrow span,
+.rf-sec--cobalt .rf-eyebrow span { color: rgba(255, 255, 255, 0.65); }
+
+.rf-h2 {
+    max-width: calc(1080 * var(--u));
+    font-size: var(--fs-h2);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: inherit;
+}
+
+.rf-h3 {
+    margin-top: calc(40 * var(--u));
+    margin-bottom: calc(-24 * var(--u));
+    font-size: max(calc(32 * var(--u)), 21px);
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--rf-ink);
+}
+
+.rf-lead {
+    max-width: calc(980 * var(--u));
+    font-size: var(--fs-lead);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.88);
+}
+
+.rf-kicker {
+    font-size: var(--fs-lead);
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--rf-ink);
+}
+
+.rf-note {
+    max-width: calc(880 * var(--u));
+    font-size: var(--fs-body);
     line-height: 1.6;
     color: var(--rf-body);
 }
 
-.rf-quote b { font-weight: 700; }
-
-/* Geologica carries the name wherever it appears in running text. */
-.rf-geo { font-family: Geologica, sans-serif; font-weight: 600; }
-
-/* =====================
-   Shared column blocks
-   ===================== */
-
-.rf-two,
-.rf-three,
-.rf-four {
-    display: flex;
-    align-items: flex-start;
+/* =====================================================
+   Columns
+   ===================================================== */
+.rf-cols3,
+.rf-cols4 {
+    display: grid;
+    gap: calc(40 * var(--u));
+    padding: 0;
+    list-style: none;
 }
 
-.rf-two  { gap: 99px; }
-.rf-three { gap: 40px; }
-.rf-four { gap: 32px; }
-.rf-two--faces { gap: 98px; }
+.rf-cols3 { grid-template-columns: repeat(3, 1fr); }
+.rf-cols4 { grid-template-columns: repeat(4, 1fr); gap: calc(32 * var(--u)); }
 
-.rf-two-col,
 .rf-col {
-    flex: 1 0 0;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    padding-top: calc(20 * var(--u));
+    border-top: 1px solid var(--rf-ink);
 }
-
-.rf-hairline { width: 100%; height: 1px; background-color: var(--rf-ink); }
-.rf-sp8  { height: 8px; }
-.rf-sp16 { height: 16px; }
-.rf-sp20 { height: 20px; }
-
-.rf-label {
-    font-family: Inter, sans-serif;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 1.4;
-    height: 31.97px;
-    color: var(--rf-ink);
-}
-
-.rf-about {
-    font-size: 32px;
-    font-weight: 400;
-    line-height: 1.65;
-    color: var(--rf-body);
-}
-
-.rf-meta { width: 100%; }
-
-.rf-meta-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 41px;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1.65;
-    color: var(--rf-body);
-}
-
-.rf-meta-row dt,
-.rf-meta-row dd { width: 277.24px; margin: 0; }
-
-/* hairline / title / body, used by the four-up, the three-up and each
-   Critical Path step. */
-.rf-col-title,
-.rf-col-body { width: 100%; }
 
 .rf-col-title {
-    margin-top: 16px;
     font-family: "Noto Sans Display", "Noto Sans", sans-serif;
-    font-size: 24px;
+    font-size: var(--fs-title);
     font-weight: 600;
-    line-height: 1.65;
-    color: var(--rf-body);
+    line-height: 1.4;
+    color: var(--rf-ink);
 }
 
 .rf-col-body {
-    margin-top: 8px;
-    font-size: 20px;
-    font-weight: 400;
+    margin-top: calc(8 * var(--u));
+    font-size: var(--fs-body);
     line-height: 1.65;
     color: var(--rf-body);
 }
 
-.rf-col--dark .rf-hairline { background-color: #fff; }
-.rf-col--dark .rf-col-title,
-.rf-col--dark .rf-col-body { color: #fff; }
+/* =====================================================
+   01 · What the day feels like, on dark
+   Four boxes joined by arrows, read left to right as a
+   slide away from the planner. Each box is a little warmer
+   than the one before (grey to clay), so the direction of
+   the flow reads before the words do: the last box is
+   where planning stops.
+   ===================================================== */
+.rf-feel {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: calc(56 * var(--u));
+    padding: 0;
+    list-style: none;
+}
 
-.rf-step {
+.rf-feel-step {
+    --tone: #8f9399;
+    --fill: 5%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: calc(14 * var(--u));
+    padding: calc(24 * var(--u) + 4px) calc(20 * var(--u) + 4px) calc(28 * var(--u) + 4px);
+    border: 1px solid color-mix(in srgb, var(--tone) 55%, transparent);
+    border-radius: var(--radius-lg);
+    background-color: color-mix(in srgb, var(--tone) var(--fill), var(--rf-dark));
+}
+
+.rf-feel-step:nth-child(2) { --tone: #b8908b; --fill: 8%; }
+.rf-feel-step:nth-child(3) { --tone: #dc7a71; --fill: 12%; }
+.rf-feel-step:nth-child(4) { --tone: #f0655a; --fill: 20%; }
+
+/* The connector: a round arrow sitting in the gap, centred on the boxes,
+   outlined in the colour of the step it leads out of. */
+.rf-feel-step:not(:last-child)::after {
+    content: "\2192";
+    position: absolute;
+    top: 50%;
+    right: calc(-28 * var(--u));
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    box-sizing: border-box;
+    translate: 50% -50%;
+    border: 1px solid color-mix(in srgb, var(--tone) 70%, transparent);
+    border-radius: var(--radius-circle);
+    background-color: var(--rf-dark);
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    line-height: 1;
+    color: var(--tone);
+}
+
+.rf-feel-label {
+    font-family: Inter, sans-serif;
+    font-size: var(--fs-small);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--tone);
+}
+
+.rf-feel-step p {
+    font-family: "Noto Sans Display", "Noto Sans", sans-serif;
+    font-size: max(calc(23 * var(--u)), 18px);
+    font-weight: 600;
+    line-height: 1.4;
+    color: #fff;
+}
+
+/* =====================================================
+   02 · Insight and HMW, on cobalt
+   ===================================================== */
+.rf-hmw {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    gap: calc(18 * var(--u));
+    padding: calc(44 * var(--u)) calc(48 * var(--u));
+    background-color: #fff;
+    border-radius: var(--radius-lg);
+    color: var(--rf-ink);
 }
 
-/* =====================
-   Feature rows
-   ===================== */
-
-.rf-chips { height: 36px; }
-
-.rf-chip {
-    position: absolute;
-    top: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5px 15px;
+.rf-badge {
+    padding: calc(6 * var(--u)) calc(14 * var(--u));
     border: 1px solid var(--rf-cobalt);
     border-radius: var(--radius-pill);
     font-family: Inter, sans-serif;
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 1.2;
-    color: var(--rf-ink);
-    white-space: nowrap;
-}
-
-.rf-feature-copy {
-    font-size: 24px;
-    font-weight: 400;
-    line-height: 1.5;
-    color: var(--rf-body);
-}
-
-.rf-statement {
-    font-size: 48px;
-    font-weight: 400;
-    line-height: 1.2;
-    color: var(--rf-ink);
-}
-
-/* =====================
-   On the cobalt gradient
-   ===================== */
-
-.rf-onblue {
-    font-size: 32px;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #fff;
-}
-
-.rf-onblue b { font-weight: 700; }
-
-/* =====================
-   Headings
-   ===================== */
-
-.rf-h2 {
-    font-size: 48px;
+    font-size: var(--fs-small);
     font-weight: 600;
-    line-height: 1.2;
-    color: var(--rf-ink);
+    letter-spacing: 0.08em;
+    color: var(--rf-cobalt);
 }
 
-.rf-h2--light { color: #fff; }
-
-.rf-h3 {
-    font-size: 32px;
-    font-weight: 600;
-    line-height: 1.2;
-    color: var(--rf-ink);
-}
-
-.rf-kicker {
-    font-size: 32px;
-    font-weight: 600;
-    line-height: 1.2;
-    color: var(--rf-ink);
-    text-align: center;
-}
-
-.rf-h4 {
-    font-family: "Noto Sans Display", "Noto Sans", sans-serif;
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 1.2;
-    color: var(--rf-ink);
-}
-
-/* Chrome sets this line ~1.6% tighter than Figma does, so it carries a hair
-   of tracking to land on the same width. */
-.rf-h3--wide { letter-spacing: 0.26px; white-space: nowrap; }
-
-.rf-note {
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 24px;
-    color: var(--rf-body);
-}
-
-/* =====================
-   What the Day Feels Like
-   ===================== */
-
-.rf-empathy {
-    border: 3px solid #d9d9d9;
-    border-radius: var(--radius-lg);
-}
-
-.rf-empathy-title {
-    font-family: "Noto Sans Display", "Noto Sans", sans-serif;
-    font-size: 32px;
-    font-weight: 600;
-    line-height: 1.65;
-    color: #fff;
-}
-
-.rf-empathy-list {
-    list-style: disc;
-    font-family: "Noto Sans Display", "Noto Sans", sans-serif;
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 1.65;
-    color: #fff;
-    padding: 0;
-}
-
-.rf-empathy-list li { margin-left: 36px; }
-
-/* =====================
-   HMW
-   ===================== */
-
-.rf-hmw {
+.rf-hmw-text {
     font-family: Inter, sans-serif;
-    font-size: 46px;
+    font-size: max(calc(40 * var(--u)), 22px);
     font-weight: 500;
-    line-height: 1.42;
-    color: #fff;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
 }
 
-.rf-hmw-pillar {
-    font-family: "Noto Sans Display", "Noto Sans", sans-serif;
-    font-size: 32px;
-    font-weight: 600;
-    line-height: 1.65;
-    color: #fff;
-    white-space: nowrap;
-}
-
-/* =====================
-   How Tasks Live
-   ===================== */
-
-.rf-ring {
-    border: 5px solid #fff;
-    border-radius: var(--radius-circle);
-}
-
-.rf-block {
-    border: 5px solid #fff;
-    border-radius: var(--radius-lg);
-}
-
-.rf-leader { height: 3px; background-color: #fff; }
-
-/* The label sits on the ring, so it carries the section ground to knock a
-   gap in the stroke behind it. */
-.rf-ring-label {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5px 15px;
-    background-color: var(--rf-dark);
-    font-family: "Noto Sans Display", "Noto Sans", sans-serif;
-    font-size: 32px;
-    font-weight: 600;
-    line-height: 1.65;
-    color: #fff;
-    white-space: nowrap;
-}
-
-.rf-ring-copy {
-    font-family: "Noto Sans Display", "Noto Sans", sans-serif;
-    font-size: 24px;
-    font-weight: 600;
-    line-height: 1.65;
-    color: #fff;
-}
-
-/* =====================
-   Design Foundation
-   ===================== */
-
-.rf-swatch-copy {
+.rf-pillar {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-    padding-top: 22px;
+    gap: calc(6 * var(--u));
+    padding-top: calc(16 * var(--u));
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.rf-pillar b {
+    font-family: "Noto Sans Display", "Noto Sans", sans-serif;
+    font-size: var(--fs-title);
+    font-weight: 600;
+}
+
+.rf-pillar span {
+    font-size: var(--fs-body);
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.82);
+}
+
+/* =====================================================
+   03 · Flow
+   The critical-path bands carry their own grey ground, so
+   they sit in a rounded frame instead of bleeding.
+   ===================================================== */
+.rf-frame {
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+}
+
+.rf-frame img { width: 100%; }
+
+/* The lock screen supports decision 2; it shouldn't outweigh it. */
+.rf-frame--wide {
+    align-self: center;
+    width: calc(760 * var(--u));
+    min-width: 280px;
+    max-width: 100%;
+}
+
+.rf-frame--plain {
+    align-self: center;
+    width: calc(560 * var(--u));
+    min-width: 240px;
+    border-radius: 0;
+}
+
+.rf-path { row-gap: calc(72 * var(--u)); }
+
+/* Phone on top, then the hairline and its caption: the line under each
+   phone lines up across the row because every phone is the same size. */
+.rf-path li {
+    display: flex;
+    flex-direction: column;
+    gap: calc(6 * var(--u));
+}
+
+.rf-path img {
+    width: 78%;
+    max-width: 300px;
+    margin: 0 auto calc(28 * var(--u) + 8px);
+}
+
+.rf-path li b {
+    padding-top: calc(14 * var(--u));
+    border-top: 1px solid var(--rf-ink);
+}
+
+.rf-path b {
+    font-family: Inter, sans-serif;
+    font-size: var(--fs-small);
+    font-weight: 600;
+    color: var(--rf-cobalt);
+}
+
+.rf-path strong {
+    font-family: "Noto Sans Display", "Noto Sans", sans-serif;
+    font-size: var(--fs-title);
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--rf-ink);
+}
+
+.rf-path span {
+    font-size: var(--fs-body);
+    line-height: 1.6;
+    color: var(--rf-body);
+}
+
+
+
+/* =====================================================
+   04 · Design decisions
+   Image on one side, the reasoning on the other, with
+   what it replaced underneath: NOT in clay, INSTEAD in
+   cobalt, the same two colours the app uses.
+   ===================================================== */
+.rf-dec {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: calc(80 * var(--u));
+    margin-top: calc(40 * var(--u));
+}
+
+.rf-dec--flip .rf-dec-media { order: 2; }
+
+.rf-dec-media img { width: 100%; }
+
+.rf-dec-media--phone img {
+    width: calc(360 * var(--u));
+    min-width: 220px;
+    margin: 0 auto;
+    border-radius: calc(30 * var(--u));
+}
+
+.rf-dec-text {
+    display: flex;
+    flex-direction: column;
+    gap: calc(14 * var(--u));
+}
+
+.rf-dec-num {
+    font-family: Inter, sans-serif;
+    font-size: var(--fs-small);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--rf-cobalt);
+}
+
+.rf-dec-title {
+    font-size: max(calc(34 * var(--u)), 22px);
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--rf-ink);
+}
+
+.rf-dec-body {
+    font-size: var(--fs-body);
+    line-height: 1.65;
+    color: var(--rf-body);
+}
+
+.rf-vs {
+    display: flex;
+    flex-direction: column;
+    gap: calc(10 * var(--u));
+    margin-top: calc(10 * var(--u));
+}
+
+.rf-vs div {
+    display: grid;
+    grid-template-columns: calc(96 * var(--u)) 1fr;
+    gap: calc(16 * var(--u));
+    align-items: baseline;
+    padding: calc(14 * var(--u)) calc(18 * var(--u));
+    border-radius: var(--radius-md);
+    background-color: #fff;
+}
+
+.rf-vs dt {
+    min-width: 64px;
+    font-family: Inter, sans-serif;
+    font-size: var(--fs-small);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+}
+
+.rf-vs dd {
+    font-size: var(--fs-small);
+    line-height: 1.55;
+    color: var(--rf-body);
+}
+
+.rf-vs-not dt { color: var(--rf-clay); }
+.rf-vs-not dd { color: var(--rf-meta); }
+.rf-vs-yes dt { color: var(--rf-cobalt); }
+
+/* The reschedule engine, under decision 3. */
+.rf-engine {
+    padding: calc(32 * var(--u)) calc(36 * var(--u));
+    background-color: var(--rf-cobalt);
+    border-radius: var(--radius-lg);
+    color: #fff;
+}
+
+.rf-engine li {
+    display: flex;
+    flex-direction: column;
+    gap: calc(8 * var(--u));
+    padding-top: calc(14 * var(--u));
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.rf-engine b {
+    font-family: "Noto Sans Display", "Noto Sans", sans-serif;
+    font-size: var(--fs-title);
+    font-weight: 600;
+}
+
+.rf-engine span {
+    font-size: var(--fs-small);
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* =====================================================
+   05 · Visual system
+   ===================================================== */
+.rf-swatches {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(64 * var(--u));
+}
+
+.rf-swatch {
+    display: flex;
+    flex-direction: column;
+    gap: calc(8 * var(--u));
+}
+
+.rf-swatch-fill {
+    height: calc(132 * var(--u));
+    min-height: 72px;
+    margin-bottom: calc(14 * var(--u));
+    border-radius: var(--radius-sm);
 }
 
 .rf-sw-name {
-    font-size: 24px;
+    font-size: var(--fs-lead);
     font-weight: 800;
-    line-height: 27px;
-    letter-spacing: -0.24px;
+    letter-spacing: -0.01em;
     color: var(--rf-sw-ink);
 }
 
 .rf-sw-role {
-    font-size: 20px;
+    font-size: var(--fs-body);
     font-weight: 600;
-    line-height: 24px;
     color: var(--rf-sw-ink);
 }
 
 .rf-sw-body {
-    width: 100%;
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 23px;
+    font-size: var(--fs-body);
+    line-height: 1.5;
     color: var(--rf-sw-body);
 }
 
 .rf-sw-hex {
-    font-size: 20px;
+    font-size: var(--fs-small);
     font-weight: 500;
-    line-height: 19px;
-    letter-spacing: 0.4px;
-    color: var(--rf-sw-meta);
+    letter-spacing: 0.02em;
+    color: var(--rf-meta);
 }
 
 .rf-grid {
-    display: flex;
-    gap: 14px;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: calc(14 * var(--u));
 }
-
-.rf-gcell { width: 87.17px; background-color: #fff; }
 
 .rf-gfill {
     display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    height: 104px;
-    padding: 0 8px 9px 10px;
-    overflow: hidden;
+    align-items: flex-end;
+    aspect-ratio: 87 / 104;
+    padding: 0 8px 8px 10px;
 }
 
 .rf-gfill span {
@@ -529,95 +713,1124 @@ body {
     color: #fff;
 }
 
-.rf-gmeta {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding-top: 10px;
-    background-color: #fff;
-    white-space: nowrap;
+.rf-gname {
+    margin-top: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 18px;
+    color: var(--rf-sw-ink);
 }
 
-.rf-gname { font-size: 13px; font-weight: 600; line-height: 18px; color: var(--rf-sw-ink); }
-.rf-ghex  { font-size: 11px; font-weight: 400; line-height: 15px; letter-spacing: 0.22px; color: var(--rf-sw-meta); }
+.rf-ghex {
+    font-size: 11px;
+    line-height: 15px;
+    letter-spacing: 0.02em;
+    color: var(--rf-meta);
+}
 
-/* =====================
-   Typography specimens
-   ===================== */
+.rf-faces {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: calc(98 * var(--u));
+}
 
-.rf-eyebrow {
+.rf-face {
+    display: flex;
+    flex-direction: column;
+    gap: calc(16 * var(--u));
+    padding-top: calc(20 * var(--u));
+    border-top: 1px solid var(--rf-ink);
+}
+
+.rf-face-eyebrow {
     font-family: Inter, sans-serif;
-    font-size: 16px;
+    font-size: var(--fs-small);
     font-weight: 500;
-    line-height: 1.2;
-    letter-spacing: 2.24px;
+    letter-spacing: 0.14em;
     color: var(--rf-ink);
 }
 
 .rf-face-name {
     font-family: Inter, sans-serif;
-    font-size: 40px;
+    font-size: max(calc(40 * var(--u)), 26px);
     font-weight: 600;
     line-height: 1.1;
-    letter-spacing: -0.8px;
+    letter-spacing: -0.02em;
     color: var(--rf-ink);
 }
 
+.rf-face-name.rf-geo { font-family: Geologica, sans-serif; }
+
 .rf-specimen {
-    font-size: 22px;
-    font-weight: 400;
+    font-size: max(calc(22 * var(--u)), 16px);
     line-height: 1.6;
     color: var(--rf-body);
 }
 
 .rf-face-use {
     font-family: Inter, sans-serif;
-    font-size: 15px;
-    font-weight: 400;
+    font-size: var(--fs-small);
     line-height: 1.7;
     color: var(--rf-ink);
 }
 
-/* =====================
-   Stack
-   ===================== */
+.rf-logo-a {
+    width: calc(1058 * var(--u));
+    align-self: center;
+}
 
-.rf-rule { height: 2px; background-color: var(--rf-ink); }
+.rf-logo-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: calc(120 * var(--u));
+}
 
-.rf-row {
+.rf-logo-row img:first-child { width: calc(294 * var(--u)); min-width: 120px; }
+.rf-logo-row img:last-child  { width: calc(516 * var(--u)); min-width: 180px; }
+
+/* =====================================================
+   06 · Reflection, on cobalt
+   ===================================================== */
+.rf-learned {
+    display: flex;
+    flex-direction: column;
+    gap: calc(16 * var(--u));
+    padding: 0;
+    list-style: none;
+}
+
+.rf-learned li {
+    position: relative;
+    padding-left: calc(28 * var(--u) + 10px);
+    font-size: var(--fs-lead);
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.92);
+}
+
+.rf-learned li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: calc(16 * var(--u) + 4px);
+    height: 2px;
+    background-color: #fff;
+}
+
+.rf-closing {
+    margin-top: calc(40 * var(--u));
+    font-family: Geologica, sans-serif;
+    font-size: max(calc(44 * var(--u)), 24px);
+    font-weight: 600;
+    line-height: 1.2;
+    color: #fff;
+}
+
+/* =====================================================
+   One afternoon, on the app's Today screen (js/reflow-day.js)
+   Steps on the left, the app on the right, drawn with its
+   real components so the diagram and the product read as
+   the same thing.
+   ===================================================== */
+.tl {
+    --gut: 52px;
+    display: grid;
+    grid-template-columns: 5fr 6fr;
+    align-items: center;
+    gap: calc(64 * var(--u));
+}
+
+.tl-steps {
+    display: flex;
+    flex-direction: column;
+    gap: calc(10 * var(--u));
+    padding: 0;
+    list-style: none;
+}
+
+/* Every step stays fully readable; the active one is lifted onto a white
+   card with an accent edge, the way the app marks the running task. Each
+   step reserves the same box (transparent border) so nothing shifts as the
+   loop moves. Problem steps accent in clay, fix steps in cobalt. */
+.tl-step {
+    --accent: var(--rf-cobalt);
+    position: relative;
     display: flex;
     align-items: flex-start;
-    padding: 22px 0;
+    gap: 14px;
+    width: 100%;
+    padding: calc(16 * var(--u) + 4px) calc(20 * var(--u) + 4px) calc(16 * var(--u) + 4px) calc(20 * var(--u) + 12px);
+    border: 1px solid transparent;
+    border-radius: var(--radius-lg);
+    background: none;
+    font: inherit;
+    text-align: left;
+    color: var(--rf-ink);
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
 }
 
-.rf-row-label {
-    width: 280px;
-    flex-shrink: 0;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 24px;
-    color: var(--rf-sw-ink);
+.tl-step:has(.tl-step-n--clay) { --accent: var(--rf-clay); }
+
+.tl-step:hover { background-color: rgba(255, 255, 255, 0.6); }
+
+.tl-step.is-active {
+    background-color: #fff;
+    border-color: var(--rf-line);
+    box-shadow: 0 2px 10px rgba(20, 22, 26, 0.05);
 }
 
-.rf-row-items { flex: 1 0 0; min-width: 0; }
-
-.rf-row-chips { display: flex; flex-wrap: wrap; gap: 8px; }
-
-.rf-stack-chip {
-    padding: 6px 12px;
-    border: 1px solid var(--rf-chip-line);
+/* Same rounded bar the app puts beside a task, here marking the step
+   that's on screen. It grows in from the middle rather than popping. */
+.tl-step::before {
+    content: "";
+    position: absolute;
+    left: 9px;
+    top: 14px;
+    bottom: 14px;
+    width: 4px;
     border-radius: var(--radius-pill);
+    background-color: var(--accent);
+    opacity: 0;
+    transform: scaleY(0.4);
+    transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tl-step.is-active::before { opacity: 1; transform: scaleY(1); }
+
+.tl-step:focus-visible { outline: 2px solid var(--rf-cobalt); outline-offset: 2px; }
+
+/* Number: outlined when waiting, filled when it's the moment shown. */
+.tl-step-n {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    box-sizing: border-box;
+    border: 1.5px solid var(--accent);
+    border-radius: var(--radius-circle);
+    background-color: transparent;
+    font-family: Inter, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--accent);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.tl-step.is-active .tl-step-n { background-color: var(--accent); color: #fff; }
+
+.tl-step-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-top: 2px;
+}
+
+.tl-step-text strong {
+    font-size: var(--fs-title);
+    font-weight: 600;
+    line-height: 1.25;
+}
+
+.tl-step-text strong { color: var(--rf-body); transition: color 0.3s; }
+.tl-step.is-active .tl-step-text strong { color: var(--rf-ink); }
+
+.tl-step-text em {
+    font-size: var(--fs-body);
+    font-style: normal;
+    line-height: 1.55;
+    color: var(--rf-meta);
+    transition: color 0.3s;
+}
+
+.tl-step.is-active .tl-step-text em { color: var(--rf-body); }
+
+.tl-board { min-width: 0; }
+
+/* ---------- The app, as a screen ---------- */
+.ap-phone {
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --app-ink: #1d1f23;
+    --app-meta: #6b7079;
+    --app-line: #e7e9ed;
+    position: relative;
+    overflow: hidden;
+    max-width: 440px;
+    margin: 0 auto;
+    padding: 22px 18px 18px;
+    border: 1px solid var(--rf-line);
+    border-radius: 32px;
+    background-color: #fff;
+    box-shadow: 0 10px 30px rgba(20, 22, 26, 0.06);
+    font-family: "Noto Sans", sans-serif;
+    color: var(--app-ink);
+}
+
+.ap-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    padding: 0 4px;
+}
+
+.ap-head b { font-size: 19px; font-weight: 700; letter-spacing: -0.01em; }
+
+.ap-head span {
+    padding: 3px 9px;
+    border-radius: var(--radius-md);
+    background-color: var(--rf-cobalt);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #fff;
+}
+
+.ap-list { position: relative; }
+
+/* Every item is placed by the script. The script staggers by role, not by
+   row: leaving items fade first, staying items glide together, new items
+   fade in last (see T in js/reflow-day.js). */
+.ap-item {
+    position: absolute;
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
+    transition:
+        top 0.6s var(--ease) var(--d-move, 0s),
+        height 0.6s var(--ease) var(--d-move, 0s),
+        opacity 0.35s ease var(--d-fade, 0s);
+}
+
+.ap-item.is-out { opacity: 0; pointer-events: none; }
+
+/* Placed without a slide (items appearing, and every reset). */
+.ap-item.no-move,
+.ap-phone.no-anim .ap-item,
+.ap-phone.no-anim .ap-item * ,
+.ap-phone.no-anim .ap-sheet,
+.ap-phone.no-anim .ap-dim { transition: none !important; animation: none !important; }
+
+/* Starting the loop over: the screen dips out and back instead of the
+   whole day playing in reverse. */
+.ap-list { transition: opacity 0.35s ease; }
+.ap-phone.is-resetting .ap-list { opacity: 0; }
+
+/* "This one changed": a soft wash that comes and goes once. */
+.ap-item::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    background-color: rgba(27, 63, 209, 0.08);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ap-phone.is-problem .ap-item::after { background-color: rgba(198, 40, 40, 0.08); }
+.ap-item.is-changed::after { animation: ap-mark 1.8s ease var(--d-mark, 0.7s) both; }
+
+@keyframes ap-mark {
+    0%   { opacity: 0; }
+    20%  { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+/* ---------- Task row ---------- */
+.ap-task {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 9px 10px 0 14px;
+    border-bottom: 1px solid var(--app-line);
+    border-radius: 14px;
+    transition:
+        top 0.6s var(--ease) var(--d-move, 0s),
+        height 0.6s var(--ease) var(--d-move, 0s),
+        opacity 0.35s ease var(--d-fade, 0s),
+        box-shadow 0.4s ease var(--d-move, 0s),
+        background-color 0.4s ease var(--d-move, 0s);
+}
+
+/* The app's group marker: a rounded bar beside the row. */
+.ap-bar {
+    position: absolute;
+    left: 2px;
+    top: 9px;
+    bottom: 10px;
+    width: 4px;
+    border-radius: var(--radius-pill);
+    background-color: var(--c);
+    transition: opacity 0.4s;
+}
+
+.ap-check {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    box-sizing: border-box;
+    border: 1.5px solid #c3c8d0;
+    border-radius: 5px;
+    transition: background-color 0.35s, border-color 0.35s;
+}
+
+.ap-body { min-width: 0; flex: 1; }
+
+.ap-title {
+    overflow: hidden;
+    font-size: 14.5px;
+    line-height: 1.35;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: var(--app-ink);
+    transition: color 0.35s;
+}
+
+.ap-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 3px;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--app-meta);
+}
+
+.ap-meta > :empty { display: none; }
+.ap-time { color: var(--app-ink); font-weight: 700; transition: color 0.35s; }
+.ap-cat { overflow: hidden; text-overflow: ellipsis; }
+.ap-dots { letter-spacing: 0.05em; font-size: 8px; color: var(--rf-cobalt); }
+
+/* A time the day no longer keeps. */
+.ap-task.is-late .ap-time { color: var(--rf-clay); }
+
+/* Done: checked, struck through, quiet. */
+.ap-task.is-done .ap-check { border-color: var(--rf-cobalt); background: var(--rf-cobalt) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8.5l2.5 2.5L12 5.5' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 14px no-repeat; }
+.ap-task.is-done .ap-title { color: #9aa0a8; text-decoration: line-through; }
+.ap-task.is-done .ap-bar { opacity: 0.45; }
+
+/* Status tags: square, uppercase, the app's two kinds. */
+.ap-tag {
+    padding: 1px 5px;
+    border-radius: 2px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+}
+
+.ap-tag--postponed { background-color: var(--rf-cobalt); color: #fff; }
+.ap-tag--carried { box-shadow: inset 0 0 0 1px var(--app-ink); color: var(--app-ink); }
+
+/* ---------- The running task, over its estimate ---------- */
+.ap-run {
+    display: none;
+    margin-top: 2px;
+}
+
+.ap-task.is-run {
+    padding: 14px 14px 0 16px;
+    border-bottom-color: transparent;
+    background-color: #fff;
+    box-shadow: inset 0 0 0 2px var(--rf-clay);
+}
+
+.ap-task.is-run .ap-bar,
+.ap-task.is-run .ap-check,
+.ap-task.is-run .ap-meta { display: none; }
+.ap-task.is-run .ap-title { font-weight: 700; font-size: 15px; }
+.ap-task.is-run .ap-run { display: block; animation: ap-fade 0.4s ease 0.35s both; }
+
+.ap-run-cat {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--app-meta);
+}
+
+.ap-timer {
+    margin-top: 8px;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.01em;
+    color: var(--rf-clay);
+}
+
+.ap-started {
+    margin-top: 6px;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--app-meta);
+}
+
+.ap-run-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1.5px solid #c7d2fb;
+}
+
+.ap-btn {
+    display: grid;
+    place-items: center;
+    height: 32px;
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--app-ink);
+}
+
+.ap-btn--done { background-color: color-mix(in srgb, var(--c) 70%, #fff); }
+.ap-btn--ghost { box-shadow: inset 0 0 0 1px #c3c8d0; }
+
+/* ---------- Fixed blocks (class, the shift) ---------- */
+.ap-fixed { padding: 4px 0; }
+
+.ap-fixed-card {
+    height: 100%;
+    box-sizing: border-box;
+    padding: 9px 14px;
+    border-radius: 12px;
+    background-color: var(--c);
+    color: #fff;
+}
+
+.ap-fixed-name { font-size: 14.5px; font-weight: 700; line-height: 1.3; }
+
+.ap-fixed-meta {
+    margin-top: 2px;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    white-space: pre;
+    opacity: 0.92;
+}
+
+/* ---------- Tomorrow ---------- */
+.ap-day-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    padding: 0 4px 6px;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--app-meta);
+}
+
+.ap-day-head em {
+    font-style: normal;
+    color: var(--rf-clay);
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+
+.ap-day-head.is-full em { opacity: 1; }
+
+/* ---------- Reschedule button, under the list ---------- */
+.ap-resched {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ap-resched span {
+    padding: 6px 14px;
+    border-radius: 4px;
+    box-shadow: inset 0 0 0 1px var(--app-ink);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--app-ink);
+    transition: color 0.35s, box-shadow 0.35s, background-color 0.35s;
+}
+
+/* The one tap the story is about. */
+.ap-resched.is-hot span {
+    background-color: var(--rf-cobalt);
+    box-shadow: inset 0 0 0 1px var(--rf-cobalt), 0 0 0 6px rgba(27, 63, 209, 0.14);
+    color: #fff;
+}
+
+/* ---------- Outcome, end-of-day style ---------- */
+.ap-summary { padding: 14px 4px 0; border-top: 1px solid var(--app-line); }
+
+.ap-sum-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 4px 0;
+    border-bottom: 1px solid var(--app-line);
+}
+
+.ap-sum-n { font-size: 26px; font-weight: 400; line-height: 1.1; color: var(--app-ink); }
+.ap-sum-n small { font-size: 12px; color: var(--app-meta); }
+
+.ap-sum-label {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--app-meta);
+}
+
+.ap-sum-note { margin-top: 8px; font-size: 12px; color: var(--app-meta); }
+
+/* ---------- Reschedule sheet over a dimmed day ---------- */
+.ap-dim {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(20, 22, 26, 0.32);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.ap-sheet {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 10px 20px 22px;
+    border-radius: 24px 24px 0 0;
+    background-color: #fff;
+    translate: 0 102%;
+    transition: translate 0.75s var(--ease);
+}
+
+.ap-phone.has-sheet .ap-dim { opacity: 1; }
+.ap-phone.has-sheet .ap-sheet { translate: 0 0; }
+
+.ap-grip {
+    display: block;
+    width: 36px;
+    height: 4px;
+    margin: 0 auto 14px;
+    border-radius: var(--radius-pill);
+    background-color: #d5d9df;
+}
+
+.ap-sheet-label {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background-color: #fdeceb;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--rf-clay);
+}
+
+.ap-sheet-title { margin-top: 10px; font-size: 17px; font-weight: 700; }
+
+.ap-plan {
+    margin-top: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background-color: var(--rf-cobalt);
+    color: #fff;
+}
+
+.ap-plan p { display: flex; justify-content: space-between; font-size: 14px; }
+.ap-plan em { font-style: normal; font-size: 13px; opacity: 0.9; }
+
+.ap-accept {
+    display: grid;
+    place-items: center;
+    height: 40px;
+    margin-top: 10px;
+    border-radius: 10px;
+    background-color: var(--rf-cobalt);
     font-size: 14px;
-    font-weight: 500;
-    line-height: 20px;
-    color: var(--rf-sw-ink);
+    color: #fff;
+}
+
+.ap-myself {
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--app-line);
+    font-size: 13px;
+    color: var(--app-ink);
+}
+
+/* When a label changes it fades in rather than flicking. */
+.ap-item .is-swap { animation: ap-fade 0.4s ease var(--d-move, 0s) both; }
+
+@keyframes ap-fade { from { opacity: 0; } }
+
+@keyframes tl-swap {
+    from { opacity: 0; translate: 0 3px; }
+    to   { opacity: 1; translate: 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ap-item, .ap-task, .ap-sheet, .ap-dim, .tl-step::before { transition: none; }
+    .ap-item .is-swap, .ap-task.is-run .ap-run, .ap-item.is-changed::after { animation: none; }
+    .ap-list { transition: none; }
+}
+
+/* =====================================================
+   06 · Behind the screen: the data
+   The schema drawn as tables (left) and one Today row taken
+   apart into the columns behind it (right). Table and column
+   names are set in mono: they're the real identifiers.
+   ===================================================== */
+.rf-stage code,
+.db-name,
+.db-cols {
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+.rf-stage code {
+    font-size: 0.86em;
+    color: var(--rf-cobalt);
+}
+
+/* The row breakdown stands alone now: one card, kept to a readable width. */
+.db { max-width: 720px; }
+
+
+.db-map,
+.db-anatomy {
+    padding: calc(32 * var(--u) + 6px);
+    border: 1px solid var(--rf-line);
+    border-radius: var(--radius-lg);
+    background-color: #fff;
+}
+
+.db-map { display: flex; flex-direction: column; align-items: flex-start; }
+
+.db-table {
+    min-width: 62%;
+    padding: 10px 14px 11px;
+    box-sizing: border-box;
+    border: 1px solid var(--rf-line);
+    border-radius: var(--radius-md);
+    background-color: var(--rf-page);
+}
+
+.db-table--owner { background-color: var(--rf-ink); border-color: var(--rf-ink); }
+.db-table--owner .db-name { color: #fff; }
+.db-table--owner .db-cols { color: rgba(255, 255, 255, 0.7); }
+.db-table--main { border-color: var(--rf-cobalt); box-shadow: inset 3px 0 0 var(--rf-cobalt); background-color: #fff; }
+
+.db-name { font-size: 13px; font-weight: 700; color: var(--rf-ink); }
+.db-cols { margin-top: 3px; font-size: 11.5px; color: var(--rf-meta); }
+
+/* A relation: a short vertical line with its kind written beside it. */
+.db-link {
+    position: relative;
+    height: 30px;
+    margin-left: 22px;
+    padding-left: 14px;
+    border-left: 1.5px solid var(--rf-ink);
+    font-family: Inter, sans-serif;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 30px;
+    color: var(--rf-meta);
+}
+
+.db-link--opt { border-left-style: dashed; border-left-color: var(--rf-meta); }
+
+.db-row { display: flex; align-items: center; gap: 0; width: 100%; }
+.db-row .db-table--main { min-width: 0; flex: 1.2; }
+.db-side { display: flex; align-items: center; flex: 1; }
+.db-side-link { flex: none; width: 22px; border-top: 1.5px dashed var(--rf-meta); }
+.db-table--small { min-width: 0; flex: 1; }
+
+.db-also {
+    margin-top: 18px;
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: var(--rf-meta);
+}
+
+.db-also b { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-weight: 600; color: var(--rf-body); }
+
+/* The row, drawn in the app's own style. */
+.db-kicker {
+    font-family: Inter, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--rf-meta);
+}
+
+.db-sample {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    position: relative;
+    margin-top: 14px;
+    padding: 12px 12px 12px 18px;
+    border-radius: 12px;
+    background-color: var(--rf-page);
+    font-family: "Noto Sans", sans-serif;
+}
+
+.db-s-bar { position: absolute; left: 6px; top: 10px; bottom: 10px; width: 4px; border-radius: var(--radius-pill); background-color: #DE9E7E; }
+.db-s-check, .db-t--check { flex: none; width: 18px; height: 18px; box-sizing: border-box; border: 1.5px solid #c3c8d0; border-radius: 5px; }
+.db-s-check { margin-top: 2px; }
+.db-s-body { min-width: 0; }
+.db-s-title { display: block; font-size: 15px; color: #1d1f23; }
+
+.db-s-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 7px;
+    margin-top: 3px;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    color: #6b7079;
+}
+
+.db-s-meta b { color: #1d1f23; }
+.db-s-meta em, .db-t--dots { font-style: normal; font-size: 8px; letter-spacing: 0.05em; color: var(--rf-cobalt); }
+.db-s-tag, .db-t--tag { font-style: normal; padding: 1px 5px; border-radius: 2px; box-shadow: inset 0 0 0 1px #1d1f23; color: #1d1f23; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; }
+.db-t--fill { font-style: normal; padding: 1px 5px; border-radius: 2px; background-color: var(--rf-cobalt); color: #fff; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; }
+
+.db-map-list { margin-top: 10px; }
+
+.db-map-list div {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 12px;
+    align-items: center;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--rf-line);
+}
+
+.db-map-list div:last-child { border-bottom: 0; }
+.db-map-list dt { display: flex; }
+
+.db-t {
+    font-family: "Noto Sans", sans-serif;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    color: #6b7079;
+}
+
+b.db-t { font-weight: 700; color: #1d1f23; }
+
+.db-map-list dd {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--rf-meta);
+}
+
+.db-map-list code { margin-right: 6px; font-size: 12.5px; font-weight: 600; }
+
+/* Schema changes, read as before -> after. */
+.db-changes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: calc(24 * var(--u) + 4px);
+    padding: 0;
+    list-style: none;
+}
+
+.db-changes li {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: calc(20 * var(--u) + 6px);
+    border-radius: var(--radius-lg);
+    background-color: #fff;
+    border: 1px solid var(--rf-line);
+}
+
+.db-was { font-size: var(--fs-small); color: var(--rf-meta); text-decoration: line-through; text-decoration-color: rgba(92, 98, 108, 0.5); }
+.db-to { font-family: Inter, sans-serif; color: var(--rf-cobalt); }
+.db-now { font-size: var(--fs-body); font-weight: 600; color: var(--rf-ink); }
+.db-changes em { margin-top: 4px; font-style: normal; font-size: var(--fs-small); line-height: 1.5; color: var(--rf-body); }
+
+/* ---------- Supabase schema canvas (js/reflow-canvas.js) ----------
+   Supabase's own dark studio look: dotted board, near-black tables,
+   mono column names with the type pushed right, filled diamond for a
+   required column and hollow for nullable, relationship lines behind. */
+.sb { margin: 0; }
+
+.sb-canvas {
+    --sb-bg: #121212;
+    --sb-dot: #2b2b2b;
+    --sb-card: #1c1c1c;
+    --sb-head: #232323;
+    --sb-line: #2e2e2e;
+    --sb-text: #ededed;
+    --sb-muted: #7a7a7a;
+    --sb-edge: #8f8f8f;
+    overflow: hidden;
+    border: 1px solid #2e2e2e;
+    border-radius: var(--radius-lg);
+    background-color: var(--sb-bg);
+    background-image: radial-gradient(var(--sb-dot) 1px, transparent 1.2px);
+    background-size: 16px 16px;
+}
+
+.sb-canvas.is-pan { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+.sb-frame { position: relative; margin: 0 auto; }
+
+.sb-stage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: top left;
+    font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+
+.sb-lines { position: absolute; inset: 0; }
+.sb-lines path { fill: none; stroke: var(--sb-edge); stroke-width: 1; opacity: 0.7; }
+.sb-lines circle { fill: var(--sb-edge); }
+
+.sb-table {
+    position: absolute;
+    overflow: hidden;
+    border: 1px solid var(--sb-line);
+    border-radius: 6px;
+    background-color: var(--sb-card);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+}
+
+.sb-head {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    height: 32px;
+    padding: 0 8px 0 10px;
+    border-bottom: 1px solid var(--sb-line);
+    background-color: var(--sb-head);
+    font-size: 11.5px;
+    color: var(--sb-text);
+}
+
+.sb-head b { flex: 1; font-weight: 500; }
+
+.sb-head svg,
+.sb-legend svg {
+    flex: none;
+    width: 13px;
+    height: 13px;
+    fill: none;
+    stroke: var(--sb-muted);
+    stroke-width: 1.3;
+}
+
+.sb-head svg:last-child { fill: var(--sb-muted); stroke: none; }
+
+.sb-row {
+    display: flex;
+    align-items: center;
+    height: 22px;
+    padding: 0 9px 0 6px;
+    border-bottom: 1px solid #242424;
+    font-size: 10.5px;
+    color: #cfcfcf;
     white-space: nowrap;
 }
 
-.rf-row-note {
-    margin-top: 10px;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 21px;
-    color: var(--rf-sw-meta);
+.sb-row:last-child { border-bottom: 0; }
+
+.sb-ico {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 3px;
+    width: 26px;
+    margin-right: 7px;
+}
+
+.sb-ico svg { width: 11px; height: 11px; fill: none; stroke: var(--sb-muted); stroke-width: 1.4; }
+
+.sb-dia {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    box-sizing: border-box;
+    border: 1.2px solid var(--sb-muted);
+    transform: rotate(45deg);
+}
+
+.sb-dia.is-nn { background-color: #cfcfcf; border-color: #cfcfcf; }
+
+.sb-col { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+.sb-type { margin-left: 8px; font-size: 9px; color: var(--sb-muted); }
+
+.sb-more { justify-content: center; font-size: 9.5px; color: var(--sb-muted); }
+
+/* The columns the Today row is made of. */
+.sb-row.is-hl { background-color: rgba(108, 140, 255, 0.16); color: #fff; }
+.sb-row.is-hl .sb-type { color: #a9bbff; }
+
+.sb-legend {
+    position: absolute;
+    left: 50%;
+    bottom: 18px;
+    display: flex;
+    gap: 22px;
+    padding: 9px 16px;
+    translate: -50% 0;
+    border: 1px solid var(--sb-line);
+    border-radius: 6px;
+    background-color: #171717;
+    font-size: 11px;
+    color: #bdbdbd;
+    white-space: nowrap;
+}
+
+.sb-legend span { display: flex; flex: none; align-items: center; gap: 7px; white-space: nowrap; }
+.sb-hash { font-style: normal; color: var(--sb-muted); }
+.sb-swatch { width: 12px; height: 12px; border-radius: 2px; background-color: rgba(108, 140, 255, 0.45); }
+
+.sb figcaption {
+    margin-top: 12px;
+    font-size: var(--fs-small);
+    line-height: 1.5;
+    color: var(--rf-meta);
+}
+
+.sb-canvas.is-pan + figcaption::before { content: "Swipe to pan. "; font-weight: 600; }
+
+
+/* =====================================================
+   07 · Visual system, compact
+   Three cards in one row: color, type, logo. Each says
+   its rule in a line instead of a page.
+   ===================================================== */
+.rf-sec--vsys { padding-top: calc(100 * var(--u)); padding-bottom: calc(100 * var(--u)); gap: calc(36 * var(--u)); }
+
+/* The page ends here: leave room so it settles instead of stopping. */
+.rf-stage > .rf-sec:last-child { padding-bottom: calc(240 * var(--u) + 40px); }
+
+/* Decision 4's footnote: what the App Store build does instead. */
+.rf-shipped {
+    margin-top: 6px;
+    padding: 12px 16px 13px;
+    border-left: 3px solid var(--rf-ink);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    background-color: #fff;
+    font-size: var(--fs-small);
+    line-height: 1.55;
+    color: var(--rf-body);
+}
+
+.rf-shipped b {
+    display: block;
+    margin-bottom: 3px;
+    font-family: Inter, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--rf-ink);
+}
+.rf-h2--sm { font-size: max(calc(34 * var(--u)), 22px); }
+
+.vs {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: calc(20 * var(--u) + 4px);
+}
+
+.vs-card {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: calc(24 * var(--u) + 6px);
+    border: 1px solid var(--rf-line);
+    border-radius: var(--radius-lg);
+    background-color: var(--rf-page);
+}
+
+.vs-label {
+    font-family: Inter, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--rf-meta);
+}
+
+.vs-key { display: flex; align-items: center; gap: 12px; }
+.vs-key i { flex: none; width: 36px; height: 36px; border-radius: var(--radius-md); }
+.vs-key p, .vs-face p { font-size: 13.5px; line-height: 1.45; color: var(--rf-body); }
+.vs-key b, .vs-face b { display: block; font-size: 14.5px; color: var(--rf-ink); }
+
+.vs-groups { display: grid; grid-template-columns: repeat(12, 1fr); gap: 4px; margin-top: 4px; }
+.vs-groups i { aspect-ratio: 1; border-radius: 4px; }
+
+.vs-note { font-size: 12.5px; line-height: 1.5; color: var(--rf-meta); }
+
+.vs-face { display: flex; align-items: center; gap: 14px; }
+.vs-aa { flex: none; width: 56px; font-size: 40px; font-weight: 600; line-height: 1; color: var(--rf-ink); }
+
+.vs-logo { display: flex; align-items: center; gap: 12px; }
+.vs-logo img { width: calc(50% - 6px); border-radius: var(--radius-md); }
+
+/* =====================================================
+   Narrow column: grids stack, decisions go image-first.
+   ===================================================== */
+@media (max-width: 760px) {
+
+    .rf-sec {
+        gap: 28px;
+        padding: 64px 20px;
+    }
+
+    .rf-sec--flush { padding: 0; }
+    .rf-sec--hero { padding-top: 24px; padding-bottom: 48px; }
+    .rf-eyebrow { margin-bottom: -12px; }
+    .rf-h3 { margin-top: 20px; margin-bottom: -12px; }
+
+    .rf-facts,
+    .rf-cols3,
+    .rf-cols4,
+    .rf-swatches,
+    .rf-faces,
+    .rf-dec {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .rf-facts { margin-top: 24px; }
+    .rf-dec { margin-top: 20px; }
+    .rf-dec--flip .rf-dec-media { order: 0; }
+    .rf-stage > .rf-sec:last-child { padding-bottom: 120px; }
+    .db-changes, .vs { grid-template-columns: 1fr; gap: 16px; }
+    .db-map, .db-anatomy { padding: 18px; }
+    .db-map-list div { grid-template-columns: 84px 1fr; }
+    .rf-path { row-gap: 48px; }
+    .rf-path img { width: 62%; }
+    .tl { grid-template-columns: 1fr; gap: 20px; }
+    .ap-phone { padding: 18px 12px 14px; border-radius: 26px; }
+    .rf-hmw, .rf-engine { padding: 24px; }
+    .rf-feel { grid-template-columns: 1fr; gap: 30px; }
+    .rf-feel-step:not(:last-child)::after { content: "\2193"; top: auto; bottom: -15px; right: auto; left: 50%; translate: -50% 50%; width: 30px; height: 30px; }
+    .rf-vs div { grid-template-columns: 72px 1fr; padding: 12px 14px; }
+    .rf-grid { grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .rf-logo-a { width: 100%; }
+    .rf-logo-row { gap: 24px; }
+    .rf-logo-row img:first-child { min-width: 0; width: 35%; }
+    .rf-logo-row img:last-child { min-width: 0; width: 55%; }
 }

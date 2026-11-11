@@ -14,7 +14,7 @@
         '.nose-head > *', '.nose-sec > *',   /* It's Not Your Nose */
         '.spt-section > *',                  /* Summer Palm Tree */
         '.mp-page > *',                      /* Manic Panic */
-        '.rf-stage > *:not(.rf-bg)'          /* Reflow */
+        '.rf-sec > *'                        /* Reflow */
     ].join(', ');
 
     /* Grids whose items arrive one by one; the grid itself stays put. */
@@ -22,7 +22,8 @@
         '.project_grid',
         '.do-steps', '.do-cols3', '.do-cols2', '.do-wf', '.do-tasks', '.do-boards', '.do-themes', '.do-evidence', '.do-hmw',
         '.kt-stats', '.kt-devices', '.kt-interviews', '.kt-cols',
-        '.nose-grid'
+        '.nose-grid',
+        '.rf-facts', '.rf-cols3', '.rf-cols4', '.rf-feel', '.rf-swatches', '.rf-faces', '.rf-grid', '.rf-logo-row'
     ].join(', ');
 
     var targets = [];

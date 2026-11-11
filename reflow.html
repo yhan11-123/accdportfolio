@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;600&family=Inter:wght@400;500;600&family=Noto+Sans+Display:wght@600&family=Noto+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="css/tokens.css?v=1" rel="stylesheet" type="text/css">
 <link href="css/reset.css" rel="stylesheet" type="text/css">
-<link href="css/reflow.css?v=3" rel="stylesheet" type="text/css">
+<link href="css/reflow.css?v=28" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="css/shell.css?v=3" rel="stylesheet" type="text/css">
 <link href="css/reveal.css?v=1" rel="stylesheet" type="text/css">
@@ -20,7 +20,7 @@
 
 <div class="shell-sidebar">
 <a class="shell-name" href="index.html">Younhee Han</a>
-<p class="shell-description">Reflow is a day planner for the moment the day stops going to plan. When thirty minutes becomes an hour, it rebuilds the rest of the day around what&rsquo;s unfinished and hands it back as one proposal you accept in a tap. What didn&rsquo;t finish carries to tomorrow as a task, not as a backlog.</p>
+<p class="shell-description">A day planner that rebuilds the rest of the day when one task runs long. Designed, built and shipped to the App Store solo.</p>
 <div class="shell-meta">
 <p class="shell-label">Tools</p>
 <ul class="shell-tools">
@@ -30,7 +30,7 @@
     <li>Reanimated</li>
     <li>ActivityKit &middot; Swift</li>
     <li>Supabase</li>
-    <li>OpenAI gpt-4o-mini</li>
+    <li>OpenAI gpt-4o-mini (prototype)</li>
     <li>EAS &middot; App Store</li>
 </ul>
 </div>
@@ -42,334 +42,318 @@
 </div>
 </div>
 
-<!-- The case study is a fixed 1440-wide artboard, reproduced 1:1 from the
-     Figma frame "Reflow — Case Study" and scaled to fit the column beside
-     the sidebar. -->
+<!-- The case study is flow layout on a 1440 design grid: every size is the
+     design value times --u (one design px), so it scales with the column
+     like Day One, and reading text never drops below a legible floor. -->
 <div class="rf-viewport shell-main">
 <div class="rf-stage">
 
-<!-- ============ backgrounds ============ -->
-<div class="rf-bg rf-bg--hero"    style="top:0;height:1609px"></div>
-<div class="rf-bg rf-bg--toblue"  style="top:5699px;height:1607px"></div>
-<div class="rf-bg rf-bg--todark"  style="top:9794px;height:1124px"></div>
-<div class="rf-bg rf-bg--dark"    style="top:10918px;height:1264px"></div>
-<div class="rf-bg rf-bg--cobalt"  style="top:12182px;height:565px"></div>
-<div class="rf-bg rf-bg--tolight" style="top:12747px;height:1123px"></div>
-
 <!-- ============ 00 · Hero ============ -->
-<h1 class="rf-wordmark" style="left:307px;top:203px;width:794px">Reflow</h1>
-<p class="rf-tagline" style="left:228.5px;top:435px">A day planner for the moment the day stops going to plan.</p>
-<img class="rf-band" src="assets/images/reflow/2 8.png" width="727" height="956"
-     alt="The Today screen on a phone"
-     style="left:348px;top:495px;width:727px">
-<blockquote class="rf-quote" style="left:275.01px;top:1457.94px;width:889.98px">“One task runs long and the rest of the day stops being true. Reflow is a day planner that <b>catches the overrun as it happens</b> and hands you a rebuilt schedule in one tap.”</blockquote>
+<section class="rf-sec rf-sec--hero">
+  <p class="rf-meta-bar"><b>PERSONAL PROJECT &middot; 2026</b><span>Live on the App Store</span></p>
+  <h1 class="rf-wordmark">Reflow</h1>
+  <p class="rf-tagline">A day planner for the moment the day stops going to plan.</p>
+  <img class="rf-hero-phone" src="assets/images/reflow/2 8.png" width="727" height="956" alt="The Today screen on a phone">
+  <dl class="rf-facts">
+    <div><dt>PROBLEM</dt><dd>One task runs long, and the rest of the plan quietly stops being true.</dd></div>
+    <div><dt>SOLUTION</dt><dd>Reflow catches the overrun and rebuilds the rest of the day as one proposal you accept in a tap.</dd></div>
+    <div><dt>ROLE</dt><dd>Solo &middot; research, UX, UI, development, launch</dd></div>
+    <div><dt>PLATFORM</dt><dd>iOS, with a Live Activity on the lock screen</dd></div>
+  </dl>
+</section>
 
-<!-- ============ ABOUT · Project ============ -->
-<div class="rf-two" style="left:130px;top:1735px;width:1180px">
-  <div class="rf-two-col">
-    <div class="rf-sp16"></div>
-    <p class="rf-label">ABOUT</p>
-    <div class="rf-hairline"></div>
-    <div class="rf-sp8"></div>
-    <p class="rf-about"><span class="rf-geo">Reflow</span> is a day planning app that detects when a task runs over and rebuilds the rest of your day into a plan you can accept in one tap.</p>
+<section class="rf-sec rf-sec--light rf-sec--flush">
+  <img class="rf-bleed" src="assets/images/reflow/cs-three-phones.webp" width="2368" height="1479" loading="lazy" alt="Three Reflow screens: inbox grouped by area, the week view with today's tasks, and a focus timer">
+</section>
+
+<!-- ============ 01 · The problem ============ -->
+<section class="rf-sec rf-sec--light">
+  <p class="rf-eyebrow"><b>01</b><span>THE PROBLEM</span></p>
+  <h2 class="rf-h2">Thirty minutes becomes an hour, and nothing in the day absorbs the difference.</h2>
+  <!-- TODO(evidence): add how the problem was researched (who, how many,
+       method), e.g. a kicker line like Day One's "We interviewed ...". -->
+  <!-- One afternoon, three moments. The timeline is drawn by js/reflow-day.js;
+       the steps stay in HTML so they read fine without it. -->
+  <div class="tl" data-tl>
+    <ol class="tl-steps">
+      <li><button type="button" class="tl-step" data-state="plan">
+        <span class="tl-step-n">1</span>
+        <span class="tl-step-text"><strong>The plan fits</strong><em>Every slot before the 5&nbsp;PM bakery shift is used.</em></span>
+      </button></li>
+      <li><button type="button" class="tl-step" data-state="overrun">
+        <span class="tl-step-n tl-step-n--clay">2</span>
+        <span class="tl-step-text"><strong>Estimates that miss</strong><em>Reading takes an hour, not thirty minutes.</em></span>
+      </button></li>
+      <li><button type="button" class="tl-step" data-state="cascade">
+        <span class="tl-step-n tl-step-n--clay">3</span>
+        <span class="tl-step-text"><strong>A day that doesn&rsquo;t close</strong><em>Everything slides back. Two tasks get postponed onto a tomorrow that&rsquo;s already full.</em></span>
+      </button></li>
+    </ol>
+    <div class="tl-board" aria-hidden="true"></div>
   </div>
-  <div class="rf-two-col">
-    <div class="rf-sp16"></div>
-    <p class="rf-label">Project</p>
-    <div class="rf-hairline"></div>
-    <div class="rf-sp8"></div>
-    <dl class="rf-meta">
-      <div class="rf-meta-row"><dt>Project</dt><dd>Reflow</dd></div>
-      <div class="rf-meta-row"><dt>Industry</dt><dd>Productivity Mobile App</dd></div>
-      <div class="rf-meta-row"><dt>Category</dt><dd>Planning, Task Management &amp; AI</dd></div>
-      <div class="rf-meta-row"><dt>Role</dt><dd>Design &amp; Development</dd></div>
-      <div class="rf-meta-row"><dt>Date</dt><dd>2026</dd></div>
-    </dl>
+  <p class="rf-kicker">Each miss feeds the next. The plan never gets a chance to catch up.</p>
+</section>
+
+<section class="rf-sec rf-sec--dark">
+  <p class="rf-eyebrow"><b>01</b><span>WHAT THE DAY FEELS LIKE</span></p>
+  <h2 class="rf-h2">By the third broken day, people stop adjusting the plan and start abandoning it.</h2>
+  <!-- The empathy map, cut to its strongest line per quadrant and read in
+       order: each step is one more move away from the planner. -->
+  <ol class="rf-feel">
+    <li class="rf-feel-step">
+      <span class="rf-feel-label">Thinks</span>
+      <p>&ldquo;If I move this, what else has&nbsp;to&nbsp;move?&rdquo;</p>
+    </li>
+    <li class="rf-feel-step">
+      <span class="rf-feel-label">Says</span>
+      <p>&ldquo;I&rsquo;ll just do it tomorrow.&rdquo;</p>
+    </li>
+    <li class="rf-feel-step">
+      <span class="rf-feel-label">Does</span>
+      <p>Stops opening the planner once the day is&nbsp;off.</p>
+    </li>
+    <li class="rf-feel-step rf-feel-step--end">
+      <span class="rf-feel-label">Feels</span>
+      <p>Resigned, and starts to plan less.</p>
+    </li>
+  </ol>
+</section>
+
+<!-- ============ 02 · Insight + HMW ============ -->
+<section class="rf-sec rf-sec--cobalt">
+  <p class="rf-eyebrow"><b>02</b><span>THE INSIGHT</span></p>
+  <h2 class="rf-h2">People don&rsquo;t quit planning because the plan is wrong. They quit because fixing it costs too much.</h2>
+  <div class="rf-hmw">
+    <span class="rf-badge">HOW MIGHT WE</span>
+    <p class="rf-hmw-text">How might we make re-planning after an overrun cost one tap, so a broken hour doesn&rsquo;t become a lost day?</p>
   </div>
-</div>
-<img class="rf-band" src="assets/images/reflow/cs-three-phones.webp" alt="Three Reflow screens: inbox grouped by area, the week view with today's tasks, and a focus timer" style="left:0px;top:2185px;width:1440px">
-
-<!-- ============ Features ============ -->
-<img class="rf-band" src="assets/images/reflow/cs-card-entry.webp" alt="Task entry card with date, start, duration, repeat, importance and a Today / Another day choice" style="left:100px;top:3205px;width:560px">
-<div class="rf-chips" style="left:753.14px;top:3463.88px">
-  <span class="rf-chip" style="left:0px">Task Entry</span>
-  <span class="rf-chip" style="left:142px">Progressive Detail</span>
-  <span class="rf-chip" style="left:355px">Signal</span>
-</div>
-<p class="rf-feature-copy" style="left:753.14px;top:3524.88px;width:584.83px">Duration makes the timer meaningful. Importance tells the reschedule where a task belongs. What you record here is what Reflow works with when the day changes.</p>
-<img class="rf-band" src="assets/images/reflow/cs-card-swap.webp" alt="Focus card for a running task: 00:13 elapsed against a 15 minute estimate, with Done and Postpone" style="left:730px;top:3910px;width:630px">
-<div class="rf-chips" style="left:130px;top:4123.93px">
-  <span class="rf-chip" style="left:0px">Focus State</span>
-  <span class="rf-chip" style="left:154px">Live Timing</span>
-  <span class="rf-chip" style="left:304px">Estimates</span>
-</div>
-<p class="rf-feature-copy" style="left:130px;top:4184.93px;width:584.83px">Elapsed time never appears alone. It sits against the estimate you set, so going over isn't an alert. It's the number you're already looking at.</p>
-<img class="rf-band" src="assets/images/reflow/cs-rows-carried.webp" alt="Task rows marked Postponed and Carried, each keeping its category and duration" style="left:90px;top:4505px;width:586px">
-<div class="rf-chips" style="left:753.14px;top:4550.92px">
-  <span class="rf-chip" style="left:0px">Carry Over</span>
-  <span class="rf-chip" style="left:145px">State Design</span>
-  <span class="rf-chip" style="left:308px">Closure</span>
-</div>
-<p class="rf-feature-copy" style="left:753.14px;top:4611.92px;width:584.83px">What didn't finish carries to tomorrow as a task, not as a backlog. There's no separate pile of missed things, and no day ends in failure.</p>
-<img class="rf-band" src="assets/images/reflow/cs-card-reschedule.webp" alt="Reschedule card: three tasks can move, each with where it lands, and an Accept plan button" style="left:801px;top:4955px;width:560px">
-<div class="rf-chips" style="left:148.17px;top:5269.95px">
-  <span class="rf-chip" style="left:0px">Rescheduling</span>
-  <span class="rf-chip" style="left:169px">Deterministic Logic</span>
-  <span class="rf-chip" style="left:393px">Decision Design</span>
-</div>
-<p class="rf-feature-copy" style="left:148.17px;top:5330.95px;width:540.97px">Reflow rebuilds the day around what's still unfinished and shows where every task lands before you accept it.</p>
-<p class="rf-statement" style="left:175.11px;top:5610.92px;width:1094.67px"><span class="rf-geo">Reflow</span>, the day planner that rebuilds your day when it breaks.</p>
-
-<!-- ============ How the reschedule works ============ -->
-<img class="rf-gif" src="assets/images/reflow/AIgif.gif" width="1170" height="2532"
-     alt="Screen recording: naming a task, letting Reflow estimate how long it will take, and adding it to the day"
-     style="left:517.82px;top:5790.59px;width:404.36px">
-<p class="rf-onblue" style="left:146.91px;top:6767.65px;width:1146.19px"><b>Reflow</b> is a day planning app for people who plan carefully and still lose the day to a single overrun. One button rebuilds it around what's still unfinished. AI comes in at the one place judgment beats rules: guessing how long a task you've never done will take.</p>
-<div class="rf-four" style="left:140px;top:7024.86px;width:1160px">
-<div class="rf-col rf-col--dark">
-  <div class="rf-hairline"></div>
-  <h3 class="rf-col-title">Reads</h3>
-  <p class="rf-col-body">Unfinished tasks, duration, importance, fixed times</p>
-</div>
-<div class="rf-col rf-col--dark">
-  <div class="rf-hairline"></div>
-  <h3 class="rf-col-title">Generates</h3>
-  <p class="rf-col-body">Every schedule that fits the time remaining</p>
-</div>
-<div class="rf-col rf-col--dark">
-  <div class="rf-hairline"></div>
-  <h3 class="rf-col-title">Selects</h3>
-  <p class="rf-col-body">One proposal, ranked by importance and fit</p>
-</div>
-<div class="rf-col rf-col--dark">
-  <div class="rf-hairline"></div>
-  <h3 class="rf-col-title">Returns</h3>
-  <p class="rf-col-body">Where each task lands, before you accept</p>
-</div>
-</div>
-<img class="rf-band" src="assets/images/reflow/cs-tilt-nav.webp" alt="Bottom navigation bar with home, inbox, add, timer and profile" style="left:0px;top:7430px;width:1050px">
-<img class="rf-band" src="assets/images/reflow/cs-tilt-profile.webp" alt="Profile screen with a month calendar showing how the user's days went" style="left:690px;top:7955px;width:650px">
-
-<!-- ============ Three costs ============ -->
-<h2 class="rf-h2" style="left:140px;top:9101.32px;width:1094.67px">Pain Points</h2>
-<div class="rf-three" style="left:140px;top:9206.92px;width:1160px">
-<div class="rf-col">
-  <div class="rf-hairline"></div>
-  <h3 class="rf-col-title">Days That Don't Close</h3>
-  <p class="rf-col-body">The effort is there. The day still ends with tasks unfinished, and it's rarely clear which decision made it go <br>that way.</p>
-</div>
-<div class="rf-col">
-  <div class="rf-hairline"></div>
-  <h3 class="rf-col-title">Estimates That Miss</h3>
-  <p class="rf-col-body">Thirty minutes becomes an hour. The plan was never wrong about what mattered, only about how long it takes, and nothing in the day absorbs the difference.</p>
-</div>
-<div class="rf-col">
-  <div class="rf-hairline"></div>
-  <h3 class="rf-col-title">Backlog That Compounds</h3>
-  <p class="rf-col-body">What didn't finish lands on tomorrow, which was already full. After enough of those days, making a plan stops feeling worth it.</p>
-</div>
-</div>
-<p class="rf-kicker" style="left:197.76px;top:9547.45px;width:1034px">Each one feeds the next. The plan never gets a chance to catch up.</p>
-<img class="rf-band" src="assets/images/reflow/cs-lockscreen.webp" alt="iPhone lock screen with a Live Activity tracking the current task timer" style="left:0px;top:9660px;width:1440px">
-
-<!-- ============ What the Day Feels Like ============ -->
-<h2 class="rf-h2 rf-h2--light" style="left:142.56px;top:11061.02px;width:1094.67px">What the Day Feels Like</h2>
-<div class="rf-empathy" style="left:124.09px;top:11202.73px;width:590.67px;height:414.26px"></div>
-<h3 class="rf-empathy-title" style="left:173.04px;top:11259.56px">Says</h3>
-<ul class="rf-empathy-list" style="left:160.37px;top:11337.56px;width:507.72px">
-  <li>I had it all planned out and then one <br>thing ran long.</li>
-  <li>I'll just do it tomorrow.</li>
-  <li>I don't know why I bother planning anymore.</li>
-</ul>
-<div class="rf-empathy" style="left:740.62px;top:11202.73px;width:590.67px;height:414.26px"></div>
-<h3 class="rf-empathy-title" style="left:791.51px;top:11259.56px">Thinks</h3>
-<ul class="rf-empathy-list" style="left:778.2px;top:11337.56px;width:515.51px">
-  <li>I should have known that would take longer.</li>
-  <li>If I move this, what else has to move?</li>
-  <li>Everyone else seems to manage this fine.</li>
-</ul>
-<div class="rf-empathy" style="left:124.09px;top:11641.98px;width:590.67px;height:414.26px"></div>
-<h3 class="rf-empathy-title" style="left:173.04px;top:11687.72px">Does</h3>
-<ul class="rf-empathy-list" style="left:155.37px;top:11765.6px;width:516.63px">
-  <li>Rewrites the list from scratch instead of adjusting it.</li>
-  <li>Pushes the same task forward three days in a row.</li>
-  <li>Stops opening the planner once the day is already off.</li>
-</ul>
-<div class="rf-empathy" style="left:740.62px;top:11641.98px;width:590.67px;height:414.26px"></div>
-<h3 class="rf-empathy-title" style="left:791.51px;top:11687.72px">Feels</h3>
-<ul class="rf-empathy-list" style="left:775.88px;top:11765.6px;width:517.83px">
-  <li>Frustrated that effort didn't turn <br>into progress.</li>
-  <li>Overwhelmed by what's carried over.</li>
-  <li>Resigned, and starts to plan less.</li>
-</ul>
-
-<!-- ============ HMW ============ -->
-<p class="rf-hmw" style="left:191.42px;top:12321.92px;width:1057.15px">How might we help users plan their day so that even when things go wrong, they stay on track?</p>
-<p class="rf-hmw-pillar" style="left:191.43px;top:12563.97px">Organize tasks</p>
-<p class="rf-hmw-pillar" style="left:605px;top:12563.97px">Estimate time</p>
-<p class="rf-hmw-pillar" style="left:1004.58px;top:12563.97px">Auto-reschedule</p>
-
-<!-- ============ Critical Path ============ -->
-<h2 class="rf-h2 rf-h2--light" style="left:142.56px;top:12857px;width:1094.67px">Critical Path</h2>
-<img class="rf-band" src="assets/images/reflow/cs-path-row1.webp" alt="Critical path, part one: today list, task entry, and a task in progress" style="left:0px;top:12957px;width:1440px">
-<div class="rf-step" style="left:106.32px;top:13595px;width:360px">
-  <div class="rf-hairline"></div>
-  <h3 class="rf-col-title">Today</h3>
-  <p class="rf-col-body">Timed and untimed tasks in one list. The day is a sequence, not a grid.</p>
-</div>
-<div class="rf-step" style="left:545.16px;top:13595px;width:360px">
-  <div class="rf-hairline"></div>
-  <h3 class="rf-col-title">Make task</h3>
-  <p class="rf-col-body">A name is enough. Duration and importance are optional, and they're what the reschedule reads later.</p>
-</div>
-<div class="rf-step" style="left:983.69px;top:13595px;width:360px">
-  <div class="rf-hairline"></div>
-  <h3 class="rf-col-title">During task</h3>
-  <p class="rf-col-body">Elapsed time never appears alone. It sits against your estimate, so going over isn't an alert.</p>
-</div>
-<img class="rf-band" src="assets/images/reflow/cs-path-row2.webp" alt="Critical path, part two: task pending, the reschedule proposal, and the end-of-day check-in" style="left:0px;top:13777px;width:1440px">
-<div class="rf-step" style="left:106.32px;top:14406.85px;width:360px">
-  <div class="rf-hairline"></div>
-  <h3 class="rf-col-title">Task pending</h3>
-  <p class="rf-col-body">Overdue, not failed. The task stays in place with three ways out.</p>
-</div>
-<div class="rf-step" style="left:545.16px;top:14407.85px;width:360px">
-  <div class="rf-hairline"></div>
-  <h3 class="rf-col-title">Reschedule</h3>
-  <p class="rf-col-body">One proposal, not a menu. Every move is shown before you accept it.</p>
-</div>
-<div class="rf-step" style="left:983.69px;top:14408.85px;width:360px">
-  <div class="rf-hairline"></div>
-  <h3 class="rf-col-title">End of day</h3>
-  <p class="rf-col-body">Done, ran over, moved. Counts without a score, and nothing marked as failure.</p>
-</div>
-
-<!-- ============ Design Foundation ============ -->
-<h2 class="rf-h2" style="left:125.16px;top:14732.17px;width:1094.67px">Design Foundation</h2>
-<h3 class="rf-h3" style="left:125.16px;top:14889.92px">Color System</h3>
-
-<div class="rf-swatch" style="left:181.99px;top:15011.43px;width:435px;height:132px;background:#1b3fd1"></div>
-<div class="rf-swatch-copy" style="left:181.99px;top:15147.43px;width:435px">
-  <p class="rf-sw-name">Cobalt</p>
-  <p class="rf-sw-role">Structure and interaction</p>
-  <p class="rf-sw-body">Buttons, selection, toggles, mastheads. The one accent the interface is allowed to use, and it never means urgency.</p>
-  <p class="rf-sw-hex">#1B3FD1&nbsp; /&nbsp; #6C8CFF</p>
-</div>
-<div class="rf-swatch" style="left:841.66px;top:15015.43px;width:435px;height:132px;background:#c62828"></div>
-<div class="rf-swatch-copy" style="left:841.66px;top:15147.43px;width:435px">
-  <p class="rf-sw-name">Clay</p>
-  <p class="rf-sw-role">Live disruption only</p>
-  <p class="rf-sw-body">A task running past its estimate, a destructive action. It never appears on a calm screen, so seeing it is information by itself.</p>
-  <p class="rf-sw-hex">#C62828&nbsp; /&nbsp; #F0655A</p>
-</div>
-
-<h3 class="rf-h4" style="left:122.62px;top:15397.93px;width:360px">Group Color</h3>
-<p class="rf-note" style="left:125.16px;top:15438.93px;width:840px">Twelve options, each a single hex rather than a light and dark pair. The ramp cycles through violet, rose, warm, green, teal and indigo so neighbours stay tellable apart, and contrast is measured per fill.</p>
-<div class="rf-grid" style="left:125.16px;top:15542.93px;width:1200px">
-  <div class="rf-gcell">
-    <div class="rf-gfill" style="background:#5E4E7B"><span>Aa</span></div>
-    <div class="rf-gmeta"><p class="rf-gname">plum haze</p><p class="rf-ghex">#5E4E7B</p></div>
+  <div class="rf-cols3 rf-pillars">
+    <div class="rf-pillar"><b>Capture</b><span>Just enough about each task to plan with</span></div>
+    <div class="rf-pillar"><b>Notice</b><span>The overrun, as it happens</span></div>
+    <div class="rf-pillar"><b>Rebuild</b><span>The rest of the day, for the user to accept</span></div>
   </div>
-  <div class="rf-gcell">
-    <div class="rf-gfill" style="background:#A493BE"><span>Aa</span></div>
-    <div class="rf-gmeta"><p class="rf-gname">lilac echo</p><p class="rf-ghex">#A493BE</p></div>
+</section>
+
+<!-- ============ 03 · The same day, with Reflow ============ -->
+<section class="rf-sec rf-sec--light">
+  <p class="rf-eyebrow"><b>03</b><span>THE FIX</span></p>
+  <h2 class="rf-h2">Same overrun, same afternoon. One task moves instead of four.</h2>
+  <div class="tl" data-tl>
+    <ol class="tl-steps">
+      <li><button type="button" class="tl-step" data-state="same">
+        <span class="tl-step-n">1</span>
+        <span class="tl-step-text"><strong>The same overrun</strong><em>Reading runs 30 minutes over, just like before.</em></span>
+      </button></li>
+      <li><button type="button" class="tl-step" data-state="ask">
+        <span class="tl-step-n">2</span>
+        <span class="tl-step-text"><strong>It asks, it doesn&rsquo;t push</strong><em>Nothing moves on its own. Reschedule is one tap away.</em></span>
+      </button></li>
+      <li><button type="button" class="tl-step" data-state="propose">
+        <span class="tl-step-n">3</span>
+        <span class="tl-step-text"><strong>It proposes one plan</strong><em>90 minutes left, 120 of work. The lowest priority, laundry, moves to tomorrow.</em></span>
+      </button></li>
+      <li><button type="button" class="tl-step" data-state="result">
+        <span class="tl-step-n">4</span>
+        <span class="tl-step-text"><strong>One move, not four</strong><em>Everything else keeps its time. Nothing is pushed past the shift.</em></span>
+      </button></li>
+    </ol>
+    <div class="tl-board" aria-hidden="true"></div>
   </div>
-  <div class="rf-gcell">
-    <div class="rf-gfill" style="background:#C07C92"><span>Aa</span></div>
-    <div class="rf-gmeta"><p class="rf-gname">peony</p><p class="rf-ghex">#C07C92</p></div>
+</section>
+
+<!-- ============ 04 · The flow ============ -->
+<section class="rf-sec rf-sec--light">
+  <p class="rf-eyebrow"><b>04</b><span>THE FLOW</span></p>
+  <h2 class="rf-h2">From a plan, to an overrun, to a rebuilt day, in six screens.</h2>
+  <!-- Each screen sits directly above its own caption, so phone and words
+       stay paired at every width. -->
+  <ol class="rf-cols3 rf-path">
+    <li>
+      <img src="assets/images/reflow/cs-path-1@2x.webp" width="892" height="1804" loading="lazy" alt="Today list with timed and untimed tasks, a fixed bakery shift and postponed and carried tags">
+      <b>01</b><strong>Today</strong><span>Timed and untimed tasks in one list. The day is a sequence, not a grid.</span>
+    </li>
+    <li>
+      <img src="assets/images/reflow/cs-path-2@2x.webp" width="894" height="1808" loading="lazy" alt="Task entry sheet with a name field and optional date, start, duration, importance and do-it-by">
+      <b>02</b><strong>Make a task</strong><span>A name is enough. Everything else is optional.</span>
+    </li>
+    <li>
+      <img src="assets/images/reflow/cs-path-3@2x.webp" width="896" height="1808" loading="lazy" alt="A running task card: 08:02 elapsed against a 40 minute estimate, with Done and Postpone">
+      <b>03</b><strong>During a task</strong><span>Elapsed time, always next to the estimate.</span>
+    </li>
+    <li>
+      <img src="assets/images/reflow/cs-path-4@2x.webp" width="894" height="1806" loading="lazy" alt="A task running 1 hour 19 minutes over, outlined in red, with Done and Postpone">
+      <b>04</b><strong>Task pending</strong><span>The task ran over. It stays in place, with three ways out.</span>
+    </li>
+    <li>
+      <img src="assets/images/reflow/cs-path-5@2x.webp" width="894" height="1806" loading="lazy" alt="Reschedule sheet: three tasks can move, each with where it lands, and Accept plan">
+      <b>05</b><strong>Reschedule</strong><span>The rest of the day, rebuilt as one proposal.</span>
+    </li>
+    <li>
+      <img src="assets/images/reflow/cs-path-6@2x.webp" width="896" height="1806" loading="lazy" alt="End-of-day check-in: four done, three rescheduled, none to tomorrow">
+      <b>06</b><strong>End of day</strong><span>Done, ran over, moved. Counted, never scored.</span>
+    </li>
+  </ol>
+</section>
+
+<!-- ============ 05 · Design decisions ============ -->
+<section class="rf-sec rf-sec--light rf-sec--decisions">
+  <p class="rf-eyebrow"><b>05</b><span>DESIGN DECISIONS</span></p>
+  <h2 class="rf-h2">Every screen follows one rule: the day can change, but the user decides.</h2>
+
+  <article class="rf-dec">
+    <div class="rf-dec-media"><img src="assets/images/reflow/cs-card-entry.webp" width="921" height="813" loading="lazy" alt="Task entry card with date, start, duration, repeat, importance and a Today / Another day choice"></div>
+    <div class="rf-dec-text">
+      <p class="rf-dec-num">DECISION 1</p>
+      <h3 class="rf-dec-title">Ask for a name, not a form</h3>
+      <p class="rf-dec-body">Adding a task takes a name. Duration and importance sit one step further in, because they&rsquo;re what the reschedule reads later, not what you need to get started.</p>
+      <dl class="rf-vs">
+        <div class="rf-vs-not"><dt>NOT</dt><dd>A full form on every task, so quick capture gets skipped.</dd></div>
+        <div class="rf-vs-yes"><dt>INSTEAD</dt><dd>Progressive detail: optional fields that pay off when the day changes.</dd></div>
+      </dl>
+    </div>
+  </article>
+
+  <article class="rf-dec rf-dec--flip">
+    <div class="rf-dec-media"><img src="assets/images/reflow/cs-card-swap.webp" width="1036" height="665" loading="lazy" alt="Focus card for a running task: 00:13 elapsed against a 15 minute estimate, with Done and Postpone"></div>
+    <div class="rf-dec-text">
+      <p class="rf-dec-num">DECISION 2</p>
+      <h3 class="rf-dec-title">Going over is a number, not an alarm</h3>
+      <p class="rf-dec-body">Elapsed time never appears alone. It sits against the estimate you set, so running over is something you&rsquo;re already watching, on the screen and on the lock screen.</p>
+      <dl class="rf-vs">
+        <div class="rf-vs-not"><dt>NOT</dt><dd>A warning that interrupts, the moment you&rsquo;re already behind.</dd></div>
+        <div class="rf-vs-yes"><dt>INSTEAD</dt><dd>A live timer with the estimate beside it, plus a Live Activity.</dd></div>
+      </dl>
+    </div>
+  </article>
+  <figure class="rf-frame rf-frame--wide"><img src="assets/images/reflow/cs-lockscreen.webp" width="2368" height="2203" loading="lazy" alt="iPhone lock screen with a Live Activity tracking the current task timer"></figure>
+
+  <article class="rf-dec">
+    <div class="rf-dec-media"><img src="assets/images/reflow/cs-card-reschedule.webp" width="921" height="838" loading="lazy" alt="Reschedule card: three tasks can move, each with where it lands, and an Accept plan button"></div>
+    <div class="rf-dec-text">
+      <p class="rf-dec-num">DECISION 3</p>
+      <h3 class="rf-dec-title">One proposal, not a menu</h3>
+      <p class="rf-dec-body">When the day breaks, comparing options is one more job. Reflow hands back a single rebuilt day and shows where every task lands before anything moves.</p>
+      <dl class="rf-vs">
+        <div class="rf-vs-not"><dt>NOT</dt><dd>Several plans to compare, or tasks moved silently in the background.</dd></div>
+        <div class="rf-vs-yes"><dt>INSTEAD</dt><dd>One proposal, every move visible, one tap to accept.</dd></div>
+      </dl>
+    </div>
+  </article>
+  <ol class="rf-cols4 rf-engine">
+    <li><b>Reads</b><span>Unfinished tasks, duration, importance, fixed times</span></li>
+    <li><b>Generates</b><span>Every schedule that fits the time remaining</span></li>
+    <li><b>Selects</b><span>One proposal, ranked by importance and fit</span></li>
+    <li><b>Returns</b><span>Where each task lands, before you accept</span></li>
+  </ol>
+
+  <article class="rf-dec rf-dec--flip">
+    <div class="rf-dec-media rf-dec-media--phone"><img src="assets/images/reflow/AIgif-clean.gif" width="810" height="1753" loading="lazy" alt="Screen recording: naming a task, letting Reflow estimate how long it will take, and adding it to the day"></div>
+    <div class="rf-dec-text">
+      <p class="rf-dec-num">DECISION 4</p>
+      <h3 class="rf-dec-title">Rules move the day. AI only estimates.</h3>
+      <p class="rf-dec-body">The reschedule is deterministic, so the same day always gives the same answer and you can trust it. AI comes in at the one place judgment beats rules: guessing how long a task you&rsquo;ve never done will take.</p>
+      <dl class="rf-vs">
+        <div class="rf-vs-not"><dt>NOT</dt><dd>An AI that rearranges your day for reasons you can&rsquo;t check.</dd></div>
+        <div class="rf-vs-yes"><dt>INSTEAD</dt><dd>Predictable rules for moving tasks, AI for a first estimate you can edit.</dd></div>
+      </dl>
+      <!-- The class prototype used AI; the App Store build doesn't. -->
+      <p class="rf-shipped"><b>WHAT SHIPPED</b> AI costs money on every call. To keep Reflow free, the App Store version estimates from your own history instead: the median of how long similar tasks took.</p>
+    </div>
+  </article>
+
+  <article class="rf-dec">
+    <div class="rf-dec-media"><img src="assets/images/reflow/cs-rows-carried.webp" width="1053" height="386" loading="lazy" alt="Task rows marked Postponed and Carried, each keeping its category and duration"></div>
+    <div class="rf-dec-text">
+      <p class="rf-dec-num">DECISION 5</p>
+      <h3 class="rf-dec-title">Overdue, not failed</h3>
+      <p class="rf-dec-body">What didn&rsquo;t finish carries to tomorrow as a task, with its category and duration intact. There&rsquo;s no pile of missed things, and no day ends in a score. This is the answer to &ldquo;resigned, and starts to plan less.&rdquo;</p>
+      <dl class="rf-vs">
+        <div class="rf-vs-not"><dt>NOT</dt><dd>A backlog of red, overdue items that grows every day.</dd></div>
+        <div class="rf-vs-yes"><dt>INSTEAD</dt><dd>Carried and postponed states, and an end of day that counts without judging.</dd></div>
+      </dl>
+    </div>
+  </article>
+  <figure class="rf-frame rf-frame--plain"><img src="assets/images/reflow/cs-tilt-profile.webp" width="1069" height="1570" loading="lazy" alt="Profile screen with a month calendar showing how the user's days went"></figure>
+</section>
+
+<!-- ============ 06 · Behind the screen: the data ============ -->
+<!-- Schema facts are from the app's own supabase/schema.sql and migrations. -->
+<section class="rf-sec rf-sec--light rf-sec--data">
+  <p class="rf-eyebrow"><b>06</b><span>BEHIND THE SCREEN</span></p>
+  <h2 class="rf-h2">Designing the app meant designing its data. Every mark on a row is a column.</h2>
+  <p class="rf-note">Reflow runs on Supabase (Postgres): ten tables, each locked to its owner, and 47 migrations, because the schema changed every time the design did.</p>
+
+  <!-- The real schema, drawn the way Supabase's schema visualizer shows it
+       (js/reflow-canvas.js). -->
+  <figure class="sb">
+    <div class="sb-canvas" data-sb-canvas role="img" aria-label="Supabase schema view of the Reflow database: tasks, schedule_blocks, projects, areas and users with every column and type, foreign keys drawn as lines into users, areas, projects and schedule_blocks; settings, feedback, timer_sessions and user_goals shown folded"></div>
+    <figcaption>The Reflow database in Supabase&rsquo;s schema view, redrawn from the app&rsquo;s schema. Blue rows are the ones the Today row below is made of.</figcaption>
+  </figure>
+
+  <div class="db">
+    <!-- One row from the Today screen, taken apart. -->
+    <div class="db-anatomy">
+      <p class="db-kicker">One row on Today, taken apart</p>
+      <div class="db-sample" aria-hidden="true">
+        <span class="db-s-bar"></span><span class="db-s-check"></span>
+        <span class="db-s-body"><span class="db-s-title">Order textbook for autumn term</span>
+        <span class="db-s-meta"><i class="db-s-tag">CARRIED</i><b>4:30 PM</b> AUTUMN TERM 15M <em>&#9679;&#9679;</em></span></span>
+      </div>
+      <dl class="db-map-list">
+        <div><dt><span class="db-t db-t--check"></span></dt><dd><code>status</code> pending &middot; in_progress &middot; done &middot; rescheduled</dd></div>
+        <div><dt><b class="db-t">4:30 PM</b></dt><dd><code>scheduled_start_time</code> time of day, not a timestamp</dd></div>
+        <div><dt><span class="db-t">15M</span></dt><dd><code>duration</code> minutes, what the reschedule reads</dd></div>
+        <div><dt><em class="db-t db-t--dots">&#9679;&#9679;</em></dt><dd><code>importance</code> 0&ndash;5, who gives way first</dd></div>
+        <div><dt><i class="db-t db-t--tag">CARRIED</i></dt><dd><code>carried_over</code> true or false, never &ldquo;failed&rdquo;</dd></div>
+        <div><dt><i class="db-t db-t--fill">POSTPONED</i></dt><dd><code>is_postponed</code> a badge, not a state</dd></div>
+      </dl>
+    </div>
   </div>
-  <div class="rf-gcell">
-    <div class="rf-gfill" style="background:#C4795F"><span>Aa</span></div>
-    <div class="rf-gmeta"><p class="rf-gname">ember</p><p class="rf-ghex">#C4795F</p></div>
+
+  <h3 class="rf-h3">The schema followed the design</h3>
+  <ol class="db-changes">
+    <li><span class="db-was">&ldquo;If the day slips&rdquo; &middot; 3 options</span><span class="db-to" aria-hidden="true">&rarr;</span><span class="db-now">Do it by &middot; Today or Another day</span><em>The middle option was ambiguous. Two choices, stored as a date.</em></li>
+    <li><span class="db-was">End-of-day feeling &middot; 4 values</span><span class="db-to" aria-hidden="true">&rarr;</span><span class="db-now">3 values</span><em>Too packed, just right, time to spare.</em></li>
+    <li><span class="db-was">Categories</span><span class="db-to" aria-hidden="true">&rarr;</span><span class="db-now">Areas + importance 0&ndash;5</span><em>Where a task lives, and how much it matters, as two separate answers.</em></li>
+  </ol>
+</section>
+
+<!-- ============ 07 · Visual system (compact) ============ -->
+<section class="rf-sec rf-sec--white rf-sec--vsys">
+  <p class="rf-eyebrow"><b>07</b><span>VISUAL SYSTEM</span></p>
+  <h2 class="rf-h2 rf-h2--sm">Color is reserved for meaning.</h2>
+  <div class="vs">
+    <div class="vs-card">
+      <p class="vs-label">Color</p>
+      <div class="vs-key"><i style="background:#1b3fd1"></i><p><b>Cobalt</b> Acting: buttons, selection, toggles.</p></div>
+      <div class="vs-key"><i style="background:#c62828"></i><p><b>Clay</b> Only when the plan breaks.</p></div>
+      <div class="vs-groups" aria-label="Twelve group colors">
+        <i style="background:#5E4E7B"></i><i style="background:#A493BE"></i><i style="background:#C07C92"></i><i style="background:#C4795F"></i><i style="background:#DE9E7E"></i><i style="background:#DFC084"></i><i style="background:#C6CB8E"></i><i style="background:#7E9E78"></i><i style="background:#548059"></i><i style="background:#4F9B98"></i><i style="background:#5E8CB2"></i><i style="background:#4F5590"></i>
+      </div>
+      <p class="vs-note">12 group colors, contrast measured per fill.</p>
+    </div>
+    <div class="vs-card">
+      <p class="vs-label">Type</p>
+      <div class="vs-face"><span class="vs-aa">Aa</span><p><b>Noto Sans</b> Every screen in the app</p></div>
+      <div class="vs-face"><span class="vs-aa rf-geo">Aa</span><p><b class="rf-geo">Geologica</b> Logotype only, never in product</p></div>
+    </div>
+    <div class="vs-card">
+      <p class="vs-label">Logo</p>
+      <div class="vs-logo">
+        <img src="assets/images/reflow/cs-logo-b.webp" width="483" height="483" loading="lazy" alt="Reflow app icon: three white waves on cobalt blue">
+        <img src="assets/images/reflow/logomotion.gif" width="1548" height="1546" loading="lazy" alt="The mark in motion: the top wave drops into the middle and the rest make room">
+      </div>
+      <p class="vs-note">Three waves. What didn&rsquo;t happen re-enters the flow instead of falling off it.</p>
+    </div>
   </div>
-  <div class="rf-gcell">
-    <div class="rf-gfill" style="background:#DE9E7E"><span>Aa</span></div>
-    <div class="rf-gmeta"><p class="rf-gname">peach</p><p class="rf-ghex">#DE9E7E</p></div>
-  </div>
-  <div class="rf-gcell">
-    <div class="rf-gfill" style="background:#DFC084"><span>Aa</span></div>
-    <div class="rf-gmeta"><p class="rf-gname">honey</p><p class="rf-ghex">#DFC084</p></div>
-  </div>
-  <div class="rf-gcell">
-    <div class="rf-gfill" style="background:#C6CB8E"><span>Aa</span></div>
-    <div class="rf-gmeta"><p class="rf-gname">fennel</p><p class="rf-ghex">#C6CB8E</p></div>
-  </div>
-  <div class="rf-gcell">
-    <div class="rf-gfill" style="background:#7E9E78"><span>Aa</span></div>
-    <div class="rf-gmeta"><p class="rf-gname">sage</p><p class="rf-ghex">#7E9E78</p></div>
-  </div>
-  <div class="rf-gcell">
-    <div class="rf-gfill" style="background:#548059"><span>Aa</span></div>
-    <div class="rf-gmeta"><p class="rf-gname">fern</p><p class="rf-ghex">#548059</p></div>
-  </div>
-  <div class="rf-gcell">
-    <div class="rf-gfill" style="background:#4F9B98"><span>Aa</span></div>
-    <div class="rf-gmeta"><p class="rf-gname">teal</p><p class="rf-ghex">#4F9B98</p></div>
-  </div>
-  <div class="rf-gcell">
-    <div class="rf-gfill" style="background:#5E8CB2"><span>Aa</span></div>
-    <div class="rf-gmeta"><p class="rf-gname">ocean</p><p class="rf-ghex">#5E8CB2</p></div>
-  </div>
-  <div class="rf-gcell">
-    <div class="rf-gfill" style="background:#4F5590"><span>Aa</span></div>
-    <div class="rf-gmeta"><p class="rf-gname">potion</p><p class="rf-ghex">#4F5590</p></div>
-  </div>
+</section>
+
+</div>
 </div>
 
-<!-- ============ Typography ============ -->
-<h3 class="rf-h3" style="left:125.16px;top:15834.39px">Typography</h3>
-<div class="rf-two rf-two--faces" style="left:128.17px;top:15920.66px;width:1197px">
-  <div class="rf-two-col">
-    <div class="rf-hairline"></div><div class="rf-sp20"></div>
-    <p class="rf-eyebrow">PRODUCT UI</p><div class="rf-sp16"></div>
-    <p class="rf-face-name">Noto Sans</p><div class="rf-sp16"></div>
-    <div class="rf-specimen"><p>ABCDEFGHIJKLM</p><p>abcdefghijklm</p><p>0123456789&nbsp; :&nbsp; /&nbsp; +&nbsp; %</p></div>
-    <div class="rf-sp20"></div>
-    <p class="rf-face-use">Every screen in the app</p>
-  </div>
-  <div class="rf-two-col">
-    <div class="rf-hairline"></div><div class="rf-sp20"></div>
-    <p class="rf-eyebrow">BRAND LAYER</p><div class="rf-sp16"></div>
-    <p class="rf-face-name rf-geo">Geologica</p><div class="rf-sp16"></div>
-    <div class="rf-specimen rf-geo"><p>ABCDEFGHIJKLM</p><p>abcdefghijklm</p><p>0123456789&nbsp; :&nbsp; /&nbsp; +&nbsp; %</p></div>
-    <div class="rf-sp20"></div>
-    <p class="rf-face-use">Logotype only, never in product</p>
-  </div>
-</div>
-
-<!-- ============ Logo System ============ -->
-<h3 class="rf-h3" style="left:125.16px;top:16353.11px">Logo System</h3>
-<p class="rf-note" style="left:125.16px;top:16439.45px;width:889.08px">Three waves, each offset from the one above. In motion the top line drops into the middle and the rest make room. It's the same move the app makes with a day: what didn't happen re-enters the flow instead of falling off it.</p>
-<img class="rf-band" src="assets/images/reflow/cs-logo-a.webp" alt="Reflow logo lockups: stacked and horizontal versions of the three-wave mark" style="left:222px;top:16622px;width:1058px">
-<img class="rf-band" src="assets/images/reflow/cs-logo-b.webp" alt="Reflow app icon: three white waves on cobalt blue" style="left:228px;top:17056px;width:294px">
-<img class="rf-gif" src="assets/images/reflow/logomotion.gif" width="1548" height="1546"
-     alt="The mark in motion: the top wave drops into the middle and the rest make room"
-     style="left:750.11px;top:16939.13px;width:516.3px;border-radius:0">
-
-</div>
-</div>
-
-<script>
-/* The case study is a fixed 1440 x 17570 artboard; scale it down to fit the
-   column and shrink the wrapper to the scaled height. */
-(function () {
-    var viewport = document.querySelector('.rf-viewport');
-    var stage = document.querySelector('.rf-stage');
-    var W = 1440;
-    var H = 17570;
-
-    function fit() {
-        /* Measure the column, not the window — the sidebar takes 20% of it. */
-        var scale = Math.min(1, viewport.clientWidth / W);
-        stage.style.transform = 'scale(' + scale + ')';
-        viewport.style.height = (H * scale) + 'px';
-    }
-
-    fit();
-    window.addEventListener('resize', fit);
-})();
-</script>
-
-<script src="js/reveal.js?v=3" defer></script>
+<script src="js/reflow-schema.js?v=1" defer></script>
+<script src="js/reflow-canvas.js?v=1" defer></script>
+<script src="js/reflow-day.js?v=15" defer></script>
+<script src="js/reveal.js?v=5" defer></script>
 </body>
 </html>
