@@ -29,36 +29,46 @@
     var targets = [];
     var seen = new Set();
 
-    function add(el, i) {
+    function add(el, inGrid) {
         if (seen.has(el)) return;
         if (/^(SCRIPT|BR|STYLE)$/.test(el.tagName)) return;
         if (/\bdo-s\d+\b/.test(el.className)) return;          /* spacers */
         var r = el.getBoundingClientRect();
         if (!r.width || !r.height) return;                     /* hidden at this size */
         seen.add(el);
-        targets.push({ el: el, i: i });
+        targets.push({ el: el, grid: inGrid });
     }
 
     document.querySelectorAll(GROUPS).forEach(function (grid) {
         seen.add(grid);                                        /* its items move instead */
-        Array.prototype.forEach.call(grid.children, function (child, i) { add(child, Math.min(i, 6)); });
+        Array.prototype.forEach.call(grid.children, function (child) { add(child, true); });
     });
-    document.querySelectorAll(BLOCKS).forEach(function (el) { add(el, 0); });
+    document.querySelectorAll(BLOCKS).forEach(function (el) { add(el, false); });
 
     if (!targets.length) return;
     document.documentElement.classList.add('rv-on');
 
+    /* Grid items stagger by the order they arrive on screen together,
+       not by their place in the grid: an item that scrolls in alone
+       rises at once instead of waiting out the items above it. */
     var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-            if (!entry.isIntersecting) return;
-            entry.target.classList.add('rv-in');
-            io.unobserve(entry.target);
+        var shown = entries.filter(function (e) { return e.isIntersecting; });
+        shown.sort(function (a, b) {
+            return (a.boundingClientRect.top - b.boundingClientRect.top) ||
+                   (a.boundingClientRect.left - b.boundingClientRect.left);
+        });
+        var k = 0;
+        shown.forEach(function (entry) {
+            var el = entry.target;
+            el.style.setProperty('--rv-i', el.hasAttribute('data-rv-grid') ? Math.min(k++, 6) : 0);
+            el.classList.add('rv-in');
+            io.unobserve(el);
         });
     }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
 
     targets.forEach(function (t) {
         t.el.classList.add('rv');
-        t.el.style.setProperty('--rv-i', t.i);
+        if (t.grid) t.el.setAttribute('data-rv-grid', '');
         io.observe(t.el);
     });
 })();
