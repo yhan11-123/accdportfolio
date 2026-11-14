@@ -1091,6 +1091,166 @@ body {
 }
 
 /* =====================
+   Screen tour (02 · The experience)
+   A looping slideshow above the step grid. Screens appear whole; on the
+   newcomer screens the camera then zooms in on a detail. Between screens
+   there is only a dissolve: out, then in.
+   ===================== */
+
+.do-tour-pin {
+    display: grid;
+    grid-template-columns: minmax(190px, calc(280 * var(--u))) 1fr;
+    gap: calc(40 * var(--u));
+    align-items: center;
+}
+
+.do-tour-side {
+    display: flex;
+    flex-direction: column;
+    gap: calc(32 * var(--u));
+}
+
+.do-tour-list {
+    display: flex;
+    flex-direction: column;
+    gap: calc(2 * var(--u));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.do-tour-group {
+    margin: calc(18 * var(--u)) 0 calc(6 * var(--u));
+    color: var(--do-slate);
+    font-size: max(11px, calc(12 * var(--u)));
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+.do-tour-group:first-child { margin-top: 0; }
+
+.do-tour-list button {
+    display: flex;
+    gap: calc(10 * var(--u));
+    width: 100%;
+    padding: calc(8 * var(--u)) calc(12 * var(--u));
+    border: 0;
+    border-radius: calc(8 * var(--u));
+    background: transparent;
+    color: rgba(22, 22, 22, 0.45);
+    font: inherit;
+    font-size: max(14px, calc(16 * var(--u)));
+    text-align: left;
+    cursor: pointer;
+    transition: color 0.3s, background-color 0.3s;
+}
+
+.do-tour-list button b { font-weight: 600; }
+.do-tour-list button:hover { color: var(--do-green); }
+.do-tour-list button:focus-visible { outline: 2px solid var(--do-green); outline-offset: 2px; }
+
+.do-tour-list button.is-on {
+    background-color: var(--do-sand);
+    color: var(--do-green);
+    font-weight: 600;
+}
+
+/* Captions stack in one cell and cross-fade. */
+.do-tour-captions { display: grid; }
+
+.do-tour-cap {
+    grid-area: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    gap: calc(8 * var(--u));
+    margin: 0;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+}
+
+.do-tour-cap.is-on { opacity: 1; transition-delay: 0.25s; }
+
+.do-tour-cap strong {
+    color: var(--do-green);
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: max(19px, calc(24 * var(--u)));
+    font-weight: 600;
+    letter-spacing: calc(-0.22 * var(--u));
+    line-height: 1.25;
+}
+
+.do-tour-cap span {
+    color: var(--do-ink);
+    font-size: max(14px, calc(17 * var(--u)));
+    line-height: 1.5;
+}
+
+.do-tour-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    max-height: 86vh;
+    overflow: hidden;
+    border-radius: calc(16 * var(--u));
+    background-color: var(--do-sand);
+}
+
+.do-tour-shot {
+    position: absolute;
+    border-radius: calc(10 * var(--u));
+    box-shadow: 0 0 0 1px rgba(0, 53, 49, 0.08), 0 calc(10 * var(--u)) calc(28 * var(--u)) rgba(0, 30, 25, 0.12);
+    transform-origin: 0 0;
+    opacity: 0;
+    /* Leaving: fade out where it is. */
+    transition: opacity 0.5s ease;
+}
+
+/* Arriving: wait until the old slide is gone, then fade in. The two
+   never overlap, so two sizes are never on screen at once. Once in,
+   the camera can ease in on a detail. */
+.do-tour-shot.is-on {
+    opacity: 1;
+    transition: opacity 0.6s ease 0.5s, transform 1.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+
+.do-tour-shot img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: inherit;
+}
+
+
+/* Narrow screens: one column. The screen sits on top, its caption
+   below; the step list gives way to a thin progress row. */
+@media (max-width: 860px) {
+    .do-tour-pin {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .do-tour-frame { order: -1; aspect-ratio: 4 / 3; max-height: none; }
+    .do-tour-list { flex-direction: row; gap: 6px; }
+    .do-tour-group { display: none; }
+    .do-tour-list li { flex: 1; }
+    .do-tour-list button {
+        height: 4px;
+        padding: 0;
+        border-radius: 2px;
+        background-color: var(--do-sand-line);
+        font-size: 0;
+    }
+    .do-tour-list button.is-on { background-color: var(--do-green); }
+    .do-tour-side { gap: 16px; }
+}
+
+/* Reduced motion: no autoplay (the script starts it stopped) and the
+   dissolve becomes a plain cut. */
+@media (prefers-reduced-motion: reduce) {
+    .do-tour-shot, .do-tour-shot.is-on, .do-tour-cap { transition: none; }
+}
+
+/* =====================
    Reflection
    ===================== */
 

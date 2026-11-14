@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="css/tokens.css?v=1" rel="stylesheet" type="text/css">
 <link href="css/reset.css" rel="stylesheet" type="text/css">
-<link href="css/dayone.css?v=38" rel="stylesheet" type="text/css">
+<link href="css/dayone.css?v=51" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="css/shell.css?v=3" rel="stylesheet" type="text/css">
 <link href="css/reveal.css?v=1" rel="stylesheet" type="text/css">
@@ -133,6 +133,45 @@
 <section class="do-sec do-sec--cream do-sec--flush">
   <p class="do-eyebrow"><b>02</b><span>THE EXPERIENCE</span></p>
   <div class="do-s32"></div>
+
+  <!-- Screen tour: a looping slideshow. Each screen appears whole; on the
+       newcomer screens the camera then zooms in on the part that matters.
+       Built by the script at the end of the page; data-crops lists the
+       zoom targets as x y w h fractions of the image, separated by ";". -->
+  <div class="do-tour" aria-label="A guided walk through the six screens">
+    <div class="do-tour-pin">
+      <div class="do-tour-side">
+        <ol class="do-tour-list">
+          <li class="do-tour-group">Host &middot; sets it up once</li>
+          <li><button type="button" data-step="0"><b>01</b>Install</button></li>
+          <li><button type="button" data-step="1"><b>02</b>Grant access</button></li>
+          <li><button type="button" data-step="2"><b>03</b>Edit the welcome</button></li>
+          <li class="do-tour-group">Newcomer &middot; the first ten minutes</li>
+          <li><button type="button" data-step="3"><b>01</b>What the group is about</button></li>
+          <li><button type="button" data-step="4"><b>02</b>When &amp; how people talk</button></li>
+          <li><button type="button" data-step="5"><b>03</b>The first message</button></li>
+        </ol>
+        <div class="do-tour-captions">
+          <p class="do-tour-cap"><strong>Install from the Marketplace</strong><span>The listing previews the guide itself, so a host knows what newcomers will get before adding it.</span></p>
+          <p class="do-tour-cap"><strong>Grant access, transparently</strong><span>What Day One can view, and what it will never do, sit side by side before anything is read.</span></p>
+          <p class="do-tour-cap"><strong>Edit the AI-drafted welcome</strong><span>Drafted from the group&rsquo;s history. The host tweaks and publishes.</span></p>
+          <p class="do-tour-cap"><strong>See what the group is about</strong><span>Topics ranked by how often they come up, plus the group&rsquo;s in-words.</span></p>
+          <p class="do-tour-cap"><strong>Learn when people talk</strong><span>So a slow reply reads as the group&rsquo;s pace, not a snub.</span></p>
+          <p class="do-tour-cap"><strong>Get help with the first message</strong><span>Editable starters in the group&rsquo;s tone. Nothing sends until they press send.</span></p>
+        </div>
+      </div>
+      <div class="do-tour-frame">
+        <img src="assets/images/dayone/hf-market.webp" width="2560" height="2040" alt="" loading="lazy">
+        <img src="assets/images/dayone/hf-consent.webp" width="2560" height="1800" alt="" loading="lazy">
+        <img src="assets/images/dayone/hf-setup.webp" width="2560" height="1600" alt="" loading="lazy">
+        <img data-crops=".655 0 .345 .69" src="assets/images/dayone/hf-about.webp" width="2560" height="1600" alt="" loading="lazy">
+        <img data-crops=".655 0 .345 .64" src="assets/images/dayone/hf-timing.webp" width="2560" height="1600" alt="" loading="lazy">
+        <img data-crops=".262 .5 .41 .3; .655 0 .345 .57" src="assets/images/dayone/hf-starter.webp" width="2560" height="1600" alt="" loading="lazy">
+      </div>
+    </div>
+  </div>
+
+  <div class="do-s56"></div>
   <p class="do-flow-head"><i class="do-dot"></i>Host &middot; sets it up once</p>
   <div class="do-s24"></div>
   <div class="do-steps do-steps--baseline">
@@ -403,6 +442,174 @@
     });
   }, { threshold: 0.35 });
   vids.forEach(function (v) { io.observe(v); });
+})();
+
+/* Screen tour: a looping slideshow. Each screen fades in whole. On the
+   newcomer screens the camera then pulls in on the part that matters
+   (data-crops), and the slide fades out from there, still zoomed: the
+   camera only moves in, never back out. Between screens there is only
+   the dissolve: out, then in.
+   Every screen gets the same time, and nothing holds the loop: picking
+   a step jumps there and the loop carries on at the same pace. It only
+   waits while the tour is off screen. */
+(function () {
+  var tour = document.querySelector('.do-tour');
+  if (!tour) return;
+  var frame = tour.querySelector('.do-tour-frame');
+  var imgs = Array.prototype.slice.call(frame.querySelectorAll('img'));
+  var caps = tour.querySelectorAll('.do-tour-cap');
+  var btns = tour.querySelectorAll('.do-tour-list button');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* One screen = SCREEN ms, whatever it contains. A screen with zooms
+     shows whole for WHOLE ms and splits the rest between its zooms. */
+  var SCREEN = 5600, WHOLE = 1800, MOVE = 1400;
+  var shots = [], targets = [], slides = [], firstSlide = [];
+
+  imgs.forEach(function (im, step) {
+    var shot = document.createElement('div');
+    shot.className = 'do-tour-shot';
+    im.parentNode.insertBefore(shot, im);
+    shot.appendChild(im);
+    shots.push(shot);
+    var crops = (im.dataset.crops || '').split(';').map(function (r) {
+      return r.trim().split(/\s+/).map(Number);
+    }).filter(function (r) { return r.length === 4; });
+    targets.push(crops);
+    firstSlide[step] = slides.length;
+    if (!crops.length) {
+      slides.push({ step: step, zoom: -1, ms: SCREEN });
+    } else {
+      slides.push({ step: step, zoom: -1, ms: WHOLE });
+      var each = (SCREEN - WHOLE) / crops.length;
+      crops.forEach(function (r, k) { slides.push({ step: step, zoom: k, ms: each }); });
+    }
+  });
+
+  /* Geometry. base[i] = the whole-screen box; views[i][k] = the zoom
+     targets as {s, x, y}: scale and offset relative to that box. */
+  var base = [], views = [];
+
+  function layout() {
+    var fw = frame.clientWidth, fh = frame.clientHeight;
+    var dpr = window.devicePixelRatio || 1;
+    imgs.forEach(function (im, i) {
+      var nw = +im.getAttribute('width'), nh = +im.getAttribute('height');
+      var bw = Math.min(fw * 0.9, fh * 0.9 * nw / nh), bh = bw * nh / nw;
+      var left = (fw - bw) / 2, top = (fh - bh) / 2;
+      base[i] = { w: bw, l: left, t: top };
+      /* Fill most of the frame with the detail, but never past the
+         export's own pixels, so it is drawn at full resolution. */
+      views[i] = targets[i].map(function (f) {
+        var rw = f[2] * bw, rh = f[3] * bh;
+        var s = Math.min(fw * 0.9 / rw, fh * 0.9 / rh, nw / (bw * dpr));
+        return {
+          s: s,
+          x: fw / 2 - left - s * (f[0] * bw + rw / 2),
+          y: fh / 2 - top - s * (f[1] * bh + rh / 2)
+        };
+      });
+      commit(i, i === curStep() ? curView() : { s: 1, x: 0, y: 0 });
+    });
+  }
+
+  /* A shot is always laid out at its real size: width, left, top. The
+     transform is used only while the camera moves, and is folded back
+     into real size the moment it lands, so the browser redraws the
+     image at full resolution instead of stretching a smaller copy. */
+  var at = [];      /* at[i] = view the shot is laid out at */
+  function commit(i, v) {
+    var b = base[i], sh = shots[i];
+    sh.style.transition = 'none';
+    sh.style.transform = '';
+    sh.style.width = b.w * v.s + 'px';
+    sh.style.left = b.l + v.x + 'px';
+    sh.style.top = b.t + v.y + 'px';
+    void sh.offsetWidth;
+    sh.style.transition = '';
+    at[i] = v;
+  }
+
+  function moveTo(i, v) {
+    var a = at[i], r = v.s / a.s;
+    var sh = shots[i];
+    sh.style.transform = 'translate(' + (v.x - a.x) + 'px,' + (v.y - a.y) + 'px) scale(' + r + ')';
+    clearTimeout(sh._land);
+    sh._land = setTimeout(function () { commit(i, v); }, MOVE + 50);
+  }
+
+  var cur = -1, timer = null, visible = false;
+  var auto = !reduce.matches;     /* reduced motion: never autoplay */
+
+  function curStep() { return cur < 0 ? -1 : slides[cur].step; }
+  function curView() {
+    var sl = slides[cur];
+    return sl.zoom < 0 ? { s: 1, x: 0, y: 0 } : views[sl.step][sl.zoom];
+  }
+
+  function go(n) {
+    n = (n + slides.length) % slides.length;
+    if (n === cur) return;
+    var next = slides[n], prev = cur > -1 ? slides[cur] : null;
+    var v = next.zoom < 0 ? { s: 1, x: 0, y: 0 } : views[next.step][next.zoom];
+
+    if (prev && prev.step === next.step && next.zoom >= 0) {
+      cur = n;
+      moveTo(next.step, v);          /* same screen: camera eases in */
+    } else {
+      /* New screen. The old one stops where it is and only fades. */
+      if (prev) {
+        var o = shots[prev.step];
+        clearTimeout(o._land);
+        var now = getComputedStyle(o).transform;
+        o.style.transition = 'opacity 0.5s ease';
+        o.style.transform = now === 'none' ? '' : now;
+      }
+      cur = n;
+      commit(next.step, v);           /* framed before it fades in */
+      for (var i = 0; i < shots.length; i++) shots[i].classList.toggle('is-on', i === next.step);
+      for (var j = 0; j < caps.length; j++) {
+        var on = j === next.step;
+        caps[j].classList.toggle('is-on', on);
+        btns[j].classList.toggle('is-on', on);
+        if (on) btns[j].setAttribute('aria-current', 'step'); else btns[j].removeAttribute('aria-current');
+      }
+    }
+    schedule();
+  }
+
+  function schedule() {
+    clearTimeout(timer);
+    if (!auto || !visible || cur < 0) return;
+    timer = setTimeout(function () { go(cur + 1); }, slides[cur].ms);
+  }
+
+  /* Picking a step jumps there; the loop keeps its pace from there. */
+  btns.forEach(function (b) {
+    b.addEventListener('click', function () { go(firstSlide[+b.dataset.step]); });
+  });
+
+  /* Start the clock only once the tour is properly on screen, so the
+     first screen gets its full time instead of running out unseen. */
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) {
+      var v = es[0].isIntersecting;
+      if (v === visible) return;
+      visible = v;
+      schedule();
+    }, { threshold: 0.5 }).observe(frame);
+  } else { visible = true; }
+
+  if ('ResizeObserver' in window) new ResizeObserver(function () { if (base.length) layout(); }).observe(frame);
+  else window.addEventListener('resize', layout);
+
+  /* Decode every screen up front so the first zoom never stutters. */
+  imgs.forEach(function (im) {
+    im.loading = 'eager';
+    if (im.decode) im.decode().catch(function () {});
+  });
+  layout();
+  go(0);
 })();
 </script>
 </body>
