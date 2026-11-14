@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="css/tokens.css?v=1" rel="stylesheet" type="text/css">
 <link href="css/reset.css" rel="stylesheet" type="text/css">
-<link href="css/dayone.css?v=51" rel="stylesheet" type="text/css">
+<link href="css/dayone.css?v=52" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet">
 <link href="css/shell.css?v=3" rel="stylesheet" type="text/css">
 <link href="css/reveal.css?v=1" rel="stylesheet" type="text/css">
@@ -463,7 +463,7 @@
 
   /* One screen = SCREEN ms, whatever it contains. A screen with zooms
      shows whole for WHOLE ms and splits the rest between its zooms. */
-  var SCREEN = 5600, WHOLE = 1800, MOVE = 1400;
+  var SCREEN = 4600, WHOLE = 1500, MOVE = 1200, FIRST = 2400;
   var shots = [], targets = [], slides = [], firstSlide = [];
 
   imgs.forEach(function (im, step) {
@@ -578,10 +578,15 @@
     schedule();
   }
 
+  var started = false;
   function schedule() {
     clearTimeout(timer);
     if (!auto || !visible || cur < 0) return;
-    timer = setTimeout(function () { go(cur + 1); }, slides[cur].ms);
+    /* The opening screen is already in view while the page scrolls up
+       to it, so its first run is shorter. */
+    var ms = !started && cur === 0 ? FIRST : slides[cur].ms;
+    started = true;
+    timer = setTimeout(function () { go(cur + 1); }, ms);
   }
 
   /* Picking a step jumps there; the loop keeps its pace from there. */
@@ -597,7 +602,7 @@
       if (v === visible) return;
       visible = v;
       schedule();
-    }, { threshold: 0.5 }).observe(frame);
+    }, { threshold: 0.3 }).observe(frame);
   } else { visible = true; }
 
   if ('ResizeObserver' in window) new ResizeObserver(function () { if (base.length) layout(); }).observe(frame);
