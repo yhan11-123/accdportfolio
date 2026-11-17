@@ -60,6 +60,51 @@ a {
     margin: 2rem 0;
 }
 
+/* =====================
+   Site nav
+   Two places only: finished work and work in progress. Set in the
+   name's typeface so it reads as part of the identity block, not as
+   a link list. The current page is full strength and underlined;
+   the other one is faded but still clearly a link.
+   ===================== */
+.site_nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.site_nav_item {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;           /* 44px touch target */
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    opacity: 0.4;
+    transition: opacity 0.2s;
+}
+
+.site_nav_item:hover {
+    opacity: 0.75;
+}
+
+.site_nav_item[aria-current="page"] {
+    opacity: 1;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.3em;
+}
+
+.site_nav_item:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+    border-radius: var(--radius-sm);
+}
+
 .contact {
     list-style: none;
     margin: 0;
@@ -97,6 +142,18 @@ a {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 2rem 1.5rem;
+}
+
+/* =====================
+   Work in progress page
+   Same grid as the home page; the nav title says what it is.
+   ===================== */
+.work {
+    padding: 2rem 0 4rem;
+}
+
+.work .project_grid {
+    padding: 0;
 }
 
 .card {
@@ -234,6 +291,27 @@ a {
         margin-top: 1.5rem;
     }
 
+    .work {
+        padding-top: 0;
+    }
+
+    /* Stacked above the grid, the nav moves below the contact links
+       so it sits right on top of the projects it switches, and the
+       two links line up side by side like tabs. */
+    .about_top {
+        display: contents;
+    }
+
+    .site_nav {
+        order: 1;
+        margin-top: 1.5rem;
+    }
+
+    .site_nav ul {
+        flex-direction: row;
+        gap: 0 1.5rem;
+    }
+
     .project_grid {
         padding-top: 0;
     }
@@ -267,6 +345,27 @@ a {
 
     .extras {
         margin-top: 1.25rem;
+    }
+
+    .work {
+        padding-top: 0;
+    }
+
+    /* Stacked above the grid, the nav moves below the contact links
+       so it sits right on top of the projects it switches, and the
+       two links line up side by side like tabs. */
+    .about_top {
+        display: contents;
+    }
+
+    .site_nav {
+        order: 1;
+        margin-top: 1.5rem;
+    }
+
+    .site_nav ul {
+        flex-direction: row;
+        gap: 0 1.5rem;
     }
 
     .project_grid {
