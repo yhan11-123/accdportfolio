@@ -129,6 +129,15 @@ p{margin:0;line-height:1.55}
 .wmcard canvas{width:120px;height:120px;border-radius:6px;display:block;cursor:ew-resize;touch-action:none}
 .wmcard p{font-size:12.5px;color:var(--mute)}
 .wmcard b{color:var(--paper);font-weight:600}
+/* Security thread loupe: the middle thread window, magnified, so the Anima
+   can be read at a size the full note never allows. Live with the tilt;
+   drag across it to step through the four stages by hand. */
+.threadcard{background:var(--room2);border:1px solid var(--rule);border-radius:12px;padding:10px;display:grid;gap:10px}
+.threadcard canvas{width:100%;height:132px;border-radius:6px;display:block;cursor:ew-resize;touch-action:none;background:var(--room)}
+.threadcard .tc-row{display:flex;justify-content:space-between;align-items:baseline;gap:12px;font-size:12.5px;color:var(--mute)}
+.threadcard b{color:var(--paper);font-weight:600}
+.threadcard .tc-stage{font-family:var(--mono);font-size:11px;white-space:nowrap}
+.threadcard .tc-stage i{font-style:normal;color:var(--acc)}
 
 /* ---------- nav ---------- */
 .nav{position:fixed;left:0;right:0;top:var(--navtop,0px);height:var(--navh);box-sizing:border-box;display:flex;justify-content:space-between;align-items:center;gap:12px;z-index:5;
@@ -319,14 +328,20 @@ class Note{
       if(s==='f') drawThread(x,n,s,t);   // the thread is windowed on the front only
       if(this.wm){ const z=wmOf(n,s), b=bandOf(n,s);
         zoneOutline(x,z.x-1,z.y-1,z.w+2,z.h+2,'Watermark',n,s==='f'?'left':'right');
-        if(s==='f') zoneOutline(x,1.6,b.y-1,62-3.2,b.h+2,'Security thread',n,'below'); }
+        if(s==='f') zoneOutline(x,1.6,b.y-1,62-3.2,b.h+2,'Security thread',n,'below');
+        // tactile marks: raised bars on the top and bottom edges, read by touch
+        const T=GEO[n.d+s].tac; if(T&&T.length){ const H=this.n.h;
+          for(const top of [true,false]){ const R=T.filter(r=>(r[1]<H/2)===top); if(!R.length) continue;
+            const x0=Math.min(...R.map(r=>r[0]))-0.8, x1=Math.max(...R.map(r=>r[0]+r[2]))+0.8;
+            const y0=top?0.4:Math.min(...R.map(r=>r[1]))-0.8, y1=top?Math.max(...R.map(r=>r[1]+r[3]))+0.8:H-0.4;
+            zoneOutline(x,x0,y0,x1-x0,y1-y0,'Tactile marks',n,top?'below':'above'); } } }
     }
   }
 }
 function zoneOutline(x,zx,zy,zw,zh,label,n,pos){
   x.save(); x.setLineDash([1.2,0.8]); x.lineWidth=0.3; x.strokeStyle='#1B1E27'; x.strokeRect(zx,zy,zw,zh);
   x.setLineDash([]); x.font='600 2.1px Inter, sans-serif'; const tw=x.measureText(label).width+1.6;
-  const lx=pos==='left'?zx-tw:pos==='right'?zx+zw:zx, ly=pos==='below'?zy+zh:zy;
+  const lx=pos==='left'?zx-tw:pos==='right'?zx+zw:zx, ly=pos==='below'?zy+zh:pos==='above'?zy-3:zy;
   x.fillStyle='#1B1E27'; x.fillRect(lx,ly,tw,3); x.fillStyle='#F2EEE6'; x.fillText(label,lx+0.8,ly+2.25); x.restore();
 }
 // Anima: her 4-frame growth sequence, turned to run along the horizontal thread.
@@ -489,6 +504,8 @@ const noteSlides=NOTES.map((n,i)=>{
       <button class="btn" data-a="flip" type="button">Turn over <kbd>F</kbd></button>
       <button class="btn" data-a="wm" type="button">Show locations <kbd>W</kbd></button>
     </div>
+    <div class="threadcard"><canvas aria-label="Security thread, magnified: the ${n.anima} Anima at the current tilt"></canvas>
+      <div class="tc-row"><span><b>Security thread · Anima</b><br>Tilt the note, or drag across to step through it.</span><span class="tc-stage">Stage <i>1</i> / 4</span></div></div>
     <div class="wmcard"><canvas width="240" height="240" aria-label="Watermark: in the hand and held up to the light"></canvas>
       <p><b>Watermark</b><br>In the hand it is almost invisible. Held up to the sun it appears in light and dark tones. Drag across the image to compare.<br><span style="font-family:var(--mono);font-size:11px">Top band, ${GEO[n.d+'f'].wm[2].toFixed(0)} × ${GEO[n.d+'f'].wm[3].toFixed(0)} mm</span></p></div>
     <dl class="specs">
@@ -600,7 +617,7 @@ noteSlides.forEach((st,i)=>{
           const need=Math.max((top-(t-R.top))/(R.height/2),((bo-R.top)-bot)/(R.height/2),(28-(l-R.left))/(R.width/2),((r-R.left)-(R.width-28))/(R.width/2));
           st.fit=clamp((st.fit||1)*(need>0?1-Math.min(need,0.4)*0.35:(need<-0.05?1.006:1)),0.35,1); }
         st.holder.style.transform=`scale(${lerp(1,(st.spreadScale||1)*(st.fit||1),pr).toFixed(4)})`; }
-      drawHud(st,now);
+      drawHud(st,now); drawThreadCard(st);
       const f=N.facingFront(); st.sideName.textContent=st.pairT>0.5?'front and back':(f?`front · ${N.n.body}`:`back · ${N.n.plant}`);
     }};
 });
@@ -648,6 +665,28 @@ function updatePick(st){
   st.tags.forEach((t,i)=>t.classList.toggle('sel',i===sel));
 }
 // in the hand vs. held to the sun, split by a moving line the visitor can also drag
+function drawThreadCard(st){
+  const c=st.tcc||(st.tcc=st.sec.querySelector('.threadcard canvas')); if(!c) return;
+  const N=st.N, n=N.n;
+  if(!st.tcBound){ st.tcBound=true; st.tcStage=st.sec.querySelector('.tc-stage i');
+    const set=e=>{ const r=c.getBoundingClientRect(); const u=clamp((e.clientX-r.left)/r.width,0,1);
+      if(st.tilt) st.setTilt(false); st.vel=0; const centre=Math.abs(norm(st.base.ry))<=90?0:180;
+      st.base.ry=centre+(u*2-1)*32; st.base.rx=0; };
+    c.addEventListener('pointerdown',e=>{ c.setPointerCapture(e.pointerId); st.tcDrag=true; set(e); });
+    c.addEventListener('pointermove',e=>{ if(st.tcDrag) set(e); });
+    c.addEventListener('pointerup',()=>st.tcDrag=false); c.addEventListener('pointercancel',()=>st.tcDrag=false); }
+  const dpr=Math.min(2,window.devicePixelRatio||1), cw=Math.round(c.clientWidth*dpr), ch=Math.round(c.clientHeight*dpr);
+  if(!cw||!ch) return;
+  const t=N.tiltT(), key=t.toFixed(3)+'|'+cw+'|'+ch;
+  if(key===st.tcKey) return;
+  const tiles=[0,1,2,3].map(i=>img(n.d+'a_'+i)); if(tiles.some(im=>!im.naturalWidth)) return;
+  st.tcKey=key; if(c.width!==cw) c.width=cw; if(c.height!==ch) c.height=ch;
+  const x=c.getContext('2d'); x.setTransform(1,0,0,1,0,0); x.clearRect(0,0,cw,ch);
+  const W=winOf(n,'f'), m=W[Math.floor(W.length/2)], k=ch/m.h, cx=m.x+m.w/2;
+  x.setTransform(k,0,0,k,cw/2-cx*k,-m.y*k);
+  drawThread(x,n,'f',t);
+  const stage=Math.min(4,Math.floor((t+1)/2*3+0.5)+1); if(st.tcStage) st.tcStage.textContent=stage;
+}
 function drawWmCard(st,now){
   if(!st.wmReady) return; const wc=st.wmc||(st.wmc=st.sec.querySelector('.wmcard canvas'));
   if(!st.wmBound){ st.wmBound=true; const set=e=>{ const r=wc.getBoundingClientRect(); st.wmPos=clamp((e.clientX-r.left)/r.width,0,1); st.wmHold=now+4000; };
@@ -702,7 +741,7 @@ window.addEventListener('keydown',e=>{
 });
 window.addEventListener('keyup',e=>{ const st=noteSlides[cur-2]; if(st&&e.key.toLowerCase()==='b') st.setLight(false); });
 // swipe between slides outside the 3D stages
-let sw=null; deck.addEventListener('pointerdown',e=>{ if(e.target.closest('.stage,.btn,.slot')) return; sw={x:e.clientX,y:e.clientY}; });
+let sw=null; deck.addEventListener('pointerdown',e=>{ if(e.target.closest('.stage,.btn,.slot,.threadcard,.wmcard')) return; sw={x:e.clientX,y:e.clientY}; });
 deck.addEventListener('pointerup',e=>{ if(!sw) return; const dx=e.clientX-sw.x; if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(e.clientY-sw.y)) go(cur+(dx<0?1:-1)); sw=null; });
 $('#fs').onclick=()=>{ const d=document; try{ if(d.fullscreenElement) d.exitFullscreen(); else d.documentElement.requestFullscreen().catch(()=>{}); }catch(e){} };
 window.addEventListener('resize',()=>{ if(hooks[cur]&&hooks[cur].enter) hooks[cur].enter(); });
