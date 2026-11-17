@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta content="initial-scale=1.0,width=device-width" name="viewport">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
 <title>Same Shape, Every Scale — Younhee Han (work in progress)</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -414,7 +415,7 @@ const slots=rowNotes.map((N,i)=>{ const s=el('div','slot'); s.tabIndex=0; s.setA
   return s; });
 let hoverSlot=-1, rowMouse={x:0,y:0}, showBacks=false, introT0=null;
 function layoutRow(){
-  const r=rowStage.getBoundingClientRect(); const gap=18; const tot=5*62+4*gap; const ppmm=Math.min(r.width/tot, (r.height-70)/145);
+  const r=rowStage.getBoundingClientRect(); const gap=18; const tot=5*62+4*gap; const ppmm=Math.min(r.width/(tot+80), (r.height-110)/165);
   let x=(r.width-tot*ppmm)/2;
   rowNotes.forEach((N,i)=>{ N.size(ppmm); const s=slots[i]; s.style.left=x+'px'; s.style.top=((r.height-70)-N.n.h*ppmm)/2+20+'px'; s.style.width=62*ppmm+'px'; s.style.height=N.n.h*ppmm+'px'; x+=(62+gap)*ppmm; });
 }
@@ -693,14 +694,22 @@ window.addEventListener('hashchange',()=>{ const names=allSlides.map(s=>s.datase
 </script>
 
 <style>
-.wipbar{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:9999;display:flex;gap:8px;align-items:center;font-family:var(--mono);font-size:11px;letter-spacing:.06em}
-.wipbar a,.wipbar span{padding:5px 10px;border-radius:999px;border:1px solid var(--rule);background:rgba(13,15,20,.85);color:var(--mute);text-decoration:none}
-.wipbar a:hover{color:var(--paper);border-color:var(--dim)}
-.wipbar a,.wipbar span{white-space:nowrap}
-@media (max-width:700px){.wipbar{bottom:96px}}
-.wipbar .wip{color:#0D0F14;background:var(--acc);border-color:var(--acc);font-weight:600;text-transform:uppercase}
+:root{--pf-bar:44px}
+.deck{top:var(--pf-bar)!important}
+.pf-bar{position:fixed;top:0;left:0;right:0;height:var(--pf-bar);z-index:9999;box-sizing:border-box;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 max(24px,env(safe-area-inset-left,0px));
+  background:rgb(245,245,245);border-bottom:1px solid rgba(4,32,59,.15);color:rgb(4,32,59);font-family:"Inter",sans-serif}
+.pf-bar a{color:inherit;text-decoration:none;transition:opacity .2s}
+.pf-bar a:hover{opacity:.6}
+.pf-name{font-family:"Oswald",sans-serif;font-size:1.125rem;font-weight:600;letter-spacing:.02em;text-transform:uppercase;line-height:1}
+.pf-right{display:flex;align-items:center;gap:14px;font-size:.8125rem;font-weight:500;white-space:nowrap}
+.pf-badge{padding:.125rem .5rem;border:1px solid currentColor;border-radius:999px;font-size:.75rem;line-height:1.4}
+
 </style>
-<div class="wipbar"><span class="wip">Work in progress</span><a href="wip.html">&larr; Work in progress</a></div>
+<header class="pf-bar">
+  <a class="pf-name" href="index.html">Younhee Han</a>
+  <span class="pf-right"><a class="pf-back" href="wip.html">&larr; Work in progress</a><a href="index.html">All work</a></span>
+</header>
 
 </body>
 </html>
