@@ -150,6 +150,49 @@ p{margin:0;line-height:1.55}
 .navr{display:flex;gap:10px;align-items:center;font-family:var(--mono);font-size:11px;color:var(--dim)}
 .navr .btn{padding:6px 10px;font-size:12px}
 
+
+/* ---------- concept slides ---------- */
+.s-intro,.s-idea,.s-rules,.s-close{--acc:#7CC791}
+.s-intro{display:grid!important;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:40px;align-items:center}
+.s-intro .say{display:flex;flex-direction:column;gap:16px;max-width:36ch}
+.s-intro .say p{font-family:var(--display);font-weight:600;font-size:clamp(18px,1.75vw,28px);line-height:1.2;letter-spacing:-.01em;
+  opacity:0;transform:translateY(10px);transition:opacity .9s ease,transform .9s ease}
+.s-intro .say p.in{opacity:1;transform:none}
+.s-intro .say p.soft{color:var(--mute)}
+.s-intro .say p.big{font-size:clamp(30px,3.8vw,58px);margin-top:6px;font-weight:800;line-height:1;color:var(--paper)}
+.s-intro .say em{font-style:normal;color:var(--acc)}
+.pairview{position:relative;width:100%;height:100%;min-height:0}
+.pairview canvas{position:absolute;inset:0;width:100%;height:100%}
+.s-idea{display:grid!important;grid-template-rows:auto minmax(0,1fr) auto;gap:14px}
+.s-idea h2,.s-rules h2,.s-close h2{font-size:clamp(26px,3.4vw,46px);line-height:1.02}
+.s-idea .sub,.s-rules .sub{color:var(--mute);font-size:15px;margin-top:10px;max-width:62ch}
+.s-idea .pairs{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
+.s-idea .pair{border:1px solid var(--rule);background:var(--room2);border-radius:999px;padding:7px 14px;font-size:13px;cursor:pointer;color:var(--mute)}
+.s-idea .pair b{font-family:var(--mono);font-weight:500;margin-right:8px;color:var(--dim)}
+.s-idea .pair.on{color:var(--paper);border-color:var(--pc,var(--acc))}
+.s-idea .pair.on b{color:var(--pc,var(--acc))}
+.s-idea .why{text-align:center;color:var(--paper);font-size:clamp(15px,1.4vw,19px);max-width:60ch;margin:0 auto;min-height:2.6em}
+.s-rules{display:grid!important;grid-template-rows:auto minmax(0,1fr);gap:22px}
+.rules{display:grid;grid-template-rows:repeat(3,minmax(0,1fr));gap:14px;min-height:0}
+.rule{background:var(--room2);border:1px solid var(--rule);border-radius:16px;padding:16px 22px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.9fr);grid-template-rows:auto auto 1fr;column-gap:28px;row-gap:6px;min-height:0;
+  opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease}
+.rule.in{opacity:1;transform:none}
+.rule .no{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--acc)}
+.rule h3{font-size:clamp(20px,1.9vw,28px);line-height:1.05}
+.rule p{color:var(--mute);font-size:14px;max-width:46ch}
+.rule .vis{position:relative;min-height:0;grid-column:2;grid-row:1/-1}
+.rule .vis canvas{position:absolute;inset:0;width:100%;height:100%}
+.s-close{display:grid!important;grid-template-rows:auto minmax(0,1fr);gap:10px;text-align:center}
+.s-close .say{max-width:40ch;margin:0 auto;display:grid;gap:14px}
+.s-close .say p{font-family:var(--display);font-weight:600;font-size:clamp(18px,2vw,30px);line-height:1.18;opacity:0;transition:opacity 1s ease}
+.s-close .say p.in{opacity:1}
+.s-close .say p.soft{color:var(--mute);font-size:clamp(16px,1.6vw,22px);font-weight:500}
+@media (max-width:820px){
+  .s-intro{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}
+  .rules{grid-template-columns:1fr;overflow:auto}
+  .rule{grid-template-columns:1fr;grid-template-rows:auto auto auto 90px}
+  .rule .vis{grid-column:1;grid-row:4}
+}
 @media (max-width:1180px){ .hint{display:none} }
 @media (max-width:820px){
   .s-note{grid-template-columns:1fr;grid-template-rows:auto 1fr;gap:14px}
@@ -165,6 +208,42 @@ p{margin:0;line-height:1.55}
 </style>
 
 <div class="deck" id="deck">
+
+  <section class="slide s-intro" data-name="Intro">
+    <div class="say" id="introSay">
+      <div class="eyebrow">Oberthur Fiduciaire × ArtCenter · Banknote studio 2026</div>
+      <p>Humans have a remarkable gift. We can trust in something we cannot see, and build our lives on the promises we make to each other.</p>
+      <p class="soft">A banknote is one of those promises: a piece of paper that holds value because millions of people agree that it does.</p>
+      <p>But in celebrating what makes us human, it is easy to forget <em>where we come from</em>.</p>
+      <p class="big">Same Shape,<br>Every Scale</p>
+    </div>
+    <div class="pairview" id="introPair"><canvas></canvas></div>
+  </section>
+
+  <section class="slide s-idea" data-name="Idea">
+    <div>
+      <div class="eyebrow">The idea</div>
+      <h2>Look inside the body, and the same shapes are growing outside it.</h2>
+      <p class="sub">The front of each note carries a structure we take everywhere but never see. Turn it over and the same branching continues in a plant or fungus. Put the two sides together and they become one shape.</p>
+    </div>
+    <div class="pairview" id="ideaPair"><canvas></canvas></div>
+    <div>
+      <p class="why" id="ideaWhy"></p>
+      <div class="pairs" id="ideaPairs"></div>
+    </div>
+  </section>
+
+  <section class="slide s-rules" data-name="Rules">
+    <div>
+      <div class="eyebrow">Three rules</div>
+      <h2>What the series allows itself, and what it doesn&rsquo;t.</h2>
+    </div>
+    <div class="rules">
+      <div class="rule"><div class="no">01</div><h3>No faces.</h3><p>No single face can stand for everyone, but everyone carries these structures. The person is already on the note, in the shape.</p><div class="vis" data-v="body"><canvas></canvas></div></div>
+      <div class="rule"><div class="no">02</div><h3>The body meets only plants and fungi.</h3><p>Branching is clearest in things that grow. And the further away the relative, the bigger the surprise that we share its shape.</p><div class="vis" data-v="plant"><canvas></canvas></div></div>
+      <div class="rule"><div class="no">03</div><h3>Value is connection.</h3><p>Each value owns one shape, its sides rising from circle to hexagon. As the value grows, the shapes move from separate to fully connected.</p><div class="vis" data-v="shape"><canvas></canvas></div></div>
+    </div>
+  </section>
 
   <section class="slide s-series" data-name="Series">
     <div class="top">
@@ -428,6 +507,7 @@ async function buildBacklight(n,s){
 /* ================= deck ================= */
 const deck=$('#deck'); const slides=[...deck.querySelectorAll('.slide')];
 let cur=-1; const active=new Set(); const hooks=[];
+const SER=3;   // Intro, Idea, Rules come before Series
 
 /* ---- slide 1: series row ---- */
 const rowNotes=NOTES.map(n=>new Note(n,{overlay:true}));
@@ -435,7 +515,7 @@ const row=$('#row'), rowStage=$('#rowStage');
 const slots=rowNotes.map((N,i)=>{ const s=el('div','slot'); s.tabIndex=0; s.setAttribute('role','button'); s.setAttribute('aria-label',`Open the ${N.n.d} note`);
   s.appendChild(N.el); s.appendChild(el('div','cap',`<b>${N.n.d}</b>${N.n.body} × ${N.n.plant}`)); row.appendChild(s);
   s.addEventListener('pointerenter',()=>{hoverSlot=i;}); s.addEventListener('pointerleave',()=>{ if(hoverSlot===i) hoverSlot=-1; });
-  s.addEventListener('click',()=>go(2+i)); s.addEventListener('keydown',e=>{ if(e.key==='Enter') go(2+i); });
+  s.addEventListener('click',()=>go(SER+2+i)); s.addEventListener('keydown',e=>{ if(e.key==='Enter') go(SER+2+i); });
   return s; });
 let hoverSlot=-1, rowMouse={x:0,y:0}, showBacks=false, introT0=null;
 function layoutRow(){
@@ -447,7 +527,7 @@ rowStage.addEventListener('pointermove',e=>{ const r=rowStage.getBoundingClientR
 rowStage.addEventListener('pointerleave',()=>{rowMouse.x=0;rowMouse.y=0;});
 $('#flipAll').onclick=()=>{ showBacks=!showBacks; $('#flipAll').classList.toggle('on',showBacks); $('#flipAll').firstChild.textContent=showBacks?'Show fronts ':'Show backs '; };
 $('#replay').onclick=()=>{ introT0=performance.now(); };
-hooks[0]={enter(){ layoutRow(); if(introT0===null) introT0=performance.now(); },
+hooks[SER]={enter(){ layoutRow(); if(introT0===null) introT0=performance.now(); },
   tick(now){
     const it = RM?1:clamp((now-introT0)/2600,0,1);
     rowNotes.forEach((N,i)=>{
@@ -472,7 +552,7 @@ const sysParts=sysNotes.map((N,i)=>{ const s=el('div','slot'); s.tabIndex=0; s.s
   const dv=el('div','dim v',`<span>${N.n.h} mm</span>`); sysStage.appendChild(dv);
   const meta=el('div','sys-meta',`${shapeSVG(N.n.sides,N.n.acc)}<b>${N.n.d} · ${N.n.shape}</b><span>${N.n.link}</span><span>${N.n.body} × ${N.n.plant}</span>`); sysStage.appendChild(meta);
   s.addEventListener('pointerenter',()=>sysHover=i); s.addEventListener('pointerleave',()=>{ if(sysHover===i) sysHover=-1; });
-  s.addEventListener('click',()=>go(2+i)); s.addEventListener('keydown',e=>{ if(e.key==='Enter') go(2+i); });
+  s.addEventListener('click',()=>go(SER+2+i)); s.addEventListener('keydown',e=>{ if(e.key==='Enter') go(SER+2+i); });
   return {s,dv,meta}; });
 const dimH=el('div','dim h','<span>62 mm</span>'); sysStage.appendChild(dimH);
 function layoutSys(){
@@ -485,7 +565,7 @@ function layoutSys(){
     if(i===0) Object.assign(dimH.style,{left:x+'px',top:base+8+'px',width:62*ppmm+'px'});
     x+=(62+gap)*ppmm; });
 }
-hooks[1]={enter(){layoutSys();}, tick(now){ sysNotes.forEach((N,i)=>{ N.tgt.ry=sysHover===i?180:0; N.tgt.lift=sysHover===i?40:0; N.step(.1); }); }};
+hooks[SER+1]={enter(){layoutSys();}, tick(now){ sysNotes.forEach((N,i)=>{ N.tgt.ry=sysHover===i?180:0; N.tgt.lift=sysHover===i?40:0; N.step(.1); }); }};
 
 /* ---- slides 3–7: one per note ---- */
 const noteSlides=NOTES.map((n,i)=>{
@@ -574,7 +654,7 @@ const noteSlides=NOTES.map((n,i)=>{
   return st;
 });
 noteSlides.forEach((st,i)=>{
-  const idx=2+i; const N=st.N;
+  const idx=SER+2+i; const N=st.N;
   hooks[idx]={
     enter(){ layoutNote(st); Promise.all([0,1,2,3].map(i=>ready(N.n.d+'a_'+i))).then(()=>{ N.lastT=null; st.N2.lastT=null; });
       // arrival: one note, then its back peels away to the right
@@ -712,13 +792,111 @@ function layoutNote(st){ const r=st.stage.getBoundingClientRect(); st.pairGap=Ma
 // thread tiles for the Anima on the home and system rows
 Promise.all(NOTES.flatMap(n=>[0,1,2,3].map(i=>ready(n.d+'a_'+i)))).then(()=>{ [...rowNotes,...sysNotes].forEach(N=>N.lastT=null); });
 
+
+/* ---- concept slides ---- */
+const IBB = {"5f": [174, 526, 608, 1128], "5b": [32, 547, 470, 1248], "10f": [143, 495, 608, 1243], "10b": [32, 500, 449, 1227], "20f": [139, 536, 608, 1307], "20b": [32, 594, 529, 1322], "50f": [207, 507, 608, 1369], "50b": [32, 554, 423, 1375], "100f": [185, 572, 608, 1445], "100b": [32, 566, 477, 1464]};   // where each engraving sits on its side, in layer px: [left, top, right, bottom]
+// the front engraving runs off the right edge of its box and the back engraving starts at the left edge of its box,
+// so set side by side they meet at the seam and read as one shape: body on the left, plant on the right
+function drawPair(cv, d, gap, alpha, opt={}){
+  const x=cv.getContext('2d'); const W=cv.width, H=cv.height; x.clearRect(0,0,W,H);
+  const F=img(d+'f_intaglio'), B=img(d+'b_intaglio'); if(!F.naturalWidth||!B.naturalWidth) return;
+  const f=IBB[d+'f'], b=IBB[d+'b'];
+  const top=Math.min(f[1],b[1]), bot=Math.max(f[3],b[3]);
+  const wF=f[2]-f[0], wB=b[2]-b[0], hh=bot-top, ww=wF+wB;
+  const pad=opt.pad==null?0.08:opt.pad;
+  const dpr0=cv.clientWidth?cv.width/cv.clientWidth:1, lab=opt.labels?30*dpr0:0;
+  const sc=Math.min(W*(1-pad*2)/ww, (H*(1-pad*2)-lab)/hh);
+  const gpx=gap*Math.min(W,H)/600;
+  const ox=(W-ww*sc)/2+(opt.dx||0)*W, oy=(H-lab-hh*sc)/2;
+  // the engravings were drawn for paper: a soft pool of the note's own paper colour sits behind them so dark ink still reads
+  { const g=GEO[d+'f']; const cx=ox+ww*sc/2, cy=oy+hh*sc/2, rr=Math.max(ww,hh)*sc*0.62;
+    const gr=x.createRadialGradient(cx,cy,rr*0.15,cx,cy,rr); const pc=(g&&g.paper)||'#E8E2D6';
+    gr.addColorStop(0,pc); gr.addColorStop(1,pc+'00'); x.globalAlpha=alpha*(opt.glow==null?0.22:opt.glow); x.fillStyle=gr; x.fillRect(cx-rr,cy-rr,rr*2,rr*2); }
+  x.globalAlpha=alpha;
+  x.drawImage(F,f[0],top,wF,hh, ox-gpx,oy,wF*sc,hh*sc);
+  x.drawImage(B,b[0],top,wB,hh, ox+wF*sc+gpx,oy,wB*sc,hh*sc);
+  x.globalAlpha=1;
+  if(opt.labels){ const n=NOTES.find(q=>q.d===d); const dpr=cv.width/cv.clientWidth;
+    x.font=`${11*dpr}px 'JetBrains Mono',monospace`; x.fillStyle='rgba(153,160,175,'+alpha+')'; x.textBaseline='top';
+    const ly=oy+hh*sc+14*dpr; x.textAlign='right'; x.fillText('INSIDE · '+n.body.toUpperCase(), ox+wF*sc-gpx-10*dpr, ly);
+    x.textAlign='left'; x.fillText(n.plant.toUpperCase()+' · OUTSIDE', ox+wF*sc+gpx+10*dpr, ly);
+    if(opt.seam>0){ x.strokeStyle=`rgba(242,238,230,${0.35*opt.seam*alpha})`; x.setLineDash([3*dpr,5*dpr]); x.lineWidth=dpr;
+      x.beginPath(); x.moveTo(ox+wF*sc, oy-10*dpr); x.lineTo(ox+wF*sc, oy+hh*sc+6*dpr); x.stroke(); x.setLineDash([]); } }
+}
+function fitCanvas(cv){ const r=cv.getBoundingClientRect(), dpr=Math.min(2,devicePixelRatio||1); const w=Math.max(1,Math.round(r.width*dpr)), h=Math.max(1,Math.round(r.height*dpr)); if(cv.width!==w||cv.height!==h){ cv.width=w; cv.height=h; } return dpr; }
+const pairKeys=NOTES.flatMap(n=>[n.d+'f_intaglio',n.d+'b_intaglio',n.d+'f_shape']);
+let conceptReady=false; Promise.all(pairKeys.map(ready)).then(()=>{ conceptReady=true; });
+
+// Intro: the opening lines arrive one by one; the five pairs slowly take turns beside them
+const introSay=[...document.querySelectorAll('#introSay p')], introCv=$('#introPair canvas'); let introT=0;
+hooks[0]={enter(){ introT=performance.now(); introSay.forEach(p=>p.classList.remove('in')); fitCanvas(introCv); },
+  tick(now){ const t=(now-introT)/1000;
+    introSay.forEach((p,i)=>p.classList.toggle('in', RM||t>0.4+i*1.6));
+    if(!conceptReady) return; fitCanvas(introCv);
+    const per=6, k=Math.floor(t/per)%NOTES.length, ph=(t%per)/per;
+    const a=RM?1:Math.min(clamp(ph/0.18,0,1), clamp((1-ph)/0.14,0,1));
+    drawPair(introCv, NOTES[k].d, RM?0:lerp(40,0,ease(clamp(ph/0.5,0,1))), a*0.95, {pad:0.06});
+  }};
+
+// Idea: pick a pair; its two halves slide together and close the seam
+const ideaCv=$('#ideaPair canvas'), ideaWhy=$('#ideaWhy'), ideaPairs=$('#ideaPairs'); let ideaK=2, ideaT0=0, ideaAuto=true;
+const ideaLine={5:'The vessels that feed the eye spread from a single point, like the veins of a lotus leaf.',
+  10:'The hand gives and receives money. Its veins fan out like the gills under an oyster mushroom cap.',
+  20:'Your lungs are a tree growing upside down. One breathes in what the other breathes out.',
+  50:'A neuron sends its signal outward, the way a dandelion sends its seeds into the wind.',
+  100:'The nervous system has the shape of roots, the part of a plant that holds it to the ground.'};
+NOTES.forEach((n,i)=>{ const b=el('button','pair',`<b>${n.d}</b>${n.body} × ${n.plant}`); b.type='button'; b.style.setProperty('--pc',n.acc);
+  b.onclick=()=>{ ideaAuto=false; setIdea(i); }; ideaPairs.appendChild(b); });
+function setIdea(i){ ideaK=i; ideaT0=performance.now(); [...ideaPairs.children].forEach((b,k)=>b.classList.toggle('on',k===i));
+  ideaWhy.textContent=ideaLine[NOTES[i].d]; $('.s-idea').style.setProperty('--acc',NOTES[i].acc); }
+hooks[1]={enter(){ ideaAuto=true; setIdea(ideaK); fitCanvas(ideaCv); },
+  tick(now){ if(!conceptReady) return; fitCanvas(ideaCv); const t=(now-ideaT0)/1000;
+    if(ideaAuto&&t>7) setIdea((ideaK+1)%NOTES.length);
+    const e=RM?1:ease(clamp((t-0.15)/1.4,0,1));
+    drawPair(ideaCv, NOTES[ideaK].d, lerp(150,0,e), clamp(t/0.4,0,1), {labels:true, seam:1-e*0.6, pad:0.05}); }};
+
+// Rules: three cards, each with a small strip drawn from the notes themselves
+const ruleCards=[...document.querySelectorAll('.rule')];
+function drawRuleVis(cv,v){ const x=cv.getContext('2d'); const W=cv.width,H=cv.height; x.clearRect(0,0,W,H);
+  const n=NOTES.length, gap=W*0.03, cw=(W-gap*(n-1))/n;
+  NOTES.forEach((q,i)=>{ const cx=i*(cw+gap);
+    if(v==='shape'){ const S=img(q.d+'f_shape'); const g=GEO[q.d+'f']; // crop to the continuity box: from the band below the thread to the bottom
+      const sx=32, sw=S.naturalWidth-64, sy=S.naturalHeight*0.36, sh=S.naturalHeight*0.6; const sc=Math.min(cw/sw,(H-22)/sh);
+      x.drawImage(S,sx,sy,sw,sh, cx+(cw-sw*sc)/2, 0, sw*sc, sh*sc);
+      const dpr=cv.width/cv.clientWidth; x.font=`${9.5*dpr}px 'JetBrains Mono',monospace`; x.fillStyle='#99A0AF'; x.textAlign='center'; x.textBaseline='bottom';
+      x.fillText(q.link.toUpperCase(), cx+cw/2, H-2);
+    } else { const s=v==='body'?'f':'b'; const I=img(q.d+s+'_intaglio'), b=IBB[q.d+s];
+      const sw=b[2]-b[0], sh=b[3]-b[1], sc=Math.min(cw/sw,H/sh); x.drawImage(I,b[0],b[1],sw,sh, cx+(cw-sw*sc)/2,(H-sh*sc)/2, sw*sc, sh*sc); } });
+}
+let rulesT=0;
+hooks[2]={enter(){ rulesT=performance.now(); ruleCards.forEach(c=>c.classList.remove('in')); },
+  tick(now){ const t=(now-rulesT)/1000; ruleCards.forEach((c,i)=>c.classList.toggle('in',RM||t>0.2+i*0.5));
+    if(!conceptReady) return; ruleCards.forEach(c=>{ const cv=c.querySelector('canvas'); const w=cv.width,h=cv.height; fitCanvas(cv); if(cv.width!==w||cv.height!==h||!cv.dataset.done){ drawRuleVis(cv,c.querySelector('.vis').dataset.v); cv.dataset.done=1; } }); }};
+
+// Close: the last lines, over all five pairs side by side
+{ const sec=el('section','slide s-close'); sec.dataset.name='Close';
+  sec.innerHTML=`<div class="say" id="closeSay"><div class="eyebrow">Same Shape, Every Scale</div>
+    <p>From the eye to the roots, every note carries the same message. We are not set apart from nature; we grew from it, and we follow its rules.</p>
+    <p class="soft">Each time one of these notes changes hands, it carries its value, and a quiet reminder that our world and the natural world have always been one.</p>
+    <p>Thank you.</p></div><div class="pairview" id="closePair"><canvas></canvas></div>`;
+  deck.appendChild(sec); }
+const closeSay=[...document.querySelectorAll('#closeSay p')], closeCv=$('#closePair canvas'); let closeT=0;
+hooks.closeHook={enter(){ closeT=performance.now(); closeSay.forEach(p=>p.classList.remove('in')); },
+  tick(now){ const t=(now-closeT)/1000; closeSay.forEach((p,i)=>p.classList.toggle('in',RM||t>0.3+i*1.8));
+    if(!conceptReady) return; fitCanvas(closeCv); const x=closeCv.getContext('2d'); x.clearRect(0,0,closeCv.width,closeCv.height);
+    const n=NOTES.length, W=closeCv.width, cw=W/n;
+    NOTES.forEach((q,i)=>{ const a=RM?1:clamp((t-0.4-i*0.35)/1.2,0,1); if(a<=0) return;
+      const tmp=closeCv._tmp||(closeCv._tmp=canvas(1,1)); tmp.width=Math.round(cw); tmp.height=closeCv.height;
+      drawPair(tmp,q.d,RM?0:lerp(30,0,ease(a)),a,{pad:0.06}); x.drawImage(tmp,i*cw,0); }); }};
+
 /* ---- navigation ---- */
 const allSlides=[...deck.querySelectorAll('.slide')];
+hooks[allSlides.length-1]=hooks.closeHook;
 const dots=$('#dots');
 allSlides.forEach((s,i)=>{ const b=el('button','dot',s.dataset.name); b.type='button'; b.onclick=()=>go(i); dots.appendChild(b); });
 function go(i){
   i=clamp(i,0,allSlides.length-1); if(i===cur) return;
-  if(cur>=0){ allSlides[cur].classList.remove('on'); const st=noteSlides[cur-2]; if(st&&st.light) st.setLight(false); }
+  if(cur>=0){ allSlides[cur].classList.remove('on'); const st=noteSlides[cur-SER-2]; if(st&&st.light) st.setLight(false); }
   cur=i; allSlides[i].classList.add('on'); [...dots.children].forEach((d,k)=>d.classList.toggle('on',k===i));
   if(hooks[i]&&hooks[i].enter) requestAnimationFrame(()=>hooks[i].enter());
   try{ history.replaceState(null,'',i?'#'+allSlides[i].dataset.name.toLowerCase().replace(/\s+/g,'-'):'#series'); }catch(e){}
@@ -727,19 +905,19 @@ let wheelLock=0;
 window.addEventListener('wheel',e=>{ const now=performance.now(); if(now<wheelLock||Math.abs(e.deltaY)<30) return; wheelLock=now+900; go(cur+(e.deltaY>0?1:-1)); },{passive:true});
 window.addEventListener('keydown',e=>{
   if(e.metaKey||e.ctrlKey||e.altKey) return;
-  const st=noteSlides[cur-2];
+  const st=noteSlides[cur-SER-2];
   const k=e.key.toLowerCase();
   if(k==='arrowright'||k==='pagedown'){ go(cur+1); e.preventDefault(); }
   else if(k==='arrowleft'||k==='pageup'){ go(cur-1); e.preventDefault(); }
-  else if(k==='escape'||k==='0'){ go(0); }
-  else if('12345'.includes(k)&&k.length===1){ go(1+ +k); }
-  else if(k==='f'){ if(st) st.flip(); else if(cur===0) $('#flipAll').click(); }
+  else if(k==='escape'||k==='0'){ go(SER); }
+  else if('12345'.includes(k)&&k.length===1){ go(SER+1+ +k); }
+  else if(k==='f'){ if(st) st.flip(); else if(cur===SER) $('#flipAll').click(); }
   else if(st&&k==='l') st.setLayers(!st.layers);
   else if(st&&k==='t') st.setTilt(!st.tilt);
   else if(st&&k==='w') st.setWm(!st.N.wm);
   else if(st&&k==='b'&&!e.repeat) st.setLight(true);
 });
-window.addEventListener('keyup',e=>{ const st=noteSlides[cur-2]; if(st&&e.key.toLowerCase()==='b') st.setLight(false); });
+window.addEventListener('keyup',e=>{ const st=noteSlides[cur-SER-2]; if(st&&e.key.toLowerCase()==='b') st.setLight(false); });
 // swipe between slides outside the 3D stages
 let sw=null; deck.addEventListener('pointerdown',e=>{ if(e.target.closest('.stage,.btn,.slot,.threadcard,.wmcard')) return; sw={x:e.clientX,y:e.clientY}; });
 deck.addEventListener('pointerup',e=>{ if(!sw) return; const dx=e.clientX-sw.x; if(Math.abs(dx)>70&&Math.abs(dx)>Math.abs(e.clientY-sw.y)) go(cur+(dx<0?1:-1)); sw=null; });
