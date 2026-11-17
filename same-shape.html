@@ -384,7 +384,11 @@ async function buildBacklight(n,s){
   px.fillStyle='#fff'; px.fillRect(0,0,W,H);
   px.globalCompositeOperation='multiply';
   px.globalAlpha=.55; px.drawImage(me,0,0,W,H);
-  px.save(); px.translate(W,0); px.scale(-1,1); px.globalAlpha=.38; px.drawImage(other,0,0,W,H); px.restore();
+  // seen from the back, the front's thread windows are left out: the back shows no security thread
+  let oth=other;
+  if(s==='b'){ const g=GEO[n.d+'f']; const t=canvas(W,H), tx=t.getContext('2d'); tx.drawImage(other,0,0,W,H);
+    tx.fillStyle=g.paper||'#fff'; (g.win||[]).forEach(([wx,wy,ww,wh])=>tx.fillRect((wx-.4)*sc,(wy-.4)*sc,(ww+.8)*sc,(wh+.8)*sc)); oth=t; }
+  px.save(); px.translate(W,0); px.scale(-1,1); px.globalAlpha=.38; px.drawImage(oth,0,0,W,H); px.restore();
   const c=canvas(W,H), x=c.getContext('2d');
   x.fillStyle='#FFF6E2'; x.fillRect(0,0,W,H);
   x.globalCompositeOperation='multiply'; x.drawImage(p,0,0);
@@ -394,7 +398,8 @@ async function buildBacklight(n,s){
   x.globalCompositeOperation='multiply'; x.globalAlpha=.75; blurDraw(x,m.dark,0,0,W,H,2); x.globalAlpha=.5; blurDraw(x,m.dark,0,0,W,H,1);
   x.globalCompositeOperation='screen'; x.globalAlpha=.9; blurDraw(x,m.light,0,0,W,H,2); x.globalAlpha=1; x.globalCompositeOperation='multiply';
   // security thread: embedded in the paper, so it reads as one continuous dark band across the note
-  const b=bandOf(n,s); x.fillStyle='rgba(52,50,58,.82)'; x.fillRect(0,(b.y+0.6)*sc,W,(b.h-1.2)*sc);
+  // front only: the back has no security thread
+  if(s==='f'){ const b=bandOf(n,s); x.fillStyle='rgba(52,50,58,.82)'; x.fillRect(0,(b.y+0.6)*sc,W,(b.h-1.2)*sc); }
   // light falloff
   const v=x.createRadialGradient(W/2,H*.45,W*.2,W/2,H*.5,H*.75); v.addColorStop(0,'rgba(255,255,255,1)'); v.addColorStop(1,'rgba(214,196,160,1)');
   x.fillStyle=v; x.fillRect(0,0,W,H);
