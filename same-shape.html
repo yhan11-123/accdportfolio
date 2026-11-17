@@ -18,6 +18,7 @@
   --body:'Inter','Helvetica Neue',Arial,system-ui,sans-serif;
   --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
   color-scheme:dark;
+  --navh:52px;
 }
 html,body{height:100%}
 body{background:var(--room);color:var(--paper);font-family:var(--body);overflow:hidden;-webkit-font-smoothing:antialiased}
@@ -26,7 +27,7 @@ button{font:inherit;color:inherit}
 .slide{position:absolute;inset:0;display:flex;flex-direction:column;opacity:0;visibility:hidden;transform:scale(.985);
   transition:opacity .55s ease,transform .55s ease,visibility 0s linear .55s;
   padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px));
-  padding-block:calc(22px + env(safe-area-inset-top,0px)) calc(64px + env(safe-area-inset-bottom,0px))}
+  padding-block:calc(var(--navh) + 20px + env(safe-area-inset-top,0px)) calc(22px + env(safe-area-inset-bottom,0px))}
 .slide.on{opacity:1;visibility:visible;transform:none;transition:opacity .55s ease,transform .55s ease}
 .eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
 h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;font-weight:800;letter-spacing:-.02em}
@@ -139,14 +140,14 @@ p{margin:0;line-height:1.55}
 .threadcard .tc-stage i{font-style:normal;color:var(--acc)}
 
 /* ---------- nav ---------- */
-.nav{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;gap:12px;z-index:5;
+.nav{position:fixed;left:0;right:0;top:var(--navtop,0px);height:var(--navh);box-sizing:border-box;display:flex;justify-content:space-between;align-items:center;gap:12px;z-index:5;
   padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px));
-  padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));padding-top:10px}
-.dots{display:flex;gap:4px;flex-wrap:wrap}
-.dot{border:0;background:none;padding:6px 8px;font-family:var(--mono);font-size:11px;color:var(--dim);cursor:pointer;border-radius:6px}
-.dot.on{color:var(--paper);background:var(--room2)}
-.dot:hover{color:var(--paper)}
-.navr{display:flex;gap:6px;align-items:center;font-family:var(--mono);font-size:11px;color:var(--dim)}
+  background:rgba(13,15,20,.92);border-bottom:1px solid var(--rule);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.dots{display:flex;gap:2px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.dot{position:relative;border:0;background:none;padding:8px 12px;font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;color:var(--mute);cursor:pointer;border-radius:8px;white-space:nowrap}
+.dot.on{color:#0D0F14;background:var(--acc);font-weight:600}
+.dot:hover:not(.on){color:var(--paper);background:var(--room2)}
+.navr{display:flex;gap:10px;align-items:center;font-family:var(--mono);font-size:11px;color:var(--dim)}
 .navr .btn{padding:6px 10px;font-size:12px}
 
 @media (max-width:820px){
@@ -155,6 +156,8 @@ p{margin:0;line-height:1.55}
   .bignum{font-size:64px}
   .lab{display:none}
   .navr .keys{display:none}
+  #fs{display:none}
+  .nav{padding-left:12px;padding-right:12px}
   .hint{display:none}
 }
 @media (prefers-reduced-motion:reduce){ .slide{transition:none} }
@@ -399,7 +402,11 @@ async function buildBacklight(n,s){
   px.fillStyle='#fff'; px.fillRect(0,0,W,H);
   px.globalCompositeOperation='multiply';
   px.globalAlpha=.55; px.drawImage(me,0,0,W,H);
-  px.save(); px.translate(W,0); px.scale(-1,1); px.globalAlpha=.38; px.drawImage(other,0,0,W,H); px.restore();
+  // seen from the back, the front's thread windows are left out: the back shows no security thread
+  let oth=other;
+  if(s==='b'){ const g=GEO[n.d+'f']; const t=canvas(W,H), tx=t.getContext('2d'); tx.drawImage(other,0,0,W,H);
+    tx.fillStyle=g.paper||'#fff'; (g.win||[]).forEach(([wx,wy,ww,wh])=>tx.fillRect((wx-.4)*sc,(wy-.4)*sc,(ww+.8)*sc,(wh+.8)*sc)); oth=t; }
+  px.save(); px.translate(W,0); px.scale(-1,1); px.globalAlpha=.38; px.drawImage(oth,0,0,W,H); px.restore();
   const c=canvas(W,H), x=c.getContext('2d');
   x.fillStyle='#FFF6E2'; x.fillRect(0,0,W,H);
   x.globalCompositeOperation='multiply'; x.drawImage(p,0,0);
@@ -409,7 +416,8 @@ async function buildBacklight(n,s){
   x.globalCompositeOperation='multiply'; x.globalAlpha=.75; blurDraw(x,m.dark,0,0,W,H,2); x.globalAlpha=.5; blurDraw(x,m.dark,0,0,W,H,1);
   x.globalCompositeOperation='screen'; x.globalAlpha=.9; blurDraw(x,m.light,0,0,W,H,2); x.globalAlpha=1; x.globalCompositeOperation='multiply';
   // security thread: embedded in the paper, so it reads as one continuous dark band across the note
-  const b=bandOf(n,s); x.fillStyle='rgba(52,50,58,.82)'; x.fillRect(0,(b.y+0.6)*sc,W,(b.h-1.2)*sc);
+  // front only: the back has no security thread
+  if(s==='f'){ const b=bandOf(n,s); x.fillStyle='rgba(52,50,58,.82)'; x.fillRect(0,(b.y+0.6)*sc,W,(b.h-1.2)*sc); }
   // light falloff
   const v=x.createRadialGradient(W/2,H*.45,W*.2,W/2,H*.5,H*.75); v.addColorStop(0,'rgba(255,255,255,1)'); v.addColorStop(1,'rgba(214,196,160,1)');
   x.fillStyle=v; x.fillRect(0,0,W,H);
@@ -733,7 +741,7 @@ window.addEventListener('hashchange',()=>{ const names=allSlides.map(s=>s.datase
 </script>
 
 <style>
-:root{--pf-bar:44px}
+:root{--pf-bar:44px;--navtop:var(--pf-bar)}
 .deck{top:var(--pf-bar)!important}
 .pf-bar{position:fixed;top:0;left:0;right:0;height:var(--pf-bar);z-index:9999;box-sizing:border-box;
   display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 max(24px,env(safe-area-inset-left,0px));
