@@ -5,6 +5,12 @@
 <meta content="initial-scale=1.0,width=device-width" name="viewport">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
 <title>Same Shape, Every Scale — Younhee Han (work in progress)</title>
+<script>
+/* Password gate, part 1: decide before anything paints, so the deck never flashes. */
+try{ if(sessionStorage.getItem('ss-unlocked')!=='1') document.documentElement.classList.add('pw-locked'); }
+catch(e){ document.documentElement.classList.add('pw-locked'); }
+</script>
+<style>html.pw-locked body>*:not(.pf-bar):not(.pw-gate){visibility:hidden}</style>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
@@ -758,5 +764,62 @@ window.addEventListener('hashchange',()=>{ const names=allSlides.map(s=>s.datase
   <span class="pf-right"><a class="pf-back" href="wip.html">&larr; Work in progress</a><a href="index.html">All work</a></span>
 </header>
 
+
+<style>
+/* Password gate, part 2. Same light room as the portfolio, under the top bar,
+   so "back to Work in progress" stays one click away. */
+.pw-gate{display:none}
+html.pw-locked .pw-gate{position:fixed;inset:var(--pf-bar) 0 0 0;z-index:9998;display:flex;align-items:center;justify-content:center;
+  padding:24px;box-sizing:border-box;background:rgb(245,245,245);color:rgb(4,32,59);font-family:"Inter",sans-serif}
+.pw-form{width:100%;max-width:26rem;display:flex;flex-direction:column;gap:.75rem}
+.pw-title{margin:0;font-family:"Oswald",sans-serif;font-size:1.5rem;font-weight:600;letter-spacing:.02em;text-transform:uppercase;line-height:1.15}
+.pw-note{margin:0 0 .75rem;font-size:.9375rem;line-height:1.5;color:rgba(4,32,59,.75)}
+.pw-label{font-size:.8125rem;font-weight:500}
+.pw-row{display:flex;flex-direction:column;gap:.75rem}
+.pw-btn{align-self:flex-end}
+.pw-input{width:100%;height:2.75rem;padding:0 .875rem;box-sizing:border-box;font:inherit;font-size:1rem;color:inherit;
+  background:#fff;border:1px solid rgba(4,32,59,.3);border-radius:8px}
+.pw-input:focus-visible{outline:2px solid rgb(4,32,59);outline-offset:1px}
+.pw-input[aria-invalid="true"]{border-color:rgb(180,35,24)}
+.pw-btn{height:2.75rem;padding:0 1.125rem;font:inherit;font-size:.9375rem;font-weight:500;color:rgb(245,245,245);
+  background:rgb(4,32,59);border:0;border-radius:8px;cursor:pointer;transition:opacity .2s}
+.pw-btn:hover{opacity:.85}
+.pw-btn:focus-visible{outline:2px solid rgb(4,32,59);outline-offset:2px}
+.pw-error{min-height:1.25rem;margin:0;font-size:.8125rem;color:rgb(180,35,24)}
+</style>
+<div class="pw-gate" id="pwGate">
+  <form class="pw-form" id="pwForm" novalidate>
+    <h1 class="pw-title">Same Shape, Every Scale</h1>
+    <p class="pw-note">This project is still in progress, so it is password protected.</p>
+    <label class="pw-label" for="pwInput">Password</label>
+    <div class="pw-row">
+      <input class="pw-input" id="pwInput" type="password" autocomplete="off" aria-describedby="pwError" autofocus>
+      <button class="pw-btn" type="submit">View project</button>
+    </div>
+    <p class="pw-error" id="pwError" aria-live="polite"></p>
+  </form>
+</div>
+<script>
+(()=>{
+  const root=document.documentElement, gate=document.getElementById('pwGate');
+  const form=document.getElementById('pwForm'), input=document.getElementById('pwInput'), err=document.getElementById('pwError');
+  // Keys typed here must not reach the deck's shortcuts (0 = cover, f = flip, arrows = slides).
+  gate.addEventListener('keydown',e=>e.stopPropagation());
+  if(root.classList.contains('pw-locked')) input.focus();
+  input.addEventListener('input',()=>{ input.removeAttribute('aria-invalid'); err.textContent=''; });
+  form.addEventListener('submit',e=>{
+    e.preventDefault();
+    if(input.value==='0000'){
+      try{ sessionStorage.setItem('ss-unlocked','1'); }catch(_){}
+      root.classList.remove('pw-locked');
+      window.dispatchEvent(new Event('resize'));
+    }else{
+      input.setAttribute('aria-invalid','true');
+      err.textContent='That password is not right. Try again.';
+      input.select();
+    }
+  });
+})();
+</script>
 </body>
 </html>
