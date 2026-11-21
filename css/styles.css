@@ -184,8 +184,11 @@ a {
    It turns slowly, at a pace you notice but don't have to follow, so
    it says "this is interactive" without pulling focus from the
    cards around it. Same tilt as the ring on the project site. */
+/* 3D children escape overflow + border-radius clipping in some
+   browsers, so the rounded corners are cut with clip-path instead. */
 .card_thumb--ring {
     position: relative;
+    clip-path: inset(0 round var(--radius-md));
 }
 
 .card_thumb--ring > img {
