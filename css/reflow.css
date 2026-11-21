@@ -899,6 +899,36 @@ body {
 
 .tl-step.is-active::before { opacity: 1; transform: scaleY(1); }
 
+/* While the loop runs, the same bar doubles as a timer: a faint track,
+   filled top to bottom over the step's time (js/reflow-day.js sets
+   --tl-dur). It shows the board is playing on its own, and when the
+   next step comes, so nobody has to click to see the flow. */
+.tl-step::after {
+    content: "";
+    position: absolute;
+    left: 9px;
+    top: 14px;
+    bottom: 14px;
+    width: 4px;
+    border-radius: var(--radius-pill);
+    background-color: var(--accent);
+    opacity: 0;
+    transform: scaleY(0);
+    transform-origin: 50% 0;
+}
+
+.tl-step.is-active.is-timing::before { opacity: 0.22; }
+
+.tl-step.is-active.is-timing::after {
+    opacity: 1;
+    animation: tl-fill var(--tl-dur, 4200ms) linear forwards;
+}
+
+@keyframes tl-fill {
+    from { transform: scaleY(0); }
+    to   { transform: scaleY(1); }
+}
+
 .tl-step:focus-visible { outline: 2px solid var(--rf-cobalt); outline-offset: 2px; }
 
 /* Number: outlined when waiting, filled when it's the moment shown. */

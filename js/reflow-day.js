@@ -9,8 +9,9 @@
    The day is a list, as in the app: a sequence, not a grid. The 5 PM
    bakery shift is the hard stop; what doesn't fit lands under Tomorrow.
 
-   It loops on its own while in view; a click picks a step and holds it
-   for a few seconds. */
+   It loops on its own while in view, and the step on screen fills its
+   edge bar as its time runs, so it reads as playing without a click.
+   A click jumps to that step and the loop carries on from there. */
 (function () {
     /* Item heights in px. The list is positioned by hand so rows can glide
        to new places when the order changes. */
@@ -319,11 +320,10 @@
         var view = build(board);
         var current = 0;
         var timer = null;
-        var resume = null;
         var inView = false;
-        var held = false;
-        var STEP_MS = 4200;      /* time to watch the change, then read it */
-        var HOLD_MS = 6000;      /* after a click, how long that choice holds */
+        /* Every step gets the same time: a steady beat people can learn
+           after a couple of steps, and the edge bar fills at one speed. */
+        var STEP_MS = 3000;
         var still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         function mark(i) {
@@ -361,34 +361,43 @@
             render(view, steps[i].dataset.state);
         }
 
+        /* The active step's edge bar fills over the time it's on screen:
+           it says "this is playing, the next one comes when it's full". */
+        function progress(i, ms) {
+            steps.forEach(function (b) { b.classList.remove('is-timing'); });
+            if (i < 0) return;
+            var b = steps[i];
+            b.style.setProperty('--tl-dur', ms + 'ms');
+            void b.offsetWidth;          /* restart the fill from empty */
+            b.classList.add('is-timing');
+        }
+
         function pause() {
             clearTimeout(timer);
             timer = null;
+            progress(-1);
         }
 
         function play() {
             pause();
-            if (still || !inView || held) return;
-            /* Longer captions get a little longer on screen. */
-            var words = steps[current].textContent.trim().split(/\s+/).length;
+            if (still || !inView) return;
+            var ms = STEP_MS;
+            progress(current, ms);
             timer = setTimeout(function () {
                 var next = (current + 1) % steps.length;
                 go(next, next === 0);
                 play();
-            }, Math.max(STEP_MS, words * 300));
+            }, ms);
         }
 
-        /* The loop is the default. A click picks that moment and holds it
-           for a few seconds, then the loop carries on from there. Hovering
-           doesn't pause it: people rest the pointer where they're looking,
-           and that would stop the very thing they came to watch. */
+        /* The loop is the default. A click jumps to that step and the loop
+           starts again from there, with that step's full time on screen.
+           Hovering doesn't pause it: people rest the pointer where they're
+           looking, and that would stop the very thing they came to watch. */
         steps.forEach(function (b, i) {
             b.addEventListener('click', function () {
                 go(i);
-                held = true;
-                pause();
-                clearTimeout(resume);
-                resume = setTimeout(function () { held = false; play(); }, HOLD_MS);
+                play();
             });
         });
 
